@@ -6,6 +6,8 @@ Laatst bijgewerkt: 2026-06-01
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-02 | `aa4188e` | 2 verschillende itteratie's voor de opdrachtgever en de stresstest |
+| 2026-06-01 | `839a2cc` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-01 | `3a04cb9` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-01 | `e0fbf81` | update.py vereenvoudigd om doc-conflicten te voorkomen |
 | 2026-06-01 | `4ba80ae` | Docs automatisch bijgewerkt [skip ci] |

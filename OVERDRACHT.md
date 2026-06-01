@@ -37,6 +37,10 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `n8n/dashboard/v1_ai_agent.json`
 - `n8n/dashboard/v2_gmail_dashboard.json`
 - `n8n/dashboard/v3_webhook_dashboard.json`
+- `n8n/dashboard/v4_webhook_werkend.json`
+- `n8n/dashboard/v5_email_werkend.json`
+- `n8n/dashboard/v6_webhook_kpi.json`
+- `n8n/dashboard/v7_email_kpi.json`
 - `n8n/dashboard/versiedocumentatie.docx`
 - `n8n/dashboard/versiedocumentatie.md`
 - `schemas/factuur_schema.json`
