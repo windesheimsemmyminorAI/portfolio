@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Claude & N8N API Keys
+.env
+.env.local
+config.json
+api_keys.json
+secrets.json
+claude.config
+n8n.config
