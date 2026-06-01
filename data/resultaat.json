@@ -1,0 +1,50 @@
+[
+  {
+    "factuurnummer": "2026-0042",
+    "leverancier": "Jansen BV",
+    "bedrag": 1210.0,
+    "status": "goedgekeurd",
+    "kleur": "groen",
+    "problemen": []
+  },
+  {
+    "factuurnummer": "2026-0043",
+    "leverancier": "De Vries Hout",
+    "bedrag": 845.5,
+    "status": "goedgekeurd",
+    "kleur": "groen",
+    "problemen": []
+  },
+  {
+    "factuurnummer": "2026-0044",
+    "leverancier": "Bouwstaal NL",
+    "bedrag": 3400.0,
+    "status": "waarschuwing",
+    "kleur": "geel",
+    "problemen": [
+      "Regel 1 mist een projectnummer"
+    ]
+  },
+  {
+    "factuurnummer": "2026-0045",
+    "leverancier": "Tegelhandel Zwolle",
+    "bedrag": 512.0,
+    "status": "waarschuwing",
+    "kleur": "geel",
+    "problemen": [
+      "Bedragen kloppen niet (excl + btw is niet gelijk aan incl)"
+    ]
+  },
+  {
+    "factuurnummer": "",
+    "leverancier": "Onbekend",
+    "bedrag": 980.0,
+    "status": "actie nodig",
+    "kleur": "rood",
+    "problemen": [
+      "Factuurnummer ontbreekt",
+      "Bankrekeningnummer lijkt geen geldige IBAN",
+      "Regel 1 mist een projectnummer"
+    ]
+  }
+]

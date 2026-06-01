@@ -1,0 +1,38 @@
+name: Documentatie bijwerken
+
+# Deze workflow draait automatisch elke keer dat je naar GitHub pusht.
+# Hij werkt de documentatie bij en commit die terug naar je repo.
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Code ophalen
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # volledige geschiedenis nodig voor de revisielog
+
+      - name: Python installeren
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Documentatie genereren
+        run: |
+          cd scripts
+          python verwerk_facturen.py
+          python genereer_docs.py
+
+      - name: Wijzigingen terug committen
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add OVERDRACHT.md REVISIE_LOG.md NODE_DOCUMENTATIE.md data/resultaat.json dashboard/index.html
+          git diff --staged --quiet || git commit -m "Docs automatisch bijgewerkt [skip ci]"
+          git push

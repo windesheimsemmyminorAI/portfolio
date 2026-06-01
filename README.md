@@ -1,78 +1,61 @@
-# ```markdown
+# Inkoopfacturatie dashboard
 
-# \# AI Automation Project - Semmy
+Een portfolio-project dat laat zien hoe je ruwe factuurdata automatisch kunt controleren en overzichtelijk kunt presenteren in een dashboard.
 
-# 
+## Wat het doet
 
-# Persoonlijk project voor integratie van Claude AI en N8N workflows.
+Dit project neemt een set inkoopfacturen, controleert ze automatisch op fouten, en bouwt een dashboard waarop je in één oogopslag ziet welke facturen goedgekeurd zijn en welke aandacht nodig hebben.
 
-# 
+De rode draad:
 
-# \## Structuur
+```
+ruwe data  ->  Python valideert  ->  dashboard toont resultaat
+```
 
-# 
+## Wat ik hiermee laat zien
 
-# \- `.claude/` → Claude API instellingen
+- **Data**: gestructureerde JSON-data met een formeel schema
+- **Validatie**: Python-logica die facturen controleert op vijf regels
+- **Automatisering**: één commando verwerkt alle facturen en bouwt het dashboard
 
-# \- `docs/` → Documentatie
+## Hoe draai ik het?
 
-# \- `n8n/` → N8N workflows (JSON exports)
+Je hebt alleen Python nodig (geen extra packages).
 
-# \- `prompts/` → Claude prompts
+1. Open een terminal in de map `scripts`
+2. Draai het script:
+   ```
+   python verwerk_facturen.py
+   ```
+3. Open `dashboard/index.html` in je browser
 
-# \- `schemas/` → JSON schemas en data structuren
+Het script toont ook een korte samenvatting in de terminal.
 
-# \- `scripts/` → Python en automation scripts
+## Mappen
 
-# \- `workflows/` → Andere workflow files
+| Map | Inhoud |
+|-----|--------|
+| `data/` | De facturen (`facturen.json`) en het resultaat (`resultaat.json`) |
+| `scripts/` | Het verwerkingsscript |
+| `schemas/` | Het JSON-schema dat de datastructuur beschrijft |
+| `dashboard/` | Het gegenereerde dashboard (`index.html`) |
+| `docs/` | Technische uitleg |
 
-# 
+## De validatieregels
 
-# \## Hoe begin ik?
+1. Factuurnummer mag niet leeg zijn
+2. Bedragen moeten kloppen (excl + btw = incl)
+3. Factuurdatum moet geldig zijn en niet in de toekomst liggen
+4. Bankrekeningnummer moet op een IBAN lijken
+5. Elke factuurregel moet een projectnummer hebben
 
-# 
+Meer technische uitleg staat in `docs/hoe_het_werkt.md`.
 
-# 1\. Voeg je Claude API key toe in `.env` (NIET uploaden!)
+## Context
 
-# 2\. Voeg je N8N config toe in `n8n/`
+Het onderwerp (inkoopfacturatie) komt uit een groepsproject voor een bouwbedrijf. Dit dashboard is mijn eigen, losstaande uitwerking om de techniek erachter te demonstreren.
 
-# 3\. Schrijf prompts in `prompts/`
+---
 
-# 4\. Maak workflows in `workflows/`
-
-# 
-
-# \## ⚠️ BELANGRIJK
-
-# 
-
-# \*\*UPLOAD NOOIT JE API KEYS NAAR GITHUB!\*\*
-
-# 
-
-# Maak een `.env` bestand:
-
-# ```
-
-# CLAUDE\_API\_KEY=sk-...
-
-# N8N\_API\_KEY=...
-
-# ```
-
-# 
-
-# Zet `.env` in `.gitignore` (al gedaan).
-
-# 
-
-# \## Contact
-
-# 
-
-# Semmy - 2026
-
-# ```
-
-
+Gemaakt door Semmy &middot; 2026
 

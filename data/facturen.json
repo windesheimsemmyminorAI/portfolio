@@ -1,0 +1,63 @@
+[
+  {
+    "factuurnummer": "2026-0042",
+    "factuurdatum": "2026-05-20",
+    "leverancier_naam": "Jansen BV",
+    "bankrekeningnummer": "NL91ABNA0417164300",
+    "totaalbedrag_excl_btw": 1000.00,
+    "btw_bedrag": 210.00,
+    "totaalbedrag_incl_btw": 1210.00,
+    "regels": [
+      { "omschrijving": "Cement zakken", "aantal": 50, "stukprijs": 12.00, "projectnummer": "P-2026-11" },
+      { "omschrijving": "Zand", "aantal": 20, "stukprijs": 20.00, "projectnummer": "P-2026-11" }
+    ]
+  },
+  {
+    "factuurnummer": "2026-0043",
+    "factuurdatum": "2026-05-21",
+    "leverancier_naam": "De Vries Hout",
+    "bankrekeningnummer": "NL20INGB0001234567",
+    "totaalbedrag_excl_btw": 698.76,
+    "btw_bedrag": 146.74,
+    "totaalbedrag_incl_btw": 845.50,
+    "regels": [
+      { "omschrijving": "Houten balken", "aantal": 30, "stukprijs": 23.29, "projectnummer": "P-2026-08" }
+    ]
+  },
+  {
+    "factuurnummer": "2026-0044",
+    "factuurdatum": "2026-05-22",
+    "leverancier_naam": "Bouwstaal NL",
+    "bankrekeningnummer": "NL44RABO0123456789",
+    "totaalbedrag_excl_btw": 2809.92,
+    "btw_bedrag": 590.08,
+    "totaalbedrag_incl_btw": 3400.00,
+    "regels": [
+      { "omschrijving": "Stalen profielen", "aantal": 40, "stukprijs": 70.25, "projectnummer": "" }
+    ]
+  },
+  {
+    "factuurnummer": "2026-0045",
+    "factuurdatum": "2026-05-23",
+    "leverancier_naam": "Tegelhandel Zwolle",
+    "bankrekeningnummer": "NL12SNSB0901234567",
+    "totaalbedrag_excl_btw": 400.00,
+    "btw_bedrag": 84.00,
+    "totaalbedrag_incl_btw": 512.00,
+    "regels": [
+      { "omschrijving": "Vloertegels", "aantal": 100, "stukprijs": 4.00, "projectnummer": "P-2026-15" }
+    ]
+  },
+  {
+    "factuurnummer": "",
+    "factuurdatum": "2026-05-24",
+    "leverancier_naam": "Onbekend",
+    "bankrekeningnummer": "12345",
+    "totaalbedrag_excl_btw": 809.92,
+    "btw_bedrag": 170.08,
+    "totaalbedrag_incl_btw": 980.00,
+    "regels": [
+      { "omschrijving": "Diverse materialen", "aantal": 1, "stukprijs": 809.92, "projectnummer": "" }
+    ]
+  }
+]

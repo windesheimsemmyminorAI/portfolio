@@ -1,0 +1,6 @@
+# Dit project gebruikt alleen de standaard Python-bibliotheek.
+# Er zijn dus geen extra packages nodig om het te draaien.
+#
+# Mocht je het later uitbreiden, dan kun je hier packages toevoegen, bijv:
+# pandas        # voor data-analyse
+# jsonschema    # om data tegen het schema te valideren

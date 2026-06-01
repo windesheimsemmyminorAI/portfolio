@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <title>Inkoopfacturatie dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #2c2c2a; }
+    h1 { font-weight: 500; }
+    .kaarten { display: flex; gap: 16px; margin: 24px 0; }
+    .kaart { background: #f1efe8; border-radius: 8px; padding: 16px 20px; flex: 1; }
+    .kaart .label { font-size: 13px; color: #5f5e5a; }
+    .kaart .getal { font-size: 28px; font-weight: 500; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; color: #5f5e5a; font-weight: 500; border-bottom: 2px solid #d3d1c7; padding: 8px; }
+    td { padding: 10px 8px; border-bottom: 1px solid #e8e6df; }
+  </style>
+</head>
+<body>
+  <h1>Inkoopfacturatie dashboard</h1>
+  <p>Automatisch gegenereerd overzicht van gecontroleerde facturen.</p>
+
+  <div class="kaarten">
+    <div class="kaart"><div class="label">Totaal</div><div class="getal">5</div></div>
+    <div class="kaart"><div class="label">Goedgekeurd</div><div class="getal" style="color:#0f6e56">2</div></div>
+    <div class="kaart"><div class="label">Waarschuwing</div><div class="getal" style="color:#854f0b">2</div></div>
+    <div class="kaart"><div class="label">Actie nodig</div><div class="getal" style="color:#a32d2d">1</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Factuurnr.</th><th>Leverancier</th><th style="text-align:right">Bedrag</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td style="font-family:monospace">2026-0042</td>
+          <td>Jansen BV</td>
+          <td style="text-align:right">&euro; 1210.00</td>
+          <td><span style="background:#e1f5ee;color:#0f6e56;padding:3px 10px;border-radius:99px;font-size:13px">Goedgekeurd</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace">2026-0043</td>
+          <td>De Vries Hout</td>
+          <td style="text-align:right">&euro; 845.50</td>
+          <td><span style="background:#e1f5ee;color:#0f6e56;padding:3px 10px;border-radius:99px;font-size:13px">Goedgekeurd</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace">2026-0044</td>
+          <td>Bouwstaal NL</td>
+          <td style="text-align:right">&euro; 3400.00</td>
+          <td><span style="background:#faeeda;color:#854f0b;padding:3px 10px;border-radius:99px;font-size:13px">Regel 1 mist een projectnummer</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace">2026-0045</td>
+          <td>Tegelhandel Zwolle</td>
+          <td style="text-align:right">&euro; 512.00</td>
+          <td><span style="background:#faeeda;color:#854f0b;padding:3px 10px;border-radius:99px;font-size:13px">Bedragen kloppen niet (excl + btw is niet gelijk aan incl)</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:monospace">(leeg)</td>
+          <td>Onbekend</td>
+          <td style="text-align:right">&euro; 980.00</td>
+          <td><span style="background:#fcebeb;color:#a32d2d;padding:3px 10px;border-radius:99px;font-size:13px">Factuurnummer ontbreekt</span></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p style="color:#888780;font-size:13px;margin-top:24px">
+    Gegenereerd op 2026-06-01 &middot; portfolio Semmy
+  </p>
+</body>
+</html>
