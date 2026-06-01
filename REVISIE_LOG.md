@@ -6,6 +6,9 @@ Laatst bijgewerkt: 2026-06-01
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-01 | `3a04cb9` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
+| 2026-06-01 | `e0fbf81` | update.py vereenvoudigd om doc-conflicten te voorkomen |
+| 2026-06-01 | `4ba80ae` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-01 | `76f835f` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-01 | `e060164` | n8n submap-structuur en README's bijgewerkt |
 | 2026-06-01 | `4603c35` | Docs automatisch bijgewerkt [skip ci] |
