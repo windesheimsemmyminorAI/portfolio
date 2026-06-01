@@ -28,6 +28,12 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `data\resultaat.json`
 - `docs\automatische_documentatie.md`
 - `docs\hoe_het_werkt.md`
+- `n8n\dashboard\README.md`
+- `n8n\dashboard\v1_ai_agent.json`
+- `n8n\dashboard\v2_gmail_dashboard.json`
+- `n8n\dashboard\v3_webhook_dashboard.json`
+- `n8n\dashboard\versiedocumentatie.docx`
+- `n8n\dashboard\versiedocumentatie.md`
 - `NODE_DOCUMENTATIE.md`
 - `OVERDRACHT.md`
 - `README.md`

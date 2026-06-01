@@ -1,0 +1,547 @@
+{
+  "name": "dashboard werkende versie",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "217af86f-77f0-4b4f-a211-af5eae5c7c37",
+      "name": "Run Dashboard",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "factuurnummer"
+            },
+            {
+              "aggregation": "sum",
+              "field": "betaalbaarBedrag"
+            },
+            {
+              "aggregation": "sum",
+              "field": "aantalRegels"
+            },
+            {
+              "aggregation": "sum",
+              "field": "btwbedrag"
+            },
+            {
+              "field": "leverancierId"
+            },
+            {
+              "aggregation": "countUnique",
+              "field": "leverancierId"
+            },
+            {
+              "aggregation": "average",
+              "field": "leverancierConfidence"
+            },
+            {
+              "aggregation": "average",
+              "field": "documentConfidence"
+            }
+          ]
+        },
+        "options": {
+          "outputFormat": "singleItem"
+        }
+      },
+      "id": "b3061d3f-5de6-4cbb-9a9b-7af544f0efb9",
+      "name": "Calculate Statistics",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1136,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "content": "📊 Bajo Bouw Dashboard Workflow - Verbeterde Versie\n\n✨ NIEUWE VERBETERINGEN:\n\n1. Uitgebreide KPI tracking (8 metrics ipv 4)\n2. Leveranciers analyse met top 5 overzicht\n3. Tijdreeks trend analyse voor historische inzichten\n4. Intelligente error categorisatie (FATAL/REVIEW/WARNING)\n5. Automatische data filtering (laatste 30 dagen)\n6. Dynamische email onderwerpregel met status indicator\n7. Contextrijke inzichten en aanbevelingen\n8. Error handling met notificaties\n9. Dashboard archivering voor historische tracking\n10. Verbeterde visualisaties met beschrijvingen\n\nAutomatisch dagelijks om 08:00 uur verzonden naar semmykramti@gmail.com\nHandmatig uitvoeren: klik op \"Run Dashboard\"",
+        "height": 280,
+        "width": 1600,
+        "color": 2
+      },
+      "id": "3664fd7b-8404-4a7a-b381-5225e92ea0fc",
+      "name": "Sticky Note c16ed5ae",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk/edit?gid=0#gid=0"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "id": "2eaf3ef6-482e-4c97-b738-11fefe0a5a97",
+      "name": "Fetch All Invoices",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        400
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EXKuWy0KsFqaf0Ln",
+          "name": "Google Sheets OAuth2 API"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Bajo Bouw - Factuur Dashboard</title>\n  <style>\n    * { margin: 0; padding: 0; box-sizing: border-box; }\n    body { \n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\n      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n      padding: 30px 20px;\n      min-height: 100vh;\n    }\n    .container { \n      max-width: 1600px; \n      margin: 0 auto; \n      background: white;\n      border-radius: 20px;\n      box-shadow: 0 20px 60px rgba(0,0,0,0.3);\n      overflow: hidden;\n    }\n    .header {\n      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);\n      color: white;\n      padding: 40px;\n      text-align: center;\n    }\n    .header h1 { \n      font-size: 42px; \n      margin-bottom: 10px;\n      font-weight: 700;\n      letter-spacing: -1px;\n    }\n    .header p { \n      font-size: 18px; \n      opacity: 0.9;\n      font-weight: 300;\n    }\n    .alert-banner {\n      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);\n      color: white;\n      padding: 20px 40px;\n      text-align: center;\n      font-size: 16px;\n      font-weight: 600;\n    }\n    .kpi-grid {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n      gap: 0;\n      background: #f8f9fa;\n    }\n    .kpi-card {\n      padding: 30px 20px;\n      text-align: center;\n      border-right: 1px solid #e0e0e0;\n      border-bottom: 1px solid #e0e0e0;\n      background: white;\n      transition: transform 0.2s;\n    }\n    .kpi-card:hover {\n      transform: translateY(-5px);\n      box-shadow: 0 5px 15px rgba(0,0,0,0.1);\n    }\n    .kpi-icon {\n      font-size: 40px;\n      margin-bottom: 12px;\n      display: block;\n    }\n    .kpi-value {\n      font-size: 36px;\n      font-weight: 800;\n      margin: 8px 0;\n      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n      -webkit-background-clip: text;\n      -webkit-text-fill-color: transparent;\n      background-clip: text;\n    }\n    .kpi-label {\n      font-size: 12px;\n      color: #666;\n      text-transform: uppercase;\n      letter-spacing: 1px;\n      font-weight: 600;\n    }\n    .kpi-sublabel {\n      font-size: 11px;\n      color: #999;\n      margin-top: 5px;\n    }\n    .insights-section {\n      padding: 30px 40px;\n      background: #fff3cd;\n      border-bottom: 3px solid #ffc107;\n    }\n    .insights-section h2 {\n      font-size: 24px;\n      margin-bottom: 15px;\n      color: #856404;\n    }\n    .insight-item {\n      margin: 10px 0;\n      padding: 10px 15px;\n      background: white;\n      border-left: 4px solid #ffc107;\n      border-radius: 5px;\n      font-size: 14px;\n      color: #333;\n    }\n    .fatal-error-section {\n      padding: 30px 40px;\n      background: #f8d7da;\n      border-bottom: 3px solid #dc3545;\n    }\n    .fatal-error-section h2 {\n      font-size: 24px;\n      margin-bottom: 15px;\n      color: #721c24;\n    }\n    .fatal-error-item {\n      margin: 10px 0;\n      padding: 15px;\n      background: white;\n      border-left: 4px solid #dc3545;\n      border-radius: 5px;\n      font-size: 14px;\n      color: #333;\n    }\n    .charts-section {\n      padding: 40px;\n      background: #f8f9fa;\n    }\n    .section-title {\n      font-size: 28px;\n      font-weight: 700;\n      margin-bottom: 25px;\n      color: #333;\n      text-align: center;\n    }\n    .chart-grid {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));\n      gap: 30px;\n      margin-bottom: 30px;\n    }\n    .chart-card {\n      background: white;\n      padding: 20px;\n      border-radius: 15px;\n      box-shadow: 0 5px 20px rgba(0,0,0,0.08);\n      border: 1px solid #e0e0e0;\n      text-align: center;\n    }\n    .chart-card h3 {\n      font-size: 18px;\n      margin-bottom: 15px;\n      color: #555;\n    }\n    .chart-card img {\n      max-width: 100%;\n      height: auto;\n      border-radius: 8px;\n    }\n    .chart-description {\n      font-size: 13px;\n      color: #777;\n      margin-top: 10px;\n      line-height: 1.5;\n    }\n    .full-width-chart {\n      grid-column: 1 / -1;\n    }\n    .footer {\n      background: #2c3e50;\n      color: white;\n      padding: 25px;\n      text-align: center;\n      font-size: 14px;\n    }\n    @media (max-width: 768px) {\n      .chart-grid { grid-template-columns: 1fr; }\n      .kpi-grid { grid-template-columns: 1fr; }\n      .header h1 { font-size: 32px; }\n    }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h1>📊 Bajo Bouw Factuur Dashboard</h1>\n      <p>Real-time overzicht van inkoopfactuur verwerking • Gegenereerd op {{ $now.toFormat(\"dd MMMM yyyy - HH:mm\") }}</p>\n    </div>\n\n    {{ $json.totalFatalErrors > 0 ? '<div class=\"alert-banner\">⚠️ Let op: Er zijn ' + $json.totalFatalErrors + ' fatale fouten gedetecteerd die aandacht vereisen!</div>' : '' }}\n\n    <div class=\"kpi-grid\">\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">📄</span>\n        <div class=\"kpi-value\">{{ $json.count_factuurnummer }}</div>\n        <div class=\"kpi-label\">Verwerkte Facturen</div>\n        <div class=\"kpi-sublabel\">Totaal aantal</div>\n      </div>\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">✅</span>\n        <div class=\"kpi-value\" style=\"background: linear-gradient(135deg, #2ed573 0%, #1abc9c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;\">{{ $json.successRate }}%</div>\n        <div class=\"kpi-label\">Succes Ratio</div>\n        <div class=\"kpi-sublabel\">{{ $json.validationResults.PASS }} succesvol</div>\n      </div>\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">💶</span>\n        <div class=\"kpi-value\">€{{ ($json.sum_betaalbaarBedrag / 1000).toFixed(1) }}k</div>\n        <div class=\"kpi-label\">Totaal Bedrag</div>\n        <div class=\"kpi-sublabel\">Alle facturen</div>\n      </div>\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">🏢</span>\n        <div class=\"kpi-value\">{{ $json.countUnique_leverancierId }}</div>\n        <div class=\"kpi-label\">Unieke Leveranciers</div>\n        <div class=\"kpi-sublabel\">Van {{ $json.count_leverancierId }} facturen</div>\n      </div>\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">📋</span>\n        <div class=\"kpi-value\">{{ $json.sum_aantalRegels }}</div>\n        <div class=\"kpi-label\">Factuurregels</div>\n        <div class=\"kpi-sublabel\">Totaal verwerkt</div>\n      </div>\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">💳</span>\n        <div class=\"kpi-value\">€{{ ($json.sum_btwbedrag / 1000).toFixed(1) }}k</div>\n        <div class=\"kpi-label\">Totaal BTW</div>\n        <div class=\"kpi-sublabel\">{{ (($json.sum_btwbedrag / $json.sum_betaalbaarBedrag) * 100).toFixed(1) }}% van totaal</div>\n      </div>\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">⚠️</span>\n        <div class=\"kpi-value\" style=\"background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;\">{{ $json.totalFatalErrors }}</div>\n        <div class=\"kpi-label\">Fatale Fouten</div>\n        <div class=\"kpi-sublabel\">{{ $json.totalReviewErrors }} review fouten</div>\n      </div>\n      <div class=\"kpi-card\">\n        <span class=\"kpi-icon\">🎯</span>\n        <div class=\"kpi-value\">{{ ($json.average_documentConfidence * 100).toFixed(0) }}%</div>\n        <div class=\"kpi-label\">Gem. Betrouwbaarheid</div>\n        <div class=\"kpi-sublabel\">Document confidence</div>\n      </div>\n    </div>\n\n    {{ $json.totalFatalErrors > 0 && $json.fatalErrorDetails && $json.fatalErrorDetails.length > 0 ? '<div class=\"fatal-error-section\"><h2>🚨 Fatale Fouten - Actie Vereist</h2>' + $json.fatalErrorDetails.map(err => '<div class=\"fatal-error-item\"><strong>Factuur:</strong> ' + err.factuurnummer + ' | <strong>Leverancier:</strong> ' + err.leverancier + ' | <strong>Bedrag:</strong> €' + err.bedrag.toFixed(2) + '<br><strong>Reden:</strong> ' + err.redenen + '</div>').join('') + '</div>' : '' }}\n\n    <div class=\"insights-section\">\n      <h2>💡 Belangrijke Inzichten</h2>\n      <div class=\"insight-item\">\n        <strong>Verwerkingspercentage:</strong> {{ $json.successRate }}% van de facturen is succesvol verwerkt zonder fouten ({{ $json.validationResults.PASS }} van {{ $json.count_factuurnummer }} facturen).\n      </div>\n      {{ $json.newSupplierCount > 0 ? '<div class=\"insight-item\"><strong>Nieuwe leveranciers:</strong> Er zijn ' + $json.newSupplierCount + ' nieuwe/onbekende leveranciers gedetecteerd. Overweeg deze toe te voegen aan de stamdata.</div>' : '' }}\n      {{ $json.lowConfidenceCount > 0 ? '<div class=\"insight-item\"><strong>Lage betrouwbaarheid:</strong> ' + $json.lowConfidenceCount + ' facturen hebben een lage confidence score. Review deze handmatig voor nauwkeurigheid.</div>' : '' }}\n      <div class=\"insight-item\">\n        <strong>Leveranciers analyse:</strong> {{ $json.countUnique_leverancierId }} unieke leveranciers zijn verantwoordelijk voor €{{ ($json.sum_betaalbaarBedrag / 1000).toFixed(1) }}k aan facturen.\n      </div>\n      <div class=\"insight-item\">\n        <strong>BTW analyse:</strong> Totaal BTW bedrag is €{{ ($json.sum_btwbedrag / 1000).toFixed(1) }}k, wat {{ (($json.sum_btwbedrag / $json.sum_betaalbaarBedrag) * 100).toFixed(1) }}% van het totaalbedrag vertegenwoordigt.\n      </div>\n    </div>\n\n    <div class=\"charts-section\">\n      <h2 class=\"section-title\">📈 Visuele Analyses</h2>\n      \n      <div class=\"chart-grid\">\n        <div class=\"chart-card\">\n          <h3>Validatie Status Verdeling</h3>\n          <img src=\"{{ $json.validationChartUrl }}\" alt=\"Validatie Status\">\n          <p class=\"chart-description\">Toont de verdeling van facturen over verschillende validatie statussen. PASS = succesvol, FATAL = kritieke fouten, REVIEW = handmatige controle nodig.</p>\n        </div>\n        <div class=\"chart-card\">\n          <h3>Succes Ratio</h3>\n          <img src=\"{{ $json.successRateChartUrl }}\" alt=\"Succes Ratio\">\n          <p class=\"chart-description\">Percentage facturen dat zonder fouten is verwerkt. Een hoge ratio (>90%) duidt op een goed werkend systeem.</p>\n        </div>\n      </div>\n\n      <div class=\"chart-grid\">\n        <div class=\"chart-card\">\n          <h3>Fout Categorieën Overzicht</h3>\n          <img src=\"{{ $json.errorTypeChartUrl }}\" alt=\"Fout Categorieën\">\n          <p class=\"chart-description\">Verdeling van fouten per ernst. Fatale fouten blokkeren verwerking, review fouten vereisen controle, waarschuwingen zijn informatief.</p>\n        </div>\n        <div class=\"chart-card\">\n          <h3>Top 5 Leveranciers</h3>\n          <img src=\"{{ $json.supplierChartUrl }}\" alt=\"Top Leveranciers\">\n          <p class=\"chart-description\">De 5 leveranciers met het hoogste totaalbedrag. Gebruik dit om belangrijke leveranciers te identificeren en relaties te prioriteren.</p>\n        </div>\n      </div>\n\n      <div class=\"chart-grid\">\n        <div class=\"chart-card full-width-chart\">\n          <h3>Top Validatiefouten (meest voorkomend)</h3>\n          <img src=\"{{ $json.topErrorsChartUrl }}\" alt=\"Top Validatiefouten\">\n          <p class=\"chart-description\">De meest voorkomende validatiefouten. Focus op deze fouten om de grootste impact te maken op het verbeteren van de verwerkingsratio.</p>\n        </div>\n      </div>\n\n      <div class=\"chart-grid\">\n        <div class=\"chart-card full-width-chart\">\n          <h3>Trend over Tijd</h3>\n          <img src=\"{{ $json.trendChartUrl }}\" alt=\"Trend\">\n          <p class=\"chart-description\">Historische trend van succesvolle vs. gefaalde facturen. Gebruik dit om patronen te identificeren en de impact van verbeteringen te meten.</p>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"footer\">\n      <p>🕐 Gegenereerd op {{ $now.toFormat(\"dd MMMM yyyy - HH:mm\") }} | Bajo Bouw Inkoopfactuur Systeem v2.0</p>\n      <p style=\"margin-top: 10px; font-size: 12px; opacity: 0.8;\">Dit dashboard wordt automatisch dagelijks om 08:00 uur gegenereerd en verzonden.</p>\n    </div>\n  </div>\n</body>\n</html>"
+      },
+      "id": "2c52adb9-b807-4100-8316-b39d8bc8ae24",
+      "name": "Create Dashboard HTML",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1808,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "betrouwbaarheidRedenen"
+            },
+            {
+              "fieldToAggregate": "validatieResultaat"
+            },
+            {
+              "fieldToAggregate": "aantalFataalFouten"
+            },
+            {
+              "fieldToAggregate": "aantalReviewFouten"
+            },
+            {
+              "fieldToAggregate": "aantalWaarschuwingen"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cadb93d4-3814-470d-8be7-b2b48b401200",
+      "name": "Aggregate Validation Errors",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        912,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const invoices = $input.all();\n\nconst errorCounts = {};\nconst validationResults = { FATAL: 0, PASS: 0, REVIEW: 0, WARNING: 0 };\nconst supplierStats = {};\nconst timeSeriesData = {};\nconst fatalErrorDetails = [];\nlet totalFatalErrors = 0;\nlet totalReviewErrors = 0;\nlet totalWarnings = 0;\nlet lowConfidenceCount = 0;\nlet newSupplierCount = 0;\nlet ibanMismatchCount = 0;\n\nfor (const item of invoices) {\n  const data = item.json;\n  \n  if (data.validatieResultaat) {\n    validationResults[data.validatieResultaat] = (validationResults[data.validatieResultaat] || 0) + 1;\n  }\n  \n  const fatalCount = Number(data.aantalFataalFouten) || 0;\n  totalFatalErrors += fatalCount;\n  totalReviewErrors += Number(data.aantalReviewFouten) || 0;\n  totalWarnings += Number(data.aantalWaarschuwingen) || 0;\n  \n  if (fatalCount > 0 && data.betrouwbaarheidRedenen) {\n    const reasonsStr = String(data.betrouwbaarheidRedenen).trim();\n    if (reasonsStr && reasonsStr !== \"0\") {\n      fatalErrorDetails.push({\n        factuurnummer: data.factuurnummer || \"Onbekend\",\n        leverancier: data.leveranciernaam || \"Onbekend\",\n        bedrag: data.betaalbaarBedrag || 0,\n        redenen: reasonsStr\n      });\n    }\n  }\n  \n  if (data.betrouwbaarheidIsLaag) lowConfidenceCount++;\n  if (data.nieuweOnbekendeLeverancier) newSupplierCount++;\n  if (data.ibanAfwijking) ibanMismatchCount++;\n  \n  if (data.leveranciernaam) {\n    if (!supplierStats[data.leveranciernaam]) {\n      supplierStats[data.leveranciernaam] = { count: 0, totalAmount: 0, errors: 0 };\n    }\n    supplierStats[data.leveranciernaam].count++;\n    supplierStats[data.leveranciernaam].totalAmount += Number(data.betaalbaarBedrag) || 0;\n    if (data.validatieResultaat !== \"PASS\") {\n      supplierStats[data.leveranciernaam].errors++;\n    }\n  }\n  \n  if (data.verwerktOp) {\n    const dateStr = String(data.verwerktOp);\n    const date = dateStr.includes(\" \") ? dateStr.split(\" \")[0] : dateStr.split(\"T\")[0];\n    if (!timeSeriesData[date]) {\n      timeSeriesData[date] = { total: 0, passed: 0, failed: 0 };\n    }\n    timeSeriesData[date].total++;\n    if (data.validatieResultaat === \"PASS\") {\n      timeSeriesData[date].passed++;\n    } else {\n      timeSeriesData[date].failed++;\n    }\n  }\n  \n  if (data.betrouwbaarheidRedenen) {\n    const reasonsStr = String(data.betrouwbaarheidRedenen).trim();\n    if (reasonsStr && reasonsStr !== \"0\") {\n      const reasons = reasonsStr.split(\";\").map(r => r.trim()).filter(r => r && r !== \"0\");\n      for (const reason of reasons) {\n        errorCounts[reason] = (errorCounts[reason] || 0) + 1;\n      }\n    }\n  }\n}\n\nconst topErrors = Object.entries(errorCounts)\n  .sort((a, b) => b[1] - a[1])\n  .slice(0, 10)\n  .map(([error, count]) => ({ error, count }));\n\nconst topSuppliers = Object.entries(supplierStats)\n  .sort((a, b) => b[1].totalAmount - a[1].totalAmount)\n  .slice(0, 5)\n  .map(([name, stats]) => ({ name, ...stats }));\n\nconst timeSeriesArray = Object.entries(timeSeriesData)\n  .sort((a, b) => a[0].localeCompare(b[0]))\n  .map(([date, stats]) => ({ date, ...stats }));\n\nreturn [{\n  json: {\n    validationResults,\n    totalFatalErrors,\n    totalReviewErrors,\n    totalWarnings,\n    topErrors,\n    topSuppliers,\n    timeSeriesData: timeSeriesArray,\n    fatalErrorDetails,\n    lowConfidenceCount,\n    newSupplierCount,\n    ibanMismatchCount,\n    totalInvoices: invoices.length\n  }\n}];"
+      },
+      "id": "356a0699-298e-48b4-9f91-e30f42ed8a11",
+      "name": "Analyze Error Patterns",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "75f7a151-981a-4143-9fa3-0447db71af03",
+      "name": "Combine Dashboard Data",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1360,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "semmykramti@gmail.com",
+        "subject": "={{ $(\"Generate Chart URLs\").item.json.totalFatalErrors > 0 ? \"🚨 \" : \"✅ \" }}Bajo Bouw Dashboard - {{ $now.toFormat(\"dd-MM-yyyy HH:mm\") }} - {{ $(\"Generate Chart URLs\").item.json.successRate }}% Succes",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "4e2f4599-7f7a-43f1-a54c-e40b582898ec",
+      "name": "Send Dashboard Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2032,
+        496
+      ],
+      "webhookId": "d9654d03-7444-475b-b9a1-c3e7e233a1d1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZN80nbwxMyYJZZtB",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "c89d2a72-3cb9-4d5e-b4d2-f3eb3dc10be7",
+      "name": "Daily Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nconst validationLabels = Object.keys(data.validationResults).filter(k => data.validationResults[k] > 0);\nconst validationData = validationLabels.map(k => data.validationResults[k]);\n\nconst totalInvoices = data.count_factuurnummer || 1;\nconst passedInvoices = data.validationResults.PASS || 0;\nconst failedInvoices = totalInvoices - passedInvoices;\nconst successRate = ((passedInvoices / totalInvoices) * 100).toFixed(1);\n\nconst topErrors = data.topErrors || [];\nconst topErrorLabels = topErrors.slice(0, 8).map((e, i) => e.error.length > 50 ? e.error.substring(0, 47) + \"...\" : e.error);\nconst topErrorData = topErrors.slice(0, 8).map(e => e.count);\n\nconst topSuppliers = data.topSuppliers || [];\nconst supplierLabels = topSuppliers.map(s => s.name.length > 25 ? s.name.substring(0, 22) + \"...\" : s.name);\nconst supplierAmounts = topSuppliers.map(s => (s.totalAmount / 1000).toFixed(1));\n\nconst timeSeriesData = data.timeSeriesData || [];\nconst timeLabels = timeSeriesData.map(t => t.date.substring(5));\nconst timePassedData = timeSeriesData.map(t => t.passed);\nconst timeFailedData = timeSeriesData.map(t => t.failed);\n\nconst validationChartConfig = {\n  type: \"doughnut\",\n  data: {\n    labels: validationLabels,\n    datasets: [{\n      data: validationData,\n      backgroundColor: [\"#f5576c\", \"#2ed573\", \"#feca57\", \"#4facfe\"]\n    }]\n  },\n  options: {\n    plugins: {\n      legend: { position: \"bottom\", labels: { font: { size: 14 } } },\n      title: { display: true, text: \"Validatie Status Verdeling\", font: { size: 20, weight: \"bold\" } },\n      datalabels: { color: \"#fff\", font: { size: 16, weight: \"bold\" }, formatter: (value, ctx) => { return value; } }\n    }\n  }\n};\n\nconst errorTypeChartConfig = {\n  type: \"bar\",\n  data: {\n    labels: [\"Fatale Fouten\", \"Review Fouten\", \"Waarschuwingen\"],\n    datasets: [{\n      label: \"Aantal\",\n      data: [data.totalFatalErrors, data.totalReviewErrors, data.totalWarnings],\n      backgroundColor: [\"#f5576c\", \"#feca57\", \"#4facfe\"]\n    }]\n  },\n  options: {\n    plugins: {\n      legend: { display: false },\n      title: { display: true, text: \"Fout Categorieën Overzicht\", font: { size: 20, weight: \"bold\" } },\n      datalabels: { anchor: \"end\", align: \"top\", font: { size: 14, weight: \"bold\" } }\n    },\n    scales: { y: { beginAtZero: true, ticks: { font: { size: 12 } } }, x: { ticks: { font: { size: 12 } } } }\n  }\n};\n\nconst topErrorsChartConfig = {\n  type: \"bar\",\n  data: {\n    labels: topErrorLabels,\n    datasets: [{\n      label: \"Aantal voorkomens\",\n      data: topErrorData,\n      backgroundColor: \"#667eea\"\n    }]\n  },\n  options: {\n    indexAxis: \"y\",\n    plugins: {\n      legend: { display: false },\n      title: { display: true, text: \"Top Validatiefouten (meest voorkomend)\", font: { size: 20, weight: \"bold\" } },\n      datalabels: { anchor: \"end\", align: \"right\", font: { size: 13, weight: \"bold\" }, color: \"#333\" }\n    },\n    scales: { x: { beginAtZero: true, ticks: { font: { size: 11 } } }, y: { ticks: { font: { size: 11 } } } }\n  }\n};\n\nconst successRateChartConfig = {\n  type: \"doughnut\",\n  data: {\n    labels: [\"Succesvol (\" + successRate + \"%)\", \"Met Fouten\"],\n    datasets: [{\n      data: [passedInvoices, failedInvoices],\n      backgroundColor: [\"#2ed573\", \"#ff6b6b\"]\n    }]\n  },\n  options: {\n    plugins: {\n      legend: { position: \"bottom\", labels: { font: { size: 14 } } },\n      title: { display: true, text: \"Succes Ratio\", font: { size: 20, weight: \"bold\" } },\n      datalabels: { color: \"#fff\", font: { size: 16, weight: \"bold\" }, formatter: (value, ctx) => { return value; } }\n    }\n  }\n};\n\nconst supplierChartConfig = {\n  type: \"bar\",\n  data: {\n    labels: supplierLabels,\n    datasets: [{\n      label: \"Bedrag (€1000)\",\n      data: supplierAmounts,\n      backgroundColor: \"#764ba2\"\n    }]\n  },\n  options: {\n    indexAxis: \"y\",\n    plugins: {\n      legend: { display: false },\n      title: { display: true, text: \"Top 5 Leveranciers (op bedrag)\", font: { size: 20, weight: \"bold\" } },\n      datalabels: { anchor: \"end\", align: \"right\", font: { size: 13, weight: \"bold\" }, formatter: (value) => \"€\" + value + \"k\" }\n    },\n    scales: { x: { beginAtZero: true, ticks: { font: { size: 11 } } }, y: { ticks: { font: { size: 11 } } } }\n  }\n};\n\nconst trendChartConfig = {\n  type: \"line\",\n  data: {\n    labels: timeLabels,\n    datasets: [\n      {\n        label: \"Succesvol\",\n        data: timePassedData,\n        borderColor: \"#2ed573\",\n        backgroundColor: \"rgba(46, 213, 115, 0.1)\",\n        fill: true,\n        tension: 0.4\n      },\n      {\n        label: \"Met Fouten\",\n        data: timeFailedData,\n        borderColor: \"#ff6b6b\",\n        backgroundColor: \"rgba(255, 107, 107, 0.1)\",\n        fill: true,\n        tension: 0.4\n      }\n    ]\n  },\n  options: {\n    plugins: {\n      legend: { position: \"top\", labels: { font: { size: 14 } } },\n      title: { display: true, text: \"Trend over Tijd\", font: { size: 20, weight: \"bold\" } }\n    },\n    scales: { y: { beginAtZero: true, ticks: { font: { size: 12 } } }, x: { ticks: { font: { size: 11 } } } }\n  }\n};\n\nconst baseUrl = \"https://quickchart.io/chart\";\n\nreturn [{\n  json: {\n    ...data,\n    successRate,\n    validationChartUrl: `${baseUrl}?c=${encodeURIComponent(JSON.stringify(validationChartConfig))}&width=650&height=450`,\n    errorTypeChartUrl: `${baseUrl}?c=${encodeURIComponent(JSON.stringify(errorTypeChartConfig))}&width=650&height=450`,\n    topErrorsChartUrl: `${baseUrl}?c=${encodeURIComponent(JSON.stringify(topErrorsChartConfig))}&width=900&height=500`,\n    successRateChartUrl: `${baseUrl}?c=${encodeURIComponent(JSON.stringify(successRateChartConfig))}&width=650&height=450`,\n    supplierChartUrl: `${baseUrl}?c=${encodeURIComponent(JSON.stringify(supplierChartConfig))}&width=900&height=450`,\n    trendChartUrl: `${baseUrl}?c=${encodeURIComponent(JSON.stringify(trendChartConfig))}&width=900&height=400`\n  }\n}];"
+      },
+      "id": "9c4ef99c-0139-4695-aadb-fcc99e1d1863",
+      "name": "Generate Chart URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1584,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "recent-filter",
+              "leftValue": "={{ $json.verwerktOp }}",
+              "rightValue": "={{ $now.minus({ days: 30 }).toFormat(\"yyyy-MM-dd\") }}",
+              "operator": {
+                "type": "string",
+                "operation": "gt",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ef9f673b-e9c1-43b2-9411-e8cc483fd31f",
+      "name": "Filter Recent Data",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "totalInvoices",
+              "name": "totalInvoices",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.count_factuurnummer }}",
+              "type": "number"
+            },
+            {
+              "id": "successRate",
+              "name": "successRate",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.successRate }}",
+              "type": "number"
+            },
+            {
+              "id": "totalAmount",
+              "name": "totalAmount",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.sum_betaalbaarBedrag }}",
+              "type": "number"
+            },
+            {
+              "id": "totalBTW",
+              "name": "totalBTW",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.sum_btwbedrag }}",
+              "type": "number"
+            },
+            {
+              "id": "fatalErrors",
+              "name": "fatalErrors",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.totalFatalErrors }}",
+              "type": "number"
+            },
+            {
+              "id": "reviewErrors",
+              "name": "reviewErrors",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.totalReviewErrors }}",
+              "type": "number"
+            },
+            {
+              "id": "uniqueSuppliers",
+              "name": "uniqueSuppliers",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.countUnique_leverancierId }}",
+              "type": "number"
+            },
+            {
+              "id": "avgConfidence",
+              "name": "avgConfidence",
+              "value": "={{ $(\"Create Dashboard HTML\").item.json.average_documentConfidence }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b9c45bf4-8cf7-43d9-810d-9d77d69aa69f",
+      "name": "Prepare Archive Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2032,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk/edit?gid=0#gid=0"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Dashboard_Archive",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ $json.timestamp }}",
+            "totalInvoices": "={{ $json.totalInvoices }}",
+            "successRate": "={{ $json.successRate }}",
+            "totalAmount": "={{ $json.totalAmount }}",
+            "totalBTW": "={{ $json.totalBTW }}",
+            "fatalErrors": "={{ $json.fatalErrors }}",
+            "reviewErrors": "={{ $json.reviewErrors }}",
+            "uniqueSuppliers": "={{ $json.uniqueSuppliers }}",
+            "avgConfidence": "={{ $json.avgConfidence }}"
+          },
+          "matchingColumns": []
+        },
+        "options": {}
+      },
+      "id": "c75fe5ab-a9f6-4a08-9163-0d14f4a34d1b",
+      "name": "Archive Dashboard Data",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2256,
+        304
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EXKuWy0KsFqaf0Ln",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Run Dashboard": [
+      {
+        "json": {},
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Run Dashboard": {
+      "main": [
+        [
+          {
+            "node": "Fetch All Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Statistics": {
+      "main": [
+        [
+          {
+            "node": "Combine Dashboard Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch All Invoices": {
+      "main": [
+        [
+          {
+            "node": "Filter Recent Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Aggregate Validation Errors": {
+      "main": [
+        [
+          {
+            "node": "Analyze Error Patterns",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Dashboard HTML": {
+      "main": [
+        [
+          {
+            "node": "Send Dashboard Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Archive Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Dashboard Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Chart URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Error Patterns": {
+      "main": [
+        [
+          {
+            "node": "Combine Dashboard Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Daily Schedule": {
+      "main": [
+        [
+          {
+            "node": "Fetch All Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Chart URLs": {
+      "main": [
+        [
+          {
+            "node": "Create Dashboard HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Recent Data": {
+      "main": [
+        [
+          {
+            "node": "Calculate Statistics",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Aggregate Validation Errors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Archive Data": {
+      "main": [
+        [
+          {
+            "node": "Archive Dashboard Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "10b7a470-3290-4df5-afb6-f10febeb106a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "69799d3850ab8c3bbf2151f921bf9360e41f30c6f1ad33ff6242866af31d80ad"
+  },
+  "id": "Zv5SmnMcmwWGrynE",
+  "tags": []
+}

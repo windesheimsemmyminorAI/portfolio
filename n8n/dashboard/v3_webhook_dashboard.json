@@ -1,0 +1,162 @@
+{
+  "name": "Bajo Bouw — Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "bajo-dashboard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "bd18b40c-bf8b-4cef-a32f-d59f94899675",
+      "name": "Dashboard API",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "1e0953de-566b-495e-b1a3-503d4141b72d"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": ""
+        },
+        "filters": {
+          "conditions": []
+        },
+        "returnAll": true,
+        "orderBy": true
+      },
+      "id": "5ec521a8-1887-4e44-a987-a4d155c2f473",
+      "name": "Haal Facturen Op",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst totals = {\n  aantalFacturen: items.length,\n  totaalBedrag: 0,\n  totaalBtw: 0,\n  totaalInclusief: 0,\n  statusVerdeling: {},\n  leveranciers: new Set(),\n  recenteFacturen: []\n};\n\nfor (const item of items) {\n  const json = item.json;\n  totals.totaalBedrag += json.factuurbedrag || 0;\n  totals.totaalBtw += json.btw || 0;\n  totals.totaalInclusief += json.totaalBedrag || 0;\n  \n  const status = json.status || \"onbekend\";\n  totals.statusVerdeling[status] = (totals.statusVerdeling[status] || 0) + 1;\n  \n  if (json.leverancier) {\n    totals.leveranciers.add(json.leverancier);\n  }\n}\n\ntotals.aantalLeveranciers = totals.leveranciers.size;\ndelete totals.leveranciers;\n\ntotals.recenteFacturen = items.slice(0, 10).map(item => ({\n  factuurNummer: item.json.factuurNummer,\n  leverancier: item.json.leverancier,\n  totaalBedrag: item.json.totaalBedrag,\n  factuurdatum: item.json.factuurdatum,\n  status: item.json.status\n}));\n\nreturn [{ json: totals }];"
+      },
+      "id": "8cc34cb3-dda6-430c-9fcc-b4e3299814ec",
+      "name": "Bereken Statistieken",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "html",
+              "name": "html",
+              "type": "string",
+              "value": "=<!DOCTYPE html>\n<html lang=\"nl\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Bajo Bouw - Inkoopfacturatie Dashboard</title>\n  <style>\n    * { margin: 0; padding: 0; box-sizing: border-box; }\n    body { font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif; background: #f5f7fa; padding: 20px; }\n    .container { max-width: 1400px; margin: 0 auto; }\n    h1 { color: #1a202c; margin-bottom: 10px; font-size: 32px; }\n    .subtitle { color: #718096; margin-bottom: 30px; font-size: 16px; }\n    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }\n    .stat-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }\n    .stat-label { color: #718096; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }\n    .stat-value { color: #1a202c; font-size: 32px; font-weight: 700; }\n    .stat-currency { color: #2d3748; font-size: 28px; }\n    .table-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px; }\n    .table-title { color: #1a202c; font-size: 20px; font-weight: 600; margin-bottom: 20px; }\n    table { width: 100%; border-collapse: collapse; }\n    th { background: #f7fafc; color: #4a5568; font-weight: 600; text-align: left; padding: 12px; border-bottom: 2px solid #e2e8f0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }\n    td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #2d3748; }\n    tr:hover { background: #f7fafc; }\n    .status { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }\n    .status-verwerkt { background: #c6f6d5; color: #22543d; }\n    .status-pending { background: #feebc8; color: #7c2d12; }\n    .status-fout { background: #fed7d7; color: #742a2a; }\n    .refresh-info { color: #718096; font-size: 14px; margin-top: 20px; text-align: center; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>📊 Inkoopfacturatie Dashboard</h1>\n    <p class=\"subtitle\">Bajo Bouw - Real-time overzicht van verwerkte facturen</p>\n    \n    <div class=\"stats-grid\">\n      <div class=\"stat-card\">\n        <div class=\"stat-label\">Totaal Facturen</div>\n        <div class=\"stat-value\">{{ $json.aantalFacturen }}</div>\n      </div>\n      <div class=\"stat-card\">\n        <div class=\"stat-label\">Totaal Bedrag (excl. BTW)</div>\n        <div class=\"stat-currency\">€ {{ $json.totaalBedrag.toFixed(2) }}</div>\n      </div>\n      <div class=\"stat-card\">\n        <div class=\"stat-label\">Totaal BTW</div>\n        <div class=\"stat-currency\">€ {{ $json.totaalBtw.toFixed(2) }}</div>\n      </div>\n      <div class=\"stat-card\">\n        <div class=\"stat-label\">Totaal (incl. BTW)</div>\n        <div class=\"stat-currency\">€ {{ $json.totaalInclusief.toFixed(2) }}</div>\n      </div>\n      <div class=\"stat-card\">\n        <div class=\"stat-label\">Unieke Leveranciers</div>\n        <div class=\"stat-value\">{{ $json.aantalLeveranciers }}</div>\n      </div>\n      <div class=\"stat-card\">\n        <div class=\"stat-label\">Status Verdeling</div>\n        <div style=\"margin-top: 8px; font-size: 14px; color: #4a5568;\">\n          Verwerkt: {{ $json.statusVerdeling.verwerkt || 0 }}<br>\n          Pending: {{ $json.statusVerdeling.pending || 0 }}<br>\n          Fout: {{ $json.statusVerdeling.fout || 0 }}\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"table-card\">\n      <h2 class=\"table-title\">Recente Facturen (laatste 10)</h2>\n      <table>\n        <thead>\n          <tr>\n            <th>Factuurnummer</th>\n            <th>Leverancier</th>\n            <th>Factuurdatum</th>\n            <th>Bedrag (incl. BTW)</th>\n            <th>Status</th>\n          </tr>\n        </thead>\n        <tbody>\n          {{ $json.recenteFacturen.map(f => `\n            <tr>\n              <td>${f.factuurNummer || \"-\"}</td>\n              <td>${f.leverancier || \"-\"}</td>\n              <td>${f.factuurdatum || \"-\"}</td>\n              <td>€ ${(f.totaalBedrag || 0).toFixed(2)}</td>\n              <td><span class=\"status status-${f.status || \"onbekend\"}\">${f.status || \"onbekend\"}</span></td>\n            </tr>\n          `).join(\"\") }}\n        </tbody>\n      </table>\n    </div>\n    \n    <p class=\"refresh-info\">Dashboard wordt automatisch bijgewerkt bij elke aanroep • Laatst vernieuwd: {{ $now.toFormat(\"dd-MM-yyyy HH:mm:ss\") }}</p>\n  </div>\n</body>\n</html>"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7845c618-52df-4b59-af54-73e4ceeb789e",
+      "name": "Bouw Dashboard HTML",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "e3e64d86-334f-4a6e-987b-49815a0f496a",
+      "name": "Stuur Dashboard",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1136,
+        304
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Dashboard API": {
+      "main": [
+        [
+          {
+            "node": "Haal Facturen Op",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Haal Facturen Op": {
+      "main": [
+        [
+          {
+            "node": "Bereken Statistieken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bereken Statistieken": {
+      "main": [
+        [
+          {
+            "node": "Bouw Dashboard HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bouw Dashboard HTML": {
+      "main": [
+        [
+          {
+            "node": "Stuur Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "bb502c4d-9b3f-4a22-82db-d42598ca3705",
+  "meta": {
+    "instanceId": "69799d3850ab8c3bbf2151f921bf9360e41f30c6f1ad33ff6242866af31d80ad"
+  },
+  "id": "dAiYQ6VLBHOI1QRl",
+  "tags": []
+}
