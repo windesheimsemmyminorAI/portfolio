@@ -4,4 +4,8 @@ Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-gesc
 
 Laatst bijgewerkt: 2026-06-01
 
-_Nog geen commits gevonden. Maak eerst een commit, draai dit script daarna opnieuw._
+| Datum | Versie | Wijziging |
+|-------|--------|------------|
+| 2026-06-01 | `be31ef3` | Werkend factuur-dashboard met validatie en automatische documentatie |
+| 2026-06-01 | `270868c` | Initiële projectstructuur opgesteld |
+| 2026-06-01 | `ea5adf5` | Initial commit |
