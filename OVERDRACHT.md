@@ -21,21 +21,19 @@ Er zijn op dit moment **5 facturen** verwerkt:
 
 ## Bestanden in dit project
 
-- `.github\workflows\update-docs.yml`
+- `.github/workflows/update-docs.yml`
 - `.gitignore`
-- `dashboard\index.html`
-- `data\facturen.json`
-- `data\resultaat.json`
-- `docs\automatische_documentatie.md`
-- `docs\hoe_het_werkt.md`
 - `NODE_DOCUMENTATIE.md`
 - `OVERDRACHT.md`
 - `README.md`
 - `REVISIE_LOG.md`
-- `schemas\factuur_schema.json`
-- `scripts\__pycache__\genereer_docs.cpython-314.pyc`
-- `scripts\__pycache__\verwerk_facturen.cpython-314.pyc`
-- `scripts\genereer_docs.py`
-- `scripts\requirements.txt`
-- `scripts\update.py`
-- `scripts\verwerk_facturen.py`
+- `dashboard/index.html`
+- `data/facturen.json`
+- `data/resultaat.json`
+- `docs/automatische_documentatie.md`
+- `docs/hoe_het_werkt.md`
+- `schemas/factuur_schema.json`
+- `scripts/genereer_docs.py`
+- `scripts/requirements.txt`
+- `scripts/update.py`
+- `scripts/verwerk_facturen.py`
