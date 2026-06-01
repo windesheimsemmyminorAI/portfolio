@@ -1,6 +1,6 @@
-# N8N workflows
+# Dashboard-workflows
 
-Deze map bevat mijn N8N dashboard-workflows voor de inkoopfacturatie, in de volgorde waarin ik ze ontwikkeld heb.
+Deze map bevat mijn N8N-workflows voor het inkoopfacturatie-dashboard, in de volgorde waarin ik ze ontwikkeld heb.
 
 ## Bestanden
 
