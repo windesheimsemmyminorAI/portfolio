@@ -21,7 +21,11 @@ Deze verwachtingen vormen de meetlat voor mijn keuzes. Vooral "makkelijk in gebr
 |----------|----------|--------------|------------------------|
 | 1 | AI Agent (`v1_ai_agent.json`) | Chatbot met OpenAI en een Google Sheets-tool | Te ingewikkeld voor mijn doel; ik wilde een dashboard, geen chatbot |
 | 2 | Gmail-dashboard (`v2_gmail_dashboard.json`) | Uitgebreid dashboard met statistieken, validatie en grafieken, dagelijks per e-mail | Data uit Google Sheets werd niet goed gelezen; grafieken bleven leeg en het validatie-overzicht was kapot |
-| 3 | Webhook-dashboard (`v3_webhook_dashboard.json`) | Eenvoudiger dashboard, getoond als webpagina via een webhook | Databron nog niet gekoppeld — dit is mijn huidige werkpunt |
+| 3 | Webhook-dashboard (`v3_webhook_dashboard.json`) | Eenvoudiger dashboard als webpagina via webhook | Databron (n8n Data Table) was niet gekoppeld; ik ontdekte dat de juiste databron de Google Sheets-log was |
+| 4 | Webhook-dashboard werkend (`v4_webhook_werkend.json`) | Webpagina-dashboard dat correct uit de log-sheet leest | Wilde dezelfde werkende opzet ook per e-mail kunnen tonen |
+| 5 | E-mail-dashboard werkend (`v5_email_werkend.json`) | Hetzelfde dashboard, mail-veilig opgemaakt en per e-mail verstuurd | Dashboard miste nog de KPI's die de opdrachtgever wil meten |
+| 6 | Webhook-dashboard met KPI's (`v6_webhook_kpi.json`) | Webpagina-dashboard met de drie KPI's (gauge, heatmap, top-fouten) | Huidige versie (webpagina) |
+| 7 | E-mail-dashboard met KPI's (`v7_email_kpi.json`) | Hetzelfde KPI-dashboard, mail-veilig per e-mail | Huidige versie (e-mail) |
 
 ## Iteratie 1 — De AI Agent
 
@@ -75,12 +79,73 @@ Een dashboard dat de gegevens niet correct toont, schiet zijn doel voorbij. Daar
 - Opbouw van een HTML-dashboard met overzichtskaarten en een factuurtabel
 - Antwoord: het dashboard wordt als webpagina teruggestuurd
 
-**Huidige status / werkpunt:** De databron is nog niet gekoppeld — het veld voor de Data Table is leeg. Daardoor werkt de koppeling met de gegevens nog niet. Dit is het punt waar ik nu aan werk.
+**Waarom deze aanpak:** De keuze voor een webpagina via een webhook sluit bewust aan op de twee belangrijkste klantverwachtingen. "Makkelijk in gebruik" (prioriteit 1): de gebruiker opent simpelweg een link in de browser en ziet meteen het overzicht, zonder een chatbot te hoeven aansturen of door e-mails te zoeken. "Laagdrempelig" (prioriteit 3): iedereen kan een webpagina openen zonder uitleg of externe hulp.
 
-**Waarom deze aanpak:** De keuze voor een webpagina via een webhook sluit bewust aan op de twee belangrijkste klantverwachtingen. "Makkelijk in gebruik" (prioriteit 1): de gebruiker opent simpelweg een link in de browser en ziet meteen het overzicht, zonder een chatbot te hoeven aansturen of door e-mails te zoeken. "Laagdrempelig" (prioriteit 3): iedereen kan een webpagina openen zonder uitleg of externe hulp. Daarnaast loste deze aanpak het dataprobleem van iteratie 2 op door de verwerking te vereenvoudigen: minder stappen betekent minder kans dat de gegevens onderweg misgaan.
+**Waarom ik verder ging:** Het dashboard bleef leeg. De databron was ingesteld op een lege n8n Data Table. Bij het uitzoeken hiervan ontdekte ik de werkelijke oorzaak: de verwerkte facturen staan niet in een Data Table, maar in een Google Sheets-log (tabblad "Verwerkte facturen") die door mijn factuurverwerkings-workflow wordt gevuld. Bovendien kwamen de veldnamen niet overeen: het dashboard zocht naar velden als `factuurNummer` en `status`, terwijl de sheet kolommen heet als `factuurnummer` en `validatieResultaat`. Dit verklaarde meteen waarom ook iteratie 2 leeg bleef.
 
-**Wat ik hiervan leerde:** Door de klantverwachtingen als meetlat te gebruiken, werd de keuze voor de webpagina-aanpak logisch in plaats van willekeurig. Een browserpagina is voor de eindgebruiker natuurlijker en laagdrempeliger dan een chatbot of een e-mail. De volgende stap is het correct koppelen van de databron, zodat het dashboard de echte facturen toont en daarmee ook "praktisch" en "toepasbaar" wordt (verwachtingen 2 en 4).
+**Wat ik hiervan leerde:** Een dashboard valt of staat met de juiste databron en exact overeenkomende veldnamen. Dit was het kantelpunt in mijn project: pas toen ik de echte log-sheet en de juiste kolomnamen in beeld had, kon het dashboard werken.
+
+## Iteratie 4 — Webhook-dashboard werkend
+
+**Bestand:** `v4_webhook_werkend.json`
+
+**Wat het was:** Dezelfde webpagina-opzet als iteratie 3, maar nu gekoppeld aan de juiste databron: het tabblad "Verwerkte facturen" van de Google Sheets-log. De veldnamen zijn afgestemd op de werkelijke kolomnamen, en de bedragverwerking houdt rekening met de Nederlandse notatie (bijvoorbeeld 845,50).
+
+**Wat er technisch in zat:**
+- Trigger: een webhook
+- Databron: Google Sheets, tabblad "Verwerkte facturen"
+- Bewerking: statistieken berekenen met de juiste kolomnamen
+- Opbouw van een HTML-dashboard met overzichtskaarten en een factuurtabel
+
+**Waarom ik verder ging:** Met een werkende webpagina wilde ik dezelfde opzet ook per e-mail beschikbaar maken, zodat de opdrachtgever beide vormen kon vergelijken en kiezen welke het best bij hun manier van werken past.
+
+**Wat ik hiervan leerde:** Zodra de databron en veldnamen klopten, werkte het dashboard direct. De eerdere problemen lagen dus niet aan de opzet, maar aan de koppeling.
+
+## Iteratie 5 — E-mail-dashboard werkend
+
+**Bestand:** `v5_email_werkend.json`
+
+**Wat het was:** Hetzelfde dashboard als iteratie 4, maar verstuurd per e-mail. De opmaak is bewust mail-veilig gemaakt: opgebouwd met tabellen en inline-styling in plaats van moderne CSS (zoals grids en gradients), omdat e-mailprogramma's als Gmail die opmaak vaak verwijderen. Dit voorkomt het opmaakprobleem dat bij iteratie 2 speelde.
+
+**Wat er technisch in zat:**
+- Trigger: handmatig
+- Databron: Google Sheets, tabblad "Verwerkte facturen"
+- Mail-veilige HTML (tabellen, inline-styling)
+- Verzending per e-mail
+
+**Waarom ik verder ging:** Het dashboard toonde nog niet de KPI's die de opdrachtgever wil meten. Uit het ontwerp van de "Control Tower" volgden twee vaste KPI's plus een overzicht van veelvoorkomende fouten. Die wilde ik toevoegen.
+
+**Wat ik hiervan leerde:** Mail-veilige opmaak vraagt een andere techniek dan een webpagina. Dezelfde data kan in twee weergaven, maar elke weergave heeft zijn eigen ontwerpregels.
+
+## Iteratie 6 — Webhook-dashboard met KPI's
+
+**Bestand:** `v6_webhook_kpi.json`
+
+**Wat het was:** De webpagina-versie uitgebreid met de drie KPI's uit het Control Tower-ontwerp. Het dashboard leest nu twee tabbladen uit de log: "Verwerkte facturen" en "Validatiefouten".
+
+**De KPI's:**
+- **KPI 1 — Reductie handmatige handelingen:** een gauge (snelheidsmeter) die het percentage handmatige handelingen toont, berekend als het aandeel facturen met status REVIEW of FATAL ten opzichte van het totaal. De 40%-doellijn is in de meter gemarkeerd.
+- **KPI 2 — Factuurkwaliteit per leverancier:** een heatmap die per leverancier het percentage afwijkende facturen toont, kleurgecodeerd van groen (geen afwijkingen) naar rood (veel afwijkingen). Dit is bewust een benadering op factuurniveau; de exacte artikelmatch volgt zodra het tabblad Factuurregels wordt meegenomen.
+- **KPI 3 — Meest voorkomende fouten:** een top-5 van foutcodes uit het tabblad "Validatiefouten".
+
+**Waarom deze aanpak:** De KPI's maken het dashboard "praktisch" (verwachting 4): het levert aantoonbaar inzicht in de voortgang van de automatisering en de factuurkwaliteit per leverancier.
+
+**Wat ik hiervan leerde:** Niet elke KPI uit het ontwerp is één-op-één meetbaar met de beschikbare data. Door eerlijk te benoemen dat KPI 2 een benadering is, blijft het dashboard betrouwbaar en bespreekbaar in plaats van schijnzekerheid te geven.
+
+## Iteratie 7 — E-mail-dashboard met KPI's
+
+**Bestand:** `v7_email_kpi.json`
+
+**Wat het was:** De e-mailversie met dezelfde drie KPI's, opnieuw mail-veilig opgemaakt. De gauge uit de webversie is hier vervangen door een mail-veilige voortgangsbalk, zodat de KPI ook in een e-mail goed weergegeven wordt.
+
+**Waarom deze aanpak:** Zo zijn beide weergaven (webpagina en e-mail) inhoudelijk gelijkwaardig: dezelfde KPI's, dezelfde data, maar elk in een vorm die past bij het medium. De opdrachtgever kan zo een eerlijke vergelijking maken.
+
+**Wat ik hiervan leerde:** Een KPI-visualisatie moet je soms per medium anders vormgeven. De inhoud blijft gelijk, de techniek verschilt.
 
 ## Conclusie en vervolg
 
-De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent, via een te complex e-maildashboard, naar een eenvoudiger en beter passende webpagina-aanpak. Twee dingen stuurden die ontwikkeling: de technische problemen met de dataverwerking, en de klantverwachtingen van de opdrachtgever. Vooral "makkelijk in gebruik" en "laagdrempelig" (de twee hoogste prioriteiten) verklaren waarom ik uiteindelijk koos voor een dashboard dat je gewoon in de browser opent. Mijn volgende stap is het afmaken van iteratie 3: de databron correct koppelen, zodat het dashboard de echte facturen toont en daarmee ook aan de verwachtingen "toepasbaar" en "praktisch" voldoet.
+De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent (iteratie 1), via een te complex e-maildashboard (iteratie 2) en een eerste webpagina-poging (iteratie 3), naar een werkend dashboard zodra de juiste databron en veldnamen gevonden waren (iteratie 4-5), en ten slotte naar een dashboard dat de KPI's van de opdrachtgever toont (iteratie 6-7).
+
+Twee dingen stuurden die ontwikkeling: de technische problemen met de databron en de dataverwerking, en de klantverwachtingen van de opdrachtgever. Het kantelpunt was de ontdekking dat de juiste databron de Google Sheets-log was, met exact overeenkomende veldnamen. Vanaf dat moment kon ik het dashboard niet alleen laten werken, maar ook uitbreiden met betekenisvolle KPI's.
+
+Het dashboard bestaat nu in twee gelijkwaardige vormen — webpagina en e-mail — zodat de opdrachtgever kan kiezen welke het best past bij "makkelijk in gebruik" en "laagdrempelig". Mijn volgende stap is het verfijnen van KPI 2: door ook het tabblad Factuurregels uit te lezen, kan de factuurkwaliteit op artikelniveau gemeten worden in plaats van op factuurniveau.

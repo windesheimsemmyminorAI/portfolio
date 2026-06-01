@@ -1,0 +1,196 @@
+{
+  "name": "Bajo Bouw - Control Tower (webpagina)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "bajo-dashboard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "wh-001",
+      "name": "Dashboard opvragen",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ],
+      "webhookId": "bajo-ct-web"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk",
+          "mode": "list",
+          "cachedResultName": "Bajo Inkoopfacturatie - Log"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Verwerkte facturen"
+        },
+        "options": {}
+      },
+      "id": "gs-001",
+      "name": "Haal facturen op",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        240
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Mua3BsVuKuKeqoYy",
+          "name": "windesheim.dtai2526"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk",
+          "mode": "list",
+          "cachedResultName": "Bajo Inkoopfacturatie - Log"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 754329244,
+          "mode": "list",
+          "cachedResultName": "Validatiefouten"
+        },
+        "options": {}
+      },
+      "id": "gs-001b",
+      "name": "Haal fouten op",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        440
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Mua3BsVuKuKeqoYy",
+          "name": "windesheim.dtai2526"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Databron 1: verwerkte facturen (input van deze node)\nconst facturen = $input.all().map(i => i.json);\n\n// Databron 2: validatiefouten (apart opgehaald). Veilig ophalen — als het\n// tabblad leeg is of niet bestaat, ga dan door met een lege lijst.\nlet fouten = [];\ntry {\n  fouten = $('Haal fouten op').all().map(i => i.json);\n} catch (e) {\n  fouten = [];\n}\n\nfunction num(v) {\n  if (v == null || v === '') return 0;\n  if (typeof v === 'number') return v;\n  let s = String(v).trim();\n  if (s.includes(',') && s.includes('.')) s = s.replace(/\\./g, '').replace(',', '.');\n  else if (s.includes(',')) s = s.replace(',', '.');\n  const n = parseFloat(s.replace(/[^0-9.\\-]/g, ''));\n  return isNaN(n) ? 0 : n;\n}\n\nconst totaal = facturen.length;\nlet pass = 0, review = 0, fatal = 0;\nlet totaalBedrag = 0, totaalBtw = 0, totaalBetaalbaar = 0;\nconst leveranciers = new Set();\n\n// Per leverancier bijhouden voor de \"heatmap\" (KPI 2-benadering)\nconst perLeverancier = {};   // naam -> { totaal, afwijkend }\n\nfor (const f of facturen) {\n  const res = String(f.validatieResultaat || '').toUpperCase();\n  if (res === 'PASS') pass++;\n  else if (res === 'REVIEW') review++;\n  else if (res === 'FATAL') fatal++;\n\n  totaalBedrag     += num(f.totaalbedrag);\n  totaalBtw        += num(f.btwbedrag);\n  totaalBetaalbaar += num(f.betaalbaarBedrag);\n\n  const lev = f.leveranciernaam || 'Onbekend';\n  leveranciers.add(lev);\n  if (!perLeverancier[lev]) perLeverancier[lev] = { totaal: 0, afwijkend: 0 };\n  perLeverancier[lev].totaal++;\n  if (res === 'REVIEW' || res === 'FATAL') perLeverancier[lev].afwijkend++;\n}\n\n// KPI 1: percentage handmatige handelingen (REVIEW + FATAL)\nconst handmatigPct = totaal > 0 ? Math.round(((review + fatal) / totaal) * 100) : 0;\nconst stpPct = 100 - handmatigPct;          // Straight Through Processing\nconst doelHandmatig = 40;                    // doelstelling uit het verslag\nconst doelGehaald = handmatigPct <= doelHandmatig;\n\n// KPI 2: afwijkingspercentage per leverancier (heatmap), gesorteerd hoog->laag\nconst heatmap = Object.entries(perLeverancier).map(([naam, d]) => ({\n  naam,\n  totaal: d.totaal,\n  afwijkend: d.afwijkend,\n  pct: d.totaal > 0 ? Math.round((d.afwijkend / d.totaal) * 100) : 0\n})).sort((a, b) => b.pct - a.pct).slice(0, 8);\n\n// KPI 3: top-5 meest voorkomende fouten (uit Validatiefouten-sheet)\nconst foutTeller = {};\nfor (const fo of fouten) {\n  const code = fo.foutcode || 'onbekend';\n  const oms  = fo.omschrijving || '';\n  if (!foutTeller[code]) foutTeller[code] = { code, aantal: 0, voorbeeld: oms };\n  foutTeller[code].aantal++;\n}\nconst topFouten = Object.values(foutTeller)\n  .sort((a, b) => b.aantal - a.aantal)\n  .slice(0, 5);\n\n// Recente facturen (laatste 15, nieuwste eerst)\nconst recente = facturen.slice(-15).reverse().map(f => ({\n  factuurnummer:      f.factuurnummer || '-',\n  leveranciernaam:    f.leveranciernaam || '-',\n  factuurdatum:       f.factuurdatum || '-',\n  totaalbedrag:       num(f.totaalbedrag),\n  validatieResultaat: String(f.validatieResultaat || 'onbekend').toUpperCase()\n}));\n\nreturn [{ json: {\n  aantalFacturen: totaal, aantalPass: pass, aantalReview: review, aantalFatal: fatal,\n  totaalBedrag, totaalBtw, totaalBetaalbaar, aantalLeveranciers: leveranciers.size,\n  handmatigPct, stpPct, doelHandmatig, doelGehaald,\n  heatmap, topFouten, recenteFacturen: recente\n} }];\n"
+      },
+      "id": "st-001",
+      "name": "Bereken KPI's",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst s = $input.first().json;\nconst eur = n => '\\u20ac ' + Number(n || 0).toLocaleString('nl-NL', {minimumFractionDigits: 2, maximumFractionDigits: 2});\n\nconst statusKleur = { PASS:'background:#e1f5ee;color:#0f6e56;', REVIEW:'background:#faeeda;color:#854f0b;', FATAL:'background:#fcebeb;color:#a32d2d;' };\nconst statusLabel = { PASS:'Goedgekeurd', REVIEW:'Review', FATAL:'Actie nodig' };\n\n// --- KPI 1: Gauge (halve cirkel) ---\n// Wijzer-hoek: 0% = links (180deg), 100% = rechts (0deg)\nconst pct = s.handmatigPct;\nconst hoek = 180 - (pct / 100 * 180);\nconst rad = hoek * Math.PI / 180;\nconst cx = 110, cy = 110, r = 90;\nconst naaldX = cx + r * Math.cos(rad);\nconst naaldY = cy - r * Math.sin(rad);\nconst gaugeKleur = s.doelGehaald ? '#0f6e56' : (pct <= 60 ? '#854f0b' : '#a32d2d');\n// Doel-markering op 40%\nconst doelHoek = 180 - (s.doelHandmatig / 100 * 180);\nconst doelRad = doelHoek * Math.PI / 180;\nconst doelX1 = cx + (r-12) * Math.cos(doelRad), doelY1 = cy - (r-12) * Math.sin(doelRad);\nconst doelX2 = cx + (r+8) * Math.cos(doelRad), doelY2 = cy - (r+8) * Math.sin(doelRad);\n\nconst gauge = `<svg viewBox=\"0 0 220 140\" style=\"width:100%;max-width:280px\">\n  <path d=\"M 20 110 A 90 90 0 0 1 200 110\" fill=\"none\" stroke=\"#e2e8f0\" stroke-width=\"18\" stroke-linecap=\"round\"/>\n  <path d=\"M 20 110 A 90 90 0 0 1 200 110\" fill=\"none\" stroke=\"${gaugeKleur}\" stroke-width=\"18\" stroke-linecap=\"round\"\n        stroke-dasharray=\"${(pct/100)*282.7} 282.7\"/>\n  <line x1=\"${doelX1}\" y1=\"${doelY1}\" x2=\"${doelX2}\" y2=\"${doelY2}\" stroke=\"#1a202c\" stroke-width=\"2\"/>\n  <text x=\"${doelX2}\" y=\"${doelY2-4}\" font-size=\"9\" fill=\"#1a202c\" text-anchor=\"middle\">doel 40%</text>\n  <line x1=\"${cx}\" y1=\"${cy}\" x2=\"${naaldX}\" y2=\"${naaldY}\" stroke=\"${gaugeKleur}\" stroke-width=\"3\"/>\n  <circle cx=\"${cx}\" cy=\"${cy}\" r=\"6\" fill=\"${gaugeKleur}\"/>\n  <text x=\"${cx}\" y=\"${cy+28}\" font-size=\"30\" font-weight=\"700\" fill=\"${gaugeKleur}\" text-anchor=\"middle\">${pct}%</text>\n  <text x=\"${cx}\" y=\"${cy+44}\" font-size=\"11\" fill=\"#718096\" text-anchor=\"middle\">handmatig</text>\n</svg>`;\n\n// --- KPI 2: Heatmap leveranciers ---\nfunction heatKleur(p) {\n  if (p === 0)  return 'background:#e1f5ee;color:#0f6e56';\n  if (p <= 25)  return 'background:#fef3c7;color:#854f0b';\n  if (p <= 50)  return 'background:#fed7aa;color:#9a3412';\n  return 'background:#fca5a5;color:#7f1d1d';\n}\nconst heatRijen = s.heatmap.map(h => `<tr>\n  <td style=\"padding:8px\">${h.naam}</td>\n  <td style=\"padding:8px;text-align:center\">${h.totaal}</td>\n  <td style=\"padding:8px;text-align:center\">${h.afwijkend}</td>\n  <td style=\"padding:8px;text-align:center\"><span style=\"${heatKleur(h.pct)};padding:3px 12px;border-radius:6px;font-weight:600\">${h.pct}%</span></td>\n</tr>`).join('');\n\n// --- KPI 3: Top-5 fouten ---\nconst foutRijen = s.topFouten.length\n  ? s.topFouten.map(f => `<tr>\n      <td style=\"padding:8px;font-family:monospace\">${f.code}</td>\n      <td style=\"padding:8px\">${f.voorbeeld}</td>\n      <td style=\"padding:8px;text-align:center;font-weight:600\">${f.aantal}</td>\n    </tr>`).join('')\n  : '<tr><td colspan=\"3\" style=\"padding:12px;color:#a0aec0;text-align:center\">Nog geen fouten geregistreerd</td></tr>';\n\n// --- Recente facturen ---\nconst rijen = s.recenteFacturen.map(f => {\n  const k = statusKleur[f.validatieResultaat] || 'background:#f1efe8;color:#5f5e5a;';\n  const l = statusLabel[f.validatieResultaat] || f.validatieResultaat;\n  return `<tr>\n    <td style=\"padding:10px 8px;font-family:monospace\">${f.factuurnummer}</td>\n    <td style=\"padding:10px 8px\">${f.leveranciernaam}</td>\n    <td style=\"padding:10px 8px\">${f.factuurdatum}</td>\n    <td style=\"padding:10px 8px;text-align:right\">${eur(f.totaalbedrag)}</td>\n    <td style=\"padding:10px 8px\"><span style=\"${k}padding:3px 12px;border-radius:99px;font-size:13px;font-weight:500\">${l}</span></td>\n  </tr>`;\n}).join('');\n\nconst html = `<!DOCTYPE html>\n<html lang=\"nl\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Bajo Bouw Control Tower</title>\n<style>\n  *{margin:0;padding:0;box-sizing:border-box}\n  body{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;background:#f5f7fa;color:#1a202c;padding:24px}\n  .container{max-width:1200px;margin:0 auto}\n  h1{font-size:28px;font-weight:600}\n  .subtitle{color:#718096;margin-bottom:24px}\n  h2{font-size:16px;font-weight:600;margin-bottom:14px}\n  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px}\n  .card{background:white;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}\n  .label{color:#718096;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}\n  .value{font-size:24px;font-weight:700}\n  .value.green{color:#0f6e56}.value.amber{color:#854f0b}.value.red{color:#a32d2d}\n  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}\n  .panel{background:white;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}\n  .gauge-wrap{text-align:center}\n  .gauge-note{color:#718096;font-size:13px;margin-top:8px}\n  table{width:100%;border-collapse:collapse;font-size:14px}\n  th{text-align:left;color:#718096;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:8px;border-bottom:2px solid #e2e8f0}\n  td{border-bottom:1px solid #edf2f7}\n  .footer{text-align:center;color:#a0aec0;font-size:13px;margin-top:24px}\n  @media(max-width:760px){.two-col{grid-template-columns:1fr}}\n</style></head>\n<body><div class=\"container\">\n  <h1>Bajo Bouw Control Tower</h1>\n  <p class=\"subtitle\">Inkoopfacturatie &middot; live overzicht &middot; ${new Date().toLocaleString('nl-NL',{timeZone:'Europe/Amsterdam'})}</p>\n\n  <div class=\"grid\">\n    <div class=\"card\"><div class=\"label\">Totaal facturen</div><div class=\"value\">${s.aantalFacturen}</div></div>\n    <div class=\"card\"><div class=\"label\">Goedgekeurd (STP)</div><div class=\"value green\">${s.aantalPass}</div></div>\n    <div class=\"card\"><div class=\"label\">Review</div><div class=\"value amber\">${s.aantalReview}</div></div>\n    <div class=\"card\"><div class=\"label\">Actie nodig</div><div class=\"value red\">${s.aantalFatal}</div></div>\n    <div class=\"card\"><div class=\"label\">Leveranciers</div><div class=\"value\">${s.aantalLeveranciers}</div></div>\n    <div class=\"card\"><div class=\"label\">Totaal incl. BTW</div><div class=\"value\">${eur(s.totaalBedrag)}</div></div>\n  </div>\n\n  <div class=\"two-col\">\n    <div class=\"panel\">\n      <h2>KPI 1 &middot; Reductie handmatige handelingen</h2>\n      <div class=\"gauge-wrap\">${gauge}</div>\n      <p class=\"gauge-note\">${s.stpPct}% verloopt automatisch (STP). Doel: maximaal 40% handmatig.\n        ${s.doelGehaald ? '<strong style=\"color:#0f6e56\">Doel gehaald.</strong>' : '<strong style=\"color:#854f0b\">Doel nog niet gehaald.</strong>'}</p>\n    </div>\n    <div class=\"panel\">\n      <h2>KPI 3 &middot; Meest voorkomende fouten</h2>\n      <table>\n        <thead><tr><th>Code</th><th>Omschrijving</th><th style=\"text-align:center\">Aantal</th></tr></thead>\n        <tbody>${foutRijen}</tbody>\n      </table>\n    </div>\n  </div>\n\n  <div class=\"panel\" style=\"margin-bottom:24px\">\n    <h2>KPI 2 &middot; Factuurkwaliteit per leverancier (heatmap)</h2>\n    <p style=\"color:#718096;font-size:13px;margin-bottom:14px\">Percentage facturen met review of blokkade per leverancier. Hoe warmer de kleur, hoe meer afwijkingen. <em>Benadering op factuurniveau; exacte artikelmatch volgt uit het tabblad Factuurregels.</em></p>\n    <table>\n      <thead><tr><th>Leverancier</th><th style=\"text-align:center\">Facturen</th><th style=\"text-align:center\">Afwijkend</th><th style=\"text-align:center\">% afwijkend</th></tr></thead>\n      <tbody>${heatRijen}</tbody>\n    </table>\n  </div>\n\n  <div class=\"panel\">\n    <h2>Recente facturen (laatste 15)</h2>\n    <table>\n      <thead><tr><th>Factuurnr.</th><th>Leverancier</th><th>Datum</th><th style=\"text-align:right\">Bedrag</th><th>Status</th></tr></thead>\n      <tbody>${rijen}</tbody>\n    </table>\n  </div>\n\n  <p class=\"footer\">Bajo Bouw Control Tower &middot; automatisch gegenereerd uit de verwerkingslog</p>\n</div></body></html>`;\n\nreturn [{ json: { html } }];\n"
+      },
+      "id": "ht-001",
+      "name": "Bouw dashboard HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "rs-001",
+      "name": "Toon dashboard",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1160,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Dashboard opvragen": {
+      "main": [
+        [
+          {
+            "node": "Haal facturen op",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Haal facturen op": {
+      "main": [
+        [
+          {
+            "node": "Haal fouten op",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Haal fouten op": {
+      "main": [
+        [
+          {
+            "node": "Bereken KPI's",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bereken KPI's": {
+      "main": [
+        [
+          {
+            "node": "Bouw dashboard HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bouw dashboard HTML": {
+      "main": [
+        [
+          {
+            "node": "Toon dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

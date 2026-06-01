@@ -1,0 +1,154 @@
+{
+  "name": "Bajo Bouw - Dashboard (webpagina)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "bajo-dashboard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "wh-001",
+      "name": "Dashboard opvragen",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "bajo-dashboard-web"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk",
+          "mode": "list",
+          "cachedResultName": "Bajo Inkoopfacturatie - Log"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Verwerkte facturen"
+        },
+        "options": {}
+      },
+      "id": "gs-001",
+      "name": "Haal facturen op",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        460,
+        300
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Mua3BsVuKuKeqoYy",
+          "name": "windesheim.dtai2526"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Leest alle rijen uit de log-sheet en berekent de dashboard-statistieken.\n// Gebruikt de echte kolomnamen uit tabblad \"Verwerkte facturen\".\n\nconst rows = $input.all().map(i => i.json);\n\n// Helper: zet een sheet-waarde veilig om naar een getal.\n// Vangt zowel \"1234.56\" als \"1.234,56\" (NL-notatie) op.\nfunction num(v) {\n  if (v == null || v === '') return 0;\n  if (typeof v === 'number') return v;\n  let s = String(v).trim();\n  if (s.includes(',') && s.includes('.')) {\n    s = s.replace(/\\./g, '').replace(',', '.');      // 1.234,56 -> 1234.56\n  } else if (s.includes(',')) {\n    s = s.replace(',', '.');                          // 1234,56  -> 1234.56\n  }\n  const n = parseFloat(s.replace(/[^0-9.\\-]/g, ''));\n  return isNaN(n) ? 0 : n;\n}\n\nconst stats = {\n  aantalFacturen: rows.length,\n  totaalBedrag: 0,\n  totaalBtw: 0,\n  totaalBetaalbaar: 0,\n  aantalPass: 0,\n  aantalReview: 0,\n  aantalFatal: 0,\n  leveranciers: new Set(),\n  recenteFacturen: []\n};\n\nfor (const r of rows) {\n  stats.totaalBedrag     += num(r.totaalbedrag);\n  stats.totaalBtw        += num(r.btwbedrag);\n  stats.totaalBetaalbaar += num(r.betaalbaarBedrag);\n\n  const res = String(r.validatieResultaat || '').toUpperCase();\n  if (res === 'PASS')        stats.aantalPass++;\n  else if (res === 'REVIEW') stats.aantalReview++;\n  else if (res === 'FATAL')  stats.aantalFatal++;\n\n  if (r.leveranciernaam) stats.leveranciers.add(r.leveranciernaam);\n}\n\nstats.aantalLeveranciers = stats.leveranciers.size;\ndelete stats.leveranciers;\n\n// Laatste 15 facturen, nieuwste bovenaan (sheet voegt onderaan toe)\nstats.recenteFacturen = rows.slice(-15).reverse().map(r => ({\n  factuurnummer:      r.factuurnummer || '-',\n  leveranciernaam:    r.leveranciernaam || '-',\n  factuurdatum:       r.factuurdatum || '-',\n  totaalbedrag:       num(r.totaalbedrag),\n  validatieResultaat: String(r.validatieResultaat || 'onbekend').toUpperCase()\n}));\n\nreturn [{ json: stats }];\n"
+      },
+      "id": "st-001",
+      "name": "Bereken statistieken",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst s = $input.first().json;\nconst eur = n => '\\u20ac ' + Number(n || 0).toLocaleString('nl-NL', {minimumFractionDigits: 2, maximumFractionDigits: 2});\n\nconst statusKleur = {\n  PASS:   'background:#e1f5ee;color:#0f6e56;',\n  REVIEW: 'background:#faeeda;color:#854f0b;',\n  FATAL:  'background:#fcebeb;color:#a32d2d;'\n};\nconst statusLabel = { PASS: 'Goedgekeurd', REVIEW: 'Review', FATAL: 'Actie nodig' };\n\nconst rijen = s.recenteFacturen.map(f => {\n  const kleur = statusKleur[f.validatieResultaat] || 'background:#f1efe8;color:#5f5e5a;';\n  const label = statusLabel[f.validatieResultaat] || f.validatieResultaat;\n  return `<tr>\n    <td style=\"font-family:monospace\">${f.factuurnummer}</td>\n    <td>${f.leveranciernaam}</td>\n    <td>${f.factuurdatum}</td>\n    <td style=\"text-align:right\">${eur(f.totaalbedrag)}</td>\n    <td><span style=\"${kleur}padding:3px 12px;border-radius:99px;font-size:13px;font-weight:500\">${label}</span></td>\n  </tr>`;\n}).join('');\n\nconst html = `<!DOCTYPE html>\n<html lang=\"nl\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Bajo Bouw - Inkoopfacturatie Dashboard</title>\n<style>\n  * { margin:0; padding:0; box-sizing:border-box; }\n  body { font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif; background:#f5f7fa; color:#1a202c; padding:24px; }\n  .container { max-width:1200px; margin:0 auto; }\n  h1 { font-size:28px; font-weight:600; margin-bottom:4px; }\n  .subtitle { color:#718096; margin-bottom:24px; }\n  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:24px; }\n  .card { background:white; border-radius:12px; padding:20px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }\n  .label { color:#718096; font-size:13px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }\n  .value { font-size:26px; font-weight:700; }\n  .value.green { color:#0f6e56; } .value.amber { color:#854f0b; } .value.red { color:#a32d2d; }\n  .table-card { background:white; border-radius:12px; padding:24px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }\n  .table-title { font-size:18px; font-weight:600; margin-bottom:16px; }\n  table { width:100%; border-collapse:collapse; }\n  th { text-align:left; color:#718096; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; padding:10px 8px; border-bottom:2px solid #e2e8f0; }\n  td { padding:12px 8px; border-bottom:1px solid #edf2f7; }\n  tr:hover td { background:#f9fafb; }\n  .footer { text-align:center; color:#a0aec0; font-size:13px; margin-top:24px; }\n</style></head>\n<body><div class=\"container\">\n  <h1>Inkoopfacturatie dashboard</h1>\n  <p class=\"subtitle\">Bajo Bouw &middot; live overzicht van verwerkte facturen</p>\n  <div class=\"grid\">\n    <div class=\"card\"><div class=\"label\">Totaal facturen</div><div class=\"value\">${s.aantalFacturen}</div></div>\n    <div class=\"card\"><div class=\"label\">Goedgekeurd</div><div class=\"value green\">${s.aantalPass}</div></div>\n    <div class=\"card\"><div class=\"label\">Review</div><div class=\"value amber\">${s.aantalReview}</div></div>\n    <div class=\"card\"><div class=\"label\">Actie nodig</div><div class=\"value red\">${s.aantalFatal}</div></div>\n    <div class=\"card\"><div class=\"label\">Unieke leveranciers</div><div class=\"value\">${s.aantalLeveranciers}</div></div>\n    <div class=\"card\"><div class=\"label\">Totaal incl. BTW</div><div class=\"value\">${eur(s.totaalBedrag)}</div></div>\n    <div class=\"card\"><div class=\"label\">Totaal BTW</div><div class=\"value\">${eur(s.totaalBtw)}</div></div>\n    <div class=\"card\"><div class=\"label\">Te betalen</div><div class=\"value\">${eur(s.totaalBetaalbaar)}</div></div>\n  </div>\n  <div class=\"table-card\">\n    <h2 class=\"table-title\">Recente facturen (laatste 15)</h2>\n    <table>\n      <thead><tr><th>Factuurnr.</th><th>Leverancier</th><th>Datum</th><th style=\"text-align:right\">Bedrag</th><th>Status</th></tr></thead>\n      <tbody>${rijen}</tbody>\n    </table>\n  </div>\n  <p class=\"footer\">Automatisch gegenereerd op ${new Date().toLocaleString('nl-NL', {timeZone:'Europe/Amsterdam'})}</p>\n</div></body></html>`;\n\nreturn [{ json: { html } }];\n"
+      },
+      "id": "ht-001",
+      "name": "Bouw dashboard HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "rs-001",
+      "name": "Toon dashboard",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Dashboard opvragen": {
+      "main": [
+        [
+          {
+            "node": "Haal facturen op",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Haal facturen op": {
+      "main": [
+        [
+          {
+            "node": "Bereken statistieken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bereken statistieken": {
+      "main": [
+        [
+          {
+            "node": "Bouw dashboard HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bouw dashboard HTML": {
+      "main": [
+        [
+          {
+            "node": "Toon dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
