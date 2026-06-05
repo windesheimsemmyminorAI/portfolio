@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wolfje &amp; Bella · Control Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EEDF; --paper-2:#EFE4CE; --ink:#2A2117; --ink-soft:#6A5B45;
+    --amber:#DC8A3A; --amber-deep:#B9692180; --sage:#5E7E5A; --berry:#C0492F;
+    --line:#D8C7A6; --card:#FBF6EC; --good:#5E7E5A; --warn:#C0492F;
+    --shadow:0 1px 0 #fff8 inset, 0 8px 24px -12px #6a5b4555, 0 2px 6px -2px #6a5b4533;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Hanken Grotesk',system-ui,sans-serif;
+    color:var(--ink);background:var(--paper);
+    background-image:
+      radial-gradient(1200px 600px at 100% -10%, #f3c98a3d, transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, #6b8a6b2e, transparent 55%);
+    min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  /* subtle grain */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
+  .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:28px 22px 60px}
+
+  /* header */
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .mark{width:50px;height:50px;border-radius:16px;background:linear-gradient(150deg,var(--amber),var(--berry));
+    display:grid;place-items:center;color:#fff;font-size:26px;box-shadow:var(--shadow);transform:rotate(-4deg)}
+  .brand h1{font-family:'Fraunces',serif;font-weight:600;font-size:25px;letter-spacing:-.01em;line-height:1.05}
+  .brand .sub{font-size:12.5px;color:var(--ink-soft);font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  .daychip{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:600;font-size:13px;box-shadow:var(--shadow)}
+  .chip b{color:var(--berry)}
+
+  /* pacing hero */
+  .hero{background:linear-gradient(135deg,#2a2117,#3a2e1f);color:#f6eedf;border-radius:22px;padding:22px 24px;margin-bottom:22px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-40px;top:-40px;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,#dc8a3a55,transparent 70%)}
+  .hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;position:relative}
+  .hero h2{font-family:'Fraunces',serif;font-weight:500;font-size:15px;letter-spacing:.04em;opacity:.85;text-transform:uppercase}
+  .bignum{font-family:'Fraunces',serif;font-size:46px;font-weight:600;line-height:1;margin-top:4px}
+  .bignum span{font-size:18px;opacity:.6;font-weight:500}
+  .pace-meta{text-align:right;font-size:13px;opacity:.9}
+  .pace-meta .status{display:inline-block;margin-top:6px;background:#c0492f;color:#fff;font-weight:700;padding:4px 12px;border-radius:999px;font-size:12px}
+  .bar{height:14px;background:#ffffff1f;border-radius:999px;margin-top:18px;position:relative;overflow:hidden}
+  .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--amber),#f3c98a);width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+  .bar .target{position:absolute;top:-5px;bottom:-5px;width:2px;background:#f6eedfcc}
+  .bar .target b{position:absolute;top:-19px;left:-16px;font-size:10px;opacity:.8;white-space:nowrap}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:1.55fr 1fr;gap:20px;align-items:start}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .card .head{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line)}
+  .card .head h3{font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .card .body{padding:18px 20px}
+  .pill{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  .pill.pending{background:#dc8a3a22;color:#a4631c;border:1px solid #dc8a3a55}
+  .pill.ok{background:#5e7e5a22;color:#3f5b3b;border:1px solid #5e7e5a55}
+
+  /* tabs */
+  .tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .tab{font-weight:600;font-size:13px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;color:var(--ink-soft);transition:.2s}
+  .tab:hover{background:var(--paper-2)}
+  .tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .pane{display:none;animation:fade .35s ease}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* strip preview */
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .panel{aspect-ratio:3/4;border-radius:14px;border:1px solid var(--line);background:
+    linear-gradient(135deg,#f3c98a55,#fbf6ec);display:flex;flex-direction:column;justify-content:flex-end;padding:10px;position:relative;overflow:hidden}
+  .panel .pg{position:absolute;top:8px;left:10px;font-family:'Fraunces',serif;font-weight:700;font-size:13px;color:#a4631c}
+  .panel .emoji{position:absolute;top:36%;left:0;right:0;text-align:center;font-size:34px;filter:drop-shadow(0 4px 6px #6a5b4533)}
+  .panel .bub{background:#fff;border:1.5px solid var(--ink);border-radius:12px;padding:6px 8px;font-size:11px;font-weight:600;line-height:1.25;box-shadow:0 3px 0 #2a211722}
+  .meta-line{margin-top:14px;font-size:13px;color:var(--ink-soft)}
+  .meta-line b{color:var(--ink)}
+
+  /* video */
+  .video{aspect-ratio:9/16;max-width:230px;margin:0 auto;border-radius:16px;background:linear-gradient(160deg,#2a2117,#4a3a26);
+    position:relative;display:grid;place-items:center;color:#f6eedf;box-shadow:var(--shadow);overflow:hidden}
+  .video .play{width:56px;height:56px;border-radius:50%;background:#f6eedf;display:grid;place-items:center;color:#2a2117;font-size:22px;cursor:pointer;transition:.2s}
+  .video .play:hover{transform:scale(1.08)}
+  .video .len{position:absolute;bottom:10px;right:10px;background:#0006;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700}
+  .video .tag{position:absolute;top:10px;left:10px;background:#dc8a3a;color:#2a2117;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700}
+  .scenes{margin-top:14px;font-size:13px;color:var(--ink-soft)}
+  .scenes div{padding:5px 0;border-bottom:1px dashed var(--line)}
+  .scenes b{color:var(--ink)}
+
+  /* optimization */
+  .plat{border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:10px;background:var(--paper)}
+  .plat .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .plat .name{font-weight:700;display:flex;align-items:center;gap:8px}
+  .dot{width:9px;height:9px;border-radius:50%}
+  .plat .title{font-size:14px;font-weight:600;margin:2px 0 4px}
+  .plat .tags{font-size:12px;color:var(--sage);font-weight:600}
+  .plat .time{font-size:12px;color:var(--ink-soft)}
+
+  /* reflection */
+  .reflect{background:linear-gradient(135deg,#5e7e5a14,#dc8a3a10);border:1px solid var(--line);border-left:4px solid var(--sage);
+    border-radius:12px;padding:14px 16px;margin-top:16px}
+  .reflect h4{font-family:'Fraunces',serif;font-size:14px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .reflect ol{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink)}
+  .reflect li{margin:5px 0}
+
+  /* tokens */
+  .tok{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .tok div{flex:1;min-width:120px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .tok .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);font-weight:700}
+  .tok .v{font-family:'Fraunces',serif;font-size:20px;font-weight:600}
+
+  /* actions */
+  .actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .btn{font-family:'Hanken Grotesk';font-weight:700;font-size:14px;padding:13px 20px;border-radius:13px;border:none;cursor:pointer;transition:.18s;flex:1;min-width:150px}
+  .btn:active{transform:translateY(1px)}
+  .btn.approve{background:var(--sage);color:#fff;box-shadow:0 6px 16px -8px #5e7e5a}
+  .btn.approve:hover{filter:brightness(1.06)}
+  .btn.reject{background:transparent;color:var(--berry);border:1.5px solid var(--berry)}
+  .btn.reject:hover{background:#c0492f12}
+  .note{font-size:12px;color:var(--ink-soft);margin-top:10px;text-align:center}
+
+  /* approved state */
+  .approved-box{display:none;margin-top:16px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .approved-box .b1{background:#5e7e5a18;padding:12px 16px;font-weight:700;color:#3f5b3b;display:flex;align-items:center;gap:8px;font-size:14px}
+  .uplist{padding:12px 16px}
+  .uprow{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .uprow:last-child{border-bottom:none}
+  .uprow .l{font-weight:600;display:flex;align-items:center;gap:8px;font-size:14px}
+  .uptoggle{font-weight:700;font-size:12px;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;cursor:pointer;transition:.18s}
+  .uptoggle.done{background:var(--sage);color:#fff;border-color:var(--sage)}
+
+  /* right column */
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .stat{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700}
+  .stat .v{font-family:'Fraunces',serif;font-size:24px;font-weight:600;line-height:1.1;margin-top:3px}
+  .stat .d{font-size:12px;font-weight:700;margin-top:2px}
+  .up{color:var(--sage)} .down{color:var(--berry)}
+  .chartwrap{margin-top:6px}
+  .legend{display:flex;gap:14px;font-size:12px;color:var(--ink-soft);margin-top:8px;flex-wrap:wrap}
+  .legend span{display:flex;align-items:center;gap:6px;font-weight:600}
+  .alert{display:flex;gap:12px;padding:13px 15px;border-radius:14px;background:#dc8a3a18;border:1px solid #dc8a3a55;font-size:13px;align-items:flex-start}
+  .alert.green{background:#5e7e5a14;border-color:#5e7e5a55}
+  .alert .ic{font-size:18px}
+  .alert b{display:block;margin-bottom:2px}
+  .toggle-demo{margin-top:10px;font-size:12px;color:var(--ink-soft);cursor:pointer;text-decoration:underline;font-weight:600;background:none;border:none;padding:0}
+  footer{margin-top:34px;text-align:center;font-size:12px;color:var(--ink-soft)}
+  .barchart{display:flex;align-items:flex-end;gap:14px;height:120px;padding-top:8px}
+  .barchart .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end}
+  .barchart .bk{width:100%;border-radius:8px 8px 0 0;transition:height 1s cubic-bezier(.2,.8,.2,1)}
+  .barchart .lab{font-size:11px;font-weight:700;color:var(--ink-soft)}
+  .barchart .val{font-size:11px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="mark">🐺</div>
+      <div>
+        <div class="sub">Control Room</div>
+        <h1>Wolfje &amp; Bella</h1>
+      </div>
+    </div>
+    <div class="daychip">
+      <span class="chip">Seizoen <b>1</b></span>
+      <span class="chip">Dag <b>7</b> / 15</span>
+      <span class="chip" id="today"></span>
+    </div>
+  </header>
+
+  <!-- PACING HERO -->
+  <section class="hero">
+    <div class="row">
+      <div>
+        <h2>Op weg naar 1.000.000 views</h2>
+        <div class="bignum" id="cum">0<span> / 1M</span></div>
+      </div>
+      <div class="pace-meta">
+        <div>Verwacht op dag 7 (lineair): <b>466.900</b></div>
+        <div>Nodig resterende 8 dagen: <b id="need">–</b>/dag</div>
+        <div class="status" id="status">licht achter op schema</div>
+      </div>
+    </div>
+    <div class="bar">
+      <i id="fill"></i>
+      <div class="target" style="left:46.69%"><b>dag-7 doel</b></div>
+    </div>
+  </section>
+
+  <div class="grid">
+
+    <!-- LEFT: APPROVAL -->
+    <section class="card">
+      <div class="head">
+        <h3>Content van vandaag</h3>
+        <span class="pill pending" id="statepill">wacht op goedkeuring</span>
+      </div>
+      <div class="body">
+        <div class="tabs">
+          <button class="tab active" data-pane="strip">📖 Strip · 14 pag.</button>
+          <button class="tab" data-pane="video">🎬 Video · 30s</button>
+          <button class="tab" data-pane="opt">📢 Optimalisatie</button>
+        </div>
+
+        <!-- STRIP -->
+        <div class="pane active" id="strip">
+          <div class="strip">
+            <div class="panel"><span class="pg">p.1</span><span class="emoji">🐺</span><div class="bub">Wolfje sees the garden for the first time!</div></div>
+            <div class="panel"><span class="pg">p.2</span><span class="emoji">🍃</span><div class="bub">Whoooo! What is THAT?</div></div>
+            <div class="panel"><span class="pg">p.3</span><span class="emoji">🐾</span><div class="bub">Carefully, he sniffs…</div></div>
+          </div>
+          <div class="meta-line"><b>Verhaalboog:</b> Wolfje verkent voor het eerst de achtertuin en ontdekt dat een dwarrelend blad geen vijand is. <br><b>Educatief moment:</b> waarom pups alles besnuffelen — verkennen via de neus. <br><b>14 pagina's</b> · geen opvulling · referentiebeeld toegepast voor consistentie.</div>
+        </div>
+
+        <!-- VIDEO -->
+        <div class="pane" id="video">
+          <div class="video">
+            <span class="tag">Hook 0–2s</span>
+            <div class="play" onclick="this.textContent='⏸'">▶</div>
+            <span class="len">30s · 9:16</span>
+          </div>
+          <div class="scenes">
+            <div><b>0–2s</b> · Wolfje: "WHOOOWHOOOWOO" naar een blad (hook)</div>
+            <div><b>2–10s</b> · voorzichtig besluipen, kopje schuin</div>
+            <div><b>10–24s</b> · sprong + klungelige landing (grappige twist)</div>
+            <div><b>24–30s</b> · trotse blik in camera (punchline)</div>
+            <div style="border:none"><b>Audio:</b> speelse whimsical track + zachte comedy-SFX · géén voice-over</div>
+          </div>
+        </div>
+
+        <!-- OPTIMIZATION -->
+        <div class="pane" id="opt">
+          <div class="plat">
+            <div class="top"><span class="name"><span class="dot" style="background:#111"></span>TikTok</span><span class="time">⏰ 19:30</span></div>
+            <div class="title">"Wolfje's VERY FIRST time in the garden 🐺🍃"</div>
+            <div class="tags">#WolfjeAdventures #PuppyFirst #DogTok</div>
+          </div>
+          <div class="plat">
+            <div class="top"><span class="name"><span class="dot" style="background:#c13584"></span>Instagram</span><span class="time">⏰ 18:00</span></div>
+            <div class="title">"First time outside: how a puppy explores its world"</div>
+            <div class="tags">+ educational caption · 18 hashtags</div>
+          </div>
+          <div class="plat">
+            <div class="top"><span class="name"><span class="dot" style="background:#c0492f"></span>YouTube Shorts</span><span class="time">⏰ 12:00</span></div>
+            <div class="title">"Puppy discovers the garden for the first time 🐾 | Wolfje #1"</div>
+            <div class="tags">+ timestamps · 24 hashtags</div>
+          </div>
+          <div class="meta-line"><b>Engagement-hook:</b> "What did YOUR pup discover first? 👇" · <b>Teaser:</b> "Tomorrow: Wolfje's first walk!"</div>
+        </div>
+
+        <!-- REFLECTION -->
+        <div class="reflect">
+          <h4>🧠 Zelfreflectie van de agent</h4>
+          <ol>
+            <li>Ik koos het tuin-ontdekkingsmoment omdat het perfect past in de "eerste keren"-boog van seizoen 1.</li>
+            <li>30s op basis van de klungelige sprong-twist die ademruimte nodig heeft; posttijden volgen de sterkste sloten tot nu toe.</li>
+            <li>De "ALLEREERSTE keer"-titel verwacht ik het best, omdat nieuwsgierigheidstitels deze week de meeste comments trokken.</li>
+            <li>T.o.v. gisteren steeg de share-rate; daarom hou ik de geluids-hook ("WHOOOWHOOOWOO") aan het begin vast.</li>
+            <li>Risico: de tuin-setting lijkt op dag 4 — ik monitor of het publiek geen herhaling voelt en wissel anders van decor.</li>
+          </ol>
+        </div>
+
+        <!-- TOKENS -->
+        <div class="tok">
+          <div><div class="k">Claude tokens</div><div class="v">6.240</div></div>
+          <div><div class="k">Gemini / Veo</div><div class="v">1 video</div></div>
+          <div><div class="k">Binnen daglimiet</div><div class="v" style="color:var(--sage)">✓ ja</div></div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="actions">
+          <button class="btn approve" onclick="approve()">✓ Goedkeuren &amp; opslaan</button>
+          <button class="btn reject" onclick="reject()">✕ Afkeuren &amp; opnieuw</button>
+        </div>
+        <div class="note">Niets gaat live zonder jouw toestemming — upload doe je de eerste 14 dagen zelf.</div>
+
+        <!-- AFTER APPROVAL -->
+        <div class="approved-box" id="approvedBox">
+          <div class="b1">✓ Goedgekeurd · klaar voor handmatige upload</div>
+          <div class="uplist">
+            <div class="uprow"><span class="l"><span class="dot" style="background:#111"></span>TikTok · 19:30</span><button class="uptoggle" onclick="mark(this)">markeer geüpload</button></div>
+            <div class="uprow"><span class="l"><span class="dot" style="background:#c13584"></span>Instagram · 18:00</span><button class="uptoggle" onclick="mark(this)">markeer geüpload</button></div>
+            <div class="uprow"><span class="l"><span class="dot" style="background:#c0492f"></span>YouTube · 12:00</span><button class="uptoggle" onclick="mark(this)">markeer geüpload</button></div>
+          </div>
+        </div>
+
+        <!-- REJECT PANEL -->
+        <div class="approved-box" id="rejectBox" style="border-color:var(--berry)">
+          <div class="b1" style="background:#c0492f14;color:var(--berry)">✕ Afgekeurd — wat opnieuw genereren?</div>
+          <div class="uplist">
+            <div class="uprow"><span class="l">Alleen de strip</span><button class="uptoggle" onclick="this.textContent='↻ in wachtrij';this.classList.add('done')">opnieuw</button></div>
+            <div class="uprow"><span class="l">Alleen de video</span><button class="uptoggle" onclick="this.textContent='↻ in wachtrij';this.classList.add('done')">opnieuw</button></div>
+            <div class="uprow"><span class="l">Titels &amp; captions</span><button class="uptoggle" onclick="this.textContent='↻ in wachtrij';this.classList.add('done')">opnieuw</button></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RIGHT: METRICS -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+
+      <section class="card">
+        <div class="head"><h3>Gisteren · dag 6</h3><span class="pill ok">live</span></div>
+        <div class="body">
+          <div class="stat-grid">
+            <div class="stat"><div class="k">Views totaal</div><div class="v">71.400</div><div class="d up">▲ 12% t.o.v. dag 5</div></div>
+            <div class="stat"><div class="k">Kijktijd (gem.)</div><div class="v">68%</div><div class="d up">▲ 5%</div></div>
+            <div class="stat"><div class="k">Shares</div><div class="v">2.180</div><div class="d up">▲ 24%</div></div>
+            <div class="stat"><div class="k">Nieuwe volgers</div><div class="v">1.340</div><div class="d down">▼ 3%</div></div>
+          </div>
+          <div class="chartwrap">
+            <div class="barchart" id="barchart"></div>
+            <div class="legend">
+              <span><span class="dot" style="background:#111"></span>TikTok 41k</span>
+              <span><span class="dot" style="background:#c13584"></span>Instagram 18k</span>
+              <span><span class="dot" style="background:#c0492f"></span>YouTube 12k</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="head"><h3>Cumulatieve views</h3></div>
+        <div class="body">
+          <svg id="line" viewBox="0 0 320 150" width="100%" height="150" style="overflow:visible"></svg>
+          <div class="legend"><span><span class="dot" style="background:var(--amber)"></span>werkelijk</span><span><span class="dot" style="background:var(--ink-soft)"></span>lineair doel</span></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="head"><h3>Signalen</h3></div>
+        <div class="body" style="display:flex;flex-direction:column;gap:10px">
+          <div class="alert green">
+            <span class="ic">✓</span>
+            <div><b>Quality gate gehaald</b>Strip heeft 14 pagina's (≥ 8). Geen extra materiaal nodig.</div>
+          </div>
+          <div class="alert">
+            <span class="ic">📈</span>
+            <div><b>Trend</b>Bonding-momenten met Bella halen tot nu toe de meeste shares — overweeg meer in seizoen 2.</div>
+          </div>
+          <button class="toggle-demo" onclick="toggleGate()">↺ voorbeeld: hoe ziet de "te weinig pagina's"-melding eruit?</button>
+          <div class="alert" id="gateDemo" style="display:none;background:#c0492f14;border-color:#c0492f55">
+            <span class="ic">⚠</span>
+            <div><b>Strip te kort (5 pagina's)</b>Stuur meer foto's/video's van Wolfje zodat de agent genoeg verhaal heeft.</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer>Wolfje &amp; Bella Media Agentic · Phase 4 — Approval Dashboard · voorbeelddata (dag 7)</footer>
+</div>
+
+<script>
+  // ---- mock state ----
+  const CUM = 412000, TARGET = 1000000, DAY = 7, DAYS = 15;
+  const linearDay7 = Math.round(TARGET / DAYS * DAY); // 466.667 ~ 466.900 afgerond getoond
+  const need = Math.round((TARGET - CUM) / (DAYS - DAY));
+
+  // date
+  document.getElementById('today').textContent =
+    new Date().toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'});
+
+  // pacing animation
+  const cumEl=document.getElementById('cum');
+  let n=0; const step=CUM/60;
+  const iv=setInterval(()=>{n+=step; if(n>=CUM){n=CUM;clearInterval(iv);}
+    cumEl.innerHTML = Math.round(n).toLocaleString('nl-NL')+'<span> / 1M</span>';},16);
+  document.getElementById('need').textContent = need.toLocaleString('nl-NL');
+  setTimeout(()=>{document.getElementById('fill').style.width=(CUM/TARGET*100)+'%';},250);
+
+  // tabs
+  document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.pane').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.pane).classList.add('active');
+  });
+
+  // approve / reject
+  function approve(){
+    document.getElementById('approvedBox').style.display='block';
+    document.getElementById('rejectBox').style.display='none';
+    const p=document.getElementById('statepill');
+    p.textContent='goedgekeurd'; p.className='pill ok';
+    document.getElementById('approvedBox').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function reject(){
+    document.getElementById('rejectBox').style.display='block';
+    document.getElementById('approvedBox').style.display='none';
+    const p=document.getElementById('statepill');
+    p.textContent='afgekeurd'; p.className='pill pending';
+    document.getElementById('rejectBox').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function mark(b){
+    if(b.classList.contains('done')){b.classList.remove('done');b.textContent='markeer geüpload';}
+    else{b.classList.add('done');b.textContent='✓ geüpload';}
+  }
+  function toggleGate(){
+    const g=document.getElementById('gateDemo');
+    g.style.display = g.style.display==='none' ? 'flex' : 'none';
+  }
+
+  // bar chart (yesterday platform split)
+  const bars=[{l:'TikTok',v:41,c:'#111'},{l:'Instagram',v:18,c:'#c13584'},{l:'YouTube',v:12,c:'#c0492f'}];
+  const max=Math.max(...bars.map(b=>b.v));
+  const bc=document.getElementById('barchart');
+  bars.forEach(b=>{
+    const col=document.createElement('div');col.className='col';
+    col.innerHTML=`<span class="val" style="color:${b.c}">${b.v}k</span>
+      <div class="bk" style="background:linear-gradient(180deg,${b.c},${b.c}cc);height:0"></div>
+      <span class="lab">${b.l}</span>`;
+    bc.appendChild(col);
+    setTimeout(()=>{col.querySelector('.bk').style.height=(b.v/max*90)+'px';},300);
+  });
+
+  // line chart (cumulative actual vs linear target)
+  const actual=[42000,96000,150000,228000,300000,340600,412000]; // day1..7
+  const svg=document.getElementById('line');
+  const W=320,H=150,pad=6, maxY=TARGET/15*8; // headroom
+  const x=i=>pad+i*( (W-2*pad)/(DAYS-1) );
+  const y=v=>H-pad-(v/maxY)*(H-2*pad);
+  // target line (linear to 1M over 15 days)
+  let tgt=`M ${x(0)} ${y(TARGET/15)} L ${x(DAYS-1)} ${y(TARGET)}`;
+  // actual path
+  let path=`M ${x(0)} ${y(actual[0])}`;
+  actual.forEach((v,i)=>{ if(i>0) path+=` L ${x(i)} ${y(v)}`; });
+  // area under actual
+  let area=path+` L ${x(actual.length-1)} ${H-pad} L ${x(0)} ${H-pad} Z`;
+  svg.innerHTML=`
+    <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DC8A3A66"/><stop offset="1" stop-color="#DC8A3A00"/></linearGradient></defs>
+    <path d="${tgt}" fill="none" stroke="#6A5B45" stroke-width="1.5" stroke-dasharray="4 4" opacity=".7"/>
+    <path d="${area}" fill="url(#ag)"/>
+    <path d="${path}" fill="none" stroke="#DC8A3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${actual.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="#DC8A3A"/>`).join('')}
+    <circle cx="${x(actual.length-1)}" cy="${y(actual[actual.length-1])}" r="5" fill="#C0492F"/>
+  `;
+</script>
+</body>
+</html>
