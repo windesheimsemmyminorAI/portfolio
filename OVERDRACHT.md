@@ -2,7 +2,7 @@
 
 Dit document helpt iemand die het project overneemt snel op weg. Automatisch gegenereerd uit de huidige projectstaat.
 
-Laatst bijgewerkt: 2026-06-05
+Laatst bijgewerkt: 2026-06-06
 
 ## Hoe draai je het project?
 
@@ -53,9 +53,15 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/approved-content/README.md`
 - `wolfje-media-agentic/approved-content/season-1/.gitkeep`
 - `wolfje-media-agentic/approved-content/season-2/.gitkeep`
+- `wolfje-media-agentic/approved-content/season-3/.gitkeep`
 - `wolfje-media-agentic/phase-0-spec/project_specification.md`
+- `wolfje-media-agentic/phase-0-spec/reference-and-modelsheet-prompts.md`
+- `wolfje-media-agentic/phase-0-spec/style-exploration-prompts.md`
+- `wolfje-media-agentic/phase-0-spec/style-prompts-v2-met-fotos.md`
 - `wolfje-media-agentic/phase-1-prompts/wolfje_media_agentic_phase1_prompts_v2.md`
 - `wolfje-media-agentic/phase-2-workflow/wolfje_media_agentic_phase2_workflow_v2.md`
 - `wolfje-media-agentic/phase-3-learning/wolfje_media_agentic_phase3_learning.md`
 - `wolfje-media-agentic/phase-4-dashboard/wolfje_bella_dashboard.html`
 - `wolfje-media-agentic/phase-5-metrics/wolfje_media_agentic_phase5_metrics.md`
+- `wolfje-media-agentic/reference-material/README.md`
+- `wolfje-media-agentic/reference-material/style-reference/niece_style_reference.jpeg`
