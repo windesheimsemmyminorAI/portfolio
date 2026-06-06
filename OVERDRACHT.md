@@ -90,6 +90,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/Gemini_Generated_Image_jihli4jihli4jihl.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/Gemini_Generated_Image_pkev1vpkev1vpkev.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/Gemini_Generated_Image_zct55azct55azct5.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/HANDOFF-naar-nieuwe-chat.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/PROGRESS-LOG.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/README.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/README__3_.md`
@@ -113,6 +114,11 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-gezicht-bijgesneden.jpg`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-hero-bijgesneden.jpg`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-vacht-bijgesneden.jpg`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-04-driekwart-achter_KANDIDAAT.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-02-driekwart-front.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-03-zij.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-04-driekwart-achter.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-05-achter.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/single_A_3d.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/single_B_vector.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/single_C_storybook.png`
