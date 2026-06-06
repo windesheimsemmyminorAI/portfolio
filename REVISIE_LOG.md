@@ -6,6 +6,9 @@ Laatst bijgewerkt: 2026-06-06
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-06 | `dc91993` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
+| 2026-06-06 | `f01639c` | Phase 0: karakterreferentie (3 fases), stijlkeuze cel-shaded + iteratie-structuur |
+| 2026-06-06 | `78d455c` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-06 | `7ee2599` | de prompts zijn gevinetuned |
 | 2026-06-05 | `90e0be4` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-05 | `f307467` | Wolfje en bella |
