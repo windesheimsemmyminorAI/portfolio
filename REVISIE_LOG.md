@@ -6,6 +6,8 @@ Laatst bijgewerkt: 2026-06-06
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-06 | `ef1df25` | gemini prompting |
+| 2026-06-06 | `24d5161` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-06 | `dc91993` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-06 | `f01639c` | Phase 0: karakterreferentie (3 fases), stijlkeuze cel-shaded + iteratie-structuur |
 | 2026-06-06 | `78d455c` | Docs automatisch bijgewerkt [skip ci] |
