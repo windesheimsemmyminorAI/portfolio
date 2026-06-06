@@ -98,6 +98,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/character-generation-prompts.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/download__1_`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/download__2_`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/model-sheets/wolfje-jongvolwassen-turnaround-prompts.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/niece_style_reference.jpeg`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/output_v2_celshaded_jongvolwassen.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/project_specification.md`
