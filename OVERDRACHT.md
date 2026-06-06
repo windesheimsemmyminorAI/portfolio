@@ -82,6 +82,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/A3_storybook_sit.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/A4_celshaded_a.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/A4_celshaded_b_CHOSENdirection.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/CANON-selectie-log.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/CANON-wolfje-jongvolwassen.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/CHANGELOG.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/Gemini_Generated_Image_75x9mw75x9mw75x9.png`
@@ -117,6 +118,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/single_D_celshaded.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/style-prompts-v2-met-fotos.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/style-results-log.md`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/wolfje-jongvolwassen-CANON.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/wolfje-jongvolwassen-analyse-en-4-prompts.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/wolfje-jongvolwassen-prompt-v3.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/wolfje_bella_dashboard.html`
