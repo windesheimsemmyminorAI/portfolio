@@ -6,6 +6,10 @@ Laatst bijgewerkt: 2026-06-06
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-06 | `198edfa` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
+| 2026-06-06 | `c37fcea` | Turnaround jongvolwassen Wolfje: cellen 03/04/05 vastgelegd + handoff voor nieuwe chat |
+| 2026-06-06 | `59304f4` | bijgewerkte prompt voor achter animatie + toevoegingen 3/4 front animatie |
+| 2026-06-06 | `428ee94` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-06 | `3cdda89` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-06 | `b4c996b` | gestructureerde prompts alle hoeken |
 | 2026-06-06 | `8f56071` | Docs automatisch bijgewerkt [skip ci] |
