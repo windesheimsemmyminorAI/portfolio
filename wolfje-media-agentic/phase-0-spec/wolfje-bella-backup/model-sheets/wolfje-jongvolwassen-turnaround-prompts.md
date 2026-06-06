@@ -18,7 +18,7 @@ Pose: standing in a relaxed neutral four-legged stance, body turned about 45 deg
 ## STAP 2 — Achter (rear)
 ```
 Using the attached image of Wolfje as the exact character reference, draw the SAME dog — identical markings, warm cream / ivory colour with a faint apricot wash ONLY on the BACK surfaces of the ears, fine silky wispy 4–5 cm coat that drapes downward (not a puffball), a full soft ruff at the neck with a clearly slender body below it, large erect feathered ears, short fine fox-like muzzle, small dark nose, natural-sized dark almond eyes, full long plumed tail, in the exact same clean 2D cel-shaded warm family-friendly style. IMPORTANT colour lock: keep him warm cream / ivory exactly like the reference — do NOT drift toward cool stark white or pale grey; the inner ears are NOT bright pink and he is NOT a Papillon. He must stay perfectly on-model — ONLY the camera angle and a relaxed standing pose change. Calm, neutral, friendly closed-mouth expression. Plain off-white background, even flat lighting, minimal shadow. Full body and all four legs visible, centered at full length, same scale. No text, no labels, no watermark. Aspect ratio 1:1.
-Pose: standing in a relaxed neutral four-legged stance, seen straight from BEHIND (rear view). Show the back, hindquarters and rear, the plumed tail, and the backs of both erect ears where the faint apricot is visible.
+Pose: standing in a relaxed, SYMMETRICAL neutral four-legged stance, seen straight from BEHIND (rear view), perfectly head-on from the back. Show the back, hindquarters and rear, and the backs of both erect ears where the faint apricot is visible. The full plumed tail is curled UP and fans out over the back, clearly rising above the rump and visible from behind — NOT hanging straight down.
 ```
 
 ## STAP 3 — Zijaanzicht (profiel)
@@ -58,3 +58,14 @@ Pose: standing in a relaxed, SYMMETRICAL four-legged stance, seen STRAIGHT from 
 Expressie-sheet en actie-pose-sheet (zelfde aanpak: image-to-image vanaf canon) → dan pup en eerste periode afleiden.
 
 > **Noodgreep bij drift:** wijkt een hoek af in kleur of vacht, voeg toe: *"match the colour and coat exactly to the attached reference; do not make him whiter, fluffier or more orange."*
+
+---
+
+## Status cellen (turnaround jongvolwassen)
+- [ ] 01 — Front (laatste; mét goedgekeurde hoeken als extra referentie)
+- [x] 02 — 3/4 front → `reference-material/character-sheets/wolfje-jv-turn-02-driekwart-front.png` (Render 4, kop rechts)
+- [ ] 03 — Zijaanzicht (houd kop naar rechts voor consistentie met cel 02)
+- [~] 04 — 3/4 achter → KANDIDAAT vastgehouden: `reference-material/character-sheets/candidates/wolfje-jv-turn-04-driekwart-achter_KANDIDAAT.png` (Render 4 uit de achter-ronde)
+- [ ] 05 — Achter (prompt bijgewerkt met staart-over-rug fix; opnieuw te draaien)
+
+**Leerpunt (6 juni):** oriëntatie (kop links/rechts) is GEEN kwaliteits- of gelijkeniscriterium — een render is verliesvrij te spiegelen. Alleen aanhouden voor onderlinge consistentie. Render 1 viel af op kop-/oorvorm (te grote, spitse oren + hoekige snuit → Papillon-drift), niet op kleur.

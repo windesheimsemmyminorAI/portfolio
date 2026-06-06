@@ -4,6 +4,35 @@
 
 ---
 
+## [2026-06-06] Sessie F — Turnaround: 3/4-cel vastgelegd
+
+### Samenvatting
+Eerste turnaround-cel vastgelegd. Van 5 renders (3/4 front) is **Render 4** gekozen.
+
+### Aanpassingen
+- **Vastgelegd:** `reference-material/character-sheets/wolfje-jv-turn-02-driekwart-front.png` (Render 4) — zacht rond Wolfje-gezicht, proportionele oren, slank lijf + vollere nek, volle over-de-rug staart, schone contour.
+- **Leerpunt:** oriëntatie (kop links/rechts) is GEEN kwaliteitscriterium — verliesvrij te spiegelen; alleen aanhouden voor onderlinge consistentie. Render 1 viel af op kop-/oorvorm (Papillon-drift), niet op kleur.
+
+### Volgende stap
+Stap 2 (achter) genereren → daarna zij + 3/4 achter → front als laatste.
+
+---
+
+## [2026-06-06] Sessie E — Turnaround model-sheet prompts
+
+### Samenvatting
+Eerste model sheet gestart: turnaround-prompts om jongvolwassen Wolfje vanuit 5 hoeken af te leiden van het canon-beeld.
+
+### Toegevoegd (nieuwe bestanden)
+| Bestand | Inhoud |
+|---|---|
+| `model-sheets/wolfje-jongvolwassen-turnaround-prompts.md` | Consistentie-preamble + 5 hoek-prompts (front, 3/4 front, zij, 3/4 achter, achter), image-to-image vanaf `wolfje-jongvolwassen-CANON.png`, in neutrale staande pose. Incl. naamgeving + QC-instructie. |
+
+### Volgende stap
+Turnaround-cellen genereren en QC'en → daarna expressie-sheet en actie-pose-sheet → dan pup + eerste periode.
+
+---
+
 ## [2026-06-06] Sessie D — Canon-referentiebeeld vastgelegd
 
 ### Samenvatting
