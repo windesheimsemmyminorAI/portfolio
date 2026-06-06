@@ -3,7 +3,7 @@
 **Version:** 1.0
 **Date:** 5 June 2026
 **Bouwt voort op:** Phase 1 (prompts) + Phase 2 (workflow) + Phase 5 (automatische metrics)
-**Doel:** samen 1.000.000 views over TikTok + Instagram + YouTube binnen 15 dagen
+**Doel:** samen 1.000.000 views over TikTok + Instagram + YouTube binnen 21 dagen (3 seizoenen van 7 dagen)
 
 > **📌 Vastgelegde keuzes (zie `phase-0-spec/project_specification.md`):** **elke view telt** (geen unieke gebruikers vereist) · publieksgerichte output in het **Engels** · de metrics die deze loop voeden komen uit de **automatische pijplijn van Phase 5** (geen handmatige invoer).
 
@@ -155,17 +155,17 @@ Aanvullend op metrics/A-B/feedback laat de agent zichzelf groeien via:
 
 ## 9. PACING NAAR 1M VIEWS
 
-15 dagen, samen 1M views = gemiddeld **~66.700 views/dag** over drie platforms. Maar groei is zelden lineair — verwacht een langzame start en (hopelijk) versnelling.
+21 dagen, samen 1M views = gemiddeld **~47.600 views/dag** over drie platforms. Maar groei is zelden lineair — verwacht een langzame start en (hopelijk) versnelling.
 
 **Eenvoudige pacing-check die de agent dagelijks meldt:**
 ```
 Cumulatief tot nu toe: {som_views}
-Verwacht op dit punt (lineair): {dag × 66.700}
+Verwacht op dit punt (lineair): {dag × 47.600}
 Status: {voor / op schema / achter}
 Benodigd gemiddelde resterende dagen: {(1.000.000 − som) ÷ resterende_dagen}
 ```
 
-> Dit is een **kompas, geen garantie.** 1M in 15 dagen vanaf nul is ambitieus; het hangt sterk af van of één video doorbreekt. De agent rapporteert eerlijk of het doel realistisch in zicht is, en zegt het ook als het dat niet is.
+> Dit is een **kompas, geen garantie.** 1M in 21 dagen vanaf nul is ambitieus; het hangt sterk af van of één video doorbreekt. De agent rapporteert eerlijk of het doel realistisch in zicht is, en zegt het ook als het dat niet is.
 
 ---
 
@@ -206,8 +206,8 @@ De analyse-call joint `daily_metrics` × `content_tags` om de patronen uit §5 t
 
 ## 11. WEKELIJKSE / SEIZOENS-EVALUATIE
 
-- **Eind seizoen 1 (dag 7):** wat scoorde het best (type/tijd/lengte/titel)? Welke educatieve onderwerpen vielen aan? → input voor de planning van seizoen 2.
-- **Eind dag 15:** is het 1M-doel gehaald of in zicht? Is er publieksvraag naar seizoen 3 (comments, follows, shares-trend)? → go/no-go-advies van de agent, met onderbouwing.
+- **Eind elk seizoen (dag 7 / 14 / 21):** wat scoorde het best (type/tijd/lengte/titel)? Welke educatieve onderwerpen vielen aan? → input voor de planning van het volgende seizoen.
+- **Eind dag 21:** is het 1M-doel gehaald of in zicht? Is er publieksvraag naar een vervolg (comments, follows, shares-trend)? → go/no-go-advies van de agent, met onderbouwing.
 
 ---
 

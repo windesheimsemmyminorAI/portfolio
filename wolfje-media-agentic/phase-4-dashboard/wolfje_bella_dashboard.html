@@ -173,8 +173,8 @@
       </div>
     </div>
     <div class="daychip">
-      <span class="chip">Seizoen <b>1</b></span>
-      <span class="chip">Dag <b>7</b> / 15</span>
+      <span class="chip">Seizoen <b>1</b> · eerste periode</span>
+      <span class="chip">Dag <b>7</b> / 21</span>
       <span class="chip" id="today"></span>
     </div>
   </header>
@@ -187,14 +187,14 @@
         <div class="bignum" id="cum">0<span> / 1M</span></div>
       </div>
       <div class="pace-meta">
-        <div>Verwacht op dag 7 (lineair): <b>466.900</b></div>
-        <div>Nodig resterende 8 dagen: <b id="need">–</b>/dag</div>
+        <div>Verwacht op dag 7 (lineair): <b>333.333</b></div>
+        <div>Nodig resterende 14 dagen: <b id="need">–</b>/dag</div>
         <div class="status" id="status">licht achter op schema</div>
       </div>
     </div>
     <div class="bar">
       <i id="fill"></i>
-      <div class="target" style="left:46.69%"><b>dag-7 doel</b></div>
+      <div class="target" style="left:33.33%"><b>dag-7 doel</b></div>
     </div>
   </section>
 
@@ -348,7 +348,7 @@
           </div>
           <div class="alert">
             <span class="ic">📈</span>
-            <div><b>Trend</b>Bonding-momenten met Bella halen tot nu toe de meeste shares — overweeg meer in seizoen 2.</div>
+            <div><b>Trend</b>De "WHOOOWHOOOWOO"-geluidshook in de eerste 2s haalt tot nu toe de meeste shares — vasthouden in seizoen 1.</div>
           </div>
           <button class="toggle-demo" onclick="toggleGate()">↺ voorbeeld: hoe ziet de "te weinig pagina's"-melding eruit?</button>
           <div class="alert" id="gateDemo" style="display:none;background:#c0492f14;border-color:#c0492f55">
@@ -366,9 +366,9 @@
 
 <script>
   // ---- mock state ----
-  const CUM = 412000, TARGET = 1000000, DAY = 7, DAYS = 15;
-  const linearDay7 = Math.round(TARGET / DAYS * DAY); // 466.667 ~ 466.900 afgerond getoond
-  const need = Math.round((TARGET - CUM) / (DAYS - DAY));
+  const CUM = 300000, TARGET = 1000000, DAY = 7, DAYS = 21;
+  const linearDay7 = Math.round(TARGET / DAYS * DAY); // ~333.333
+  const need = Math.round((TARGET - CUM) / (DAYS - DAY)); // ~50.000
 
   // date
   document.getElementById('today').textContent =
@@ -428,13 +428,13 @@
   });
 
   // line chart (cumulative actual vs linear target)
-  const actual=[42000,96000,150000,228000,300000,340600,412000]; // day1..7
+  const actual=[25000,55000,95000,150000,210000,255000,300000]; // day1..7
   const svg=document.getElementById('line');
-  const W=320,H=150,pad=6, maxY=TARGET/15*8; // headroom
+  const W=320,H=150,pad=6, maxY=TARGET/21*10; // headroom over 21-daagse lijn
   const x=i=>pad+i*( (W-2*pad)/(DAYS-1) );
   const y=v=>H-pad-(v/maxY)*(H-2*pad);
-  // target line (linear to 1M over 15 days)
-  let tgt=`M ${x(0)} ${y(TARGET/15)} L ${x(DAYS-1)} ${y(TARGET)}`;
+  // target line (linear naar 1M over 21 dagen)
+  let tgt=`M ${x(0)} ${y(TARGET/21)} L ${x(DAYS-1)} ${y(TARGET)}`;
   // actual path
   let path=`M ${x(0)} ${y(actual[0])}`;
   actual.forEach((v,i)=>{ if(i>0) path+=` L ${x(i)} ${y(v)}`; });

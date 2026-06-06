@@ -20,11 +20,15 @@
 ## 📋 CONTENT REFERENCE BIBLE
 
 **Wolfje (hoofdpersoon)**
-- Ras: Chihuahua × Pomeriaan (dwergkeeshond) mix, 1 jaar oud
+- Ras: Chihuahua × Pomeriaan (dwergkeeshond) mix
+- Uiterlijk: **crème/ivoor lijf met warme abrikoos op kop en oren (lichte abrikoos "zadel" op de rug), witte borst/poten/bef, donkere ronde ogen, zwart neusje, korte fijne snuit, pluimstaart die over de rug krult**. Jongvolwassen: lange gevederde vacht + leeuwachtige kraag. (vastgesteld uit foto's/video's, 3 leeftijdsfases)
 - Traits: bougie, wil gevoerd worden, ligt graag tegen z'n baasjes, gromt zachtjes bij spelen, bijt speels in vingers
-- Signature geluid: **"WHOOOWHOOOWOO"** (klinkt als een echt klein wolfje)
+- Signature geluid: **"WHOOOWHOOOWOO"** — zijn blaf klinkt als die van een **vos** (klein-wolfje/vosje-gevoel)
 - Persoonlijkheid: speels, veeleisend, aanhankelijk, dramatisch
-- Season 1-arc: zijn eerste keren (eerste keer zien/vasthouden, eerste keer mee naar huis, eerste keer in z'n huisje, eerste keer uitlaten, eerste ontmoeting met grote zus Bella)
+- **3 leeftijdsfases = 3 seizoenen** (elk 7 dagen, 21 dagen totaal), als vergrendelde personage-versies:
+  - **Seizoen 1 — Eerste periode (jongste pup):** allereerste tijd in z'n nieuwe huis (eerste keer vastgehouden, eerste nacht, eerste speeltje, eerste hapje)
+  - **Seizoen 2 — Pup:** wereld ontdekken + eerste keer uitlaten + **eerste ontmoeting met Bella**
+  - **Seizoen 3 — Jongvolwassen:** bonding met Bella, elkaar beschermen/geruststellen, samen avonturen
 
 **Bella (bijrol)**
 - Ras: Shih Tzu, woont niet bij ons maar is vaak op bezoek
@@ -32,7 +36,7 @@
 - Stresstrigger: **harde geluiden** geven haar stress (bv. iemand die luid de overloop/trap op- en afloopt). Bij stress gaat ze zelfs op steen graven.
 - Prikkelgevoelig & omgevingsafhankelijk: bij haar eigen baasjes is ze veel drukker; bij ons is ze juist rustiger. *(Educatieve framing: beschrijf dit als prikkelgevoeligheid / omgevingsafhankelijk gedrag — niet als "autisme", want dat is geen diagnose bij honden. Zo blijft de educatieve content kloppend.)*
 - Persoonlijkheid: nerveus, avontuurlijk, beschermend, dramatisch; bloeit op in een rustige omgeving
-- Season 2-arc: hoe Wolfje en Bella bonden, elkaar beschermen en geruststellen
+- Arc: kennismaking met Wolfje in **seizoen 2** (pup), bonding/beschermen/geruststellen in **seizoen 3** (jongvolwassen)
 
 **Vaste contentregels (geldt voor alles)**
 - Educatief (hondengedrag, verzorging, pup-ontwikkeling) + schattig + grappig
@@ -114,7 +118,7 @@ VISUELE STIJL (voor elke beeldprompt): de vastgestelde, vergrendelde tekenstijl;
 ### Dynamisch user-bericht (caveman, niet gecached):
 ```
 FOTO/VIDEO: {beschrijving van vandaag}
-SEIZOEN: {1 of 2} | DAG: {1–15}
+SEIZOEN: {1, 2 of 3} | DAG: {1–21}
 EDUCATIEVE HOEK: {uit lookup-tabel}
 Schrijf het script nu.
 ```

@@ -2,7 +2,7 @@
 
 > Een AI-gestuurde contentpijplijn die dagelijks een educatief, schattig **volledig getekend** stripverhaal én een korte animatievideo genereert over het leven van twee hondjes — Wolfje en zijn grote zus Bella — en die optimaliseert voor TikTok, Instagram en YouTube Shorts.
 
-**Doel:** samen **1.000.000 views** over de drie platforms binnen **15 dagen** (twee "seizoenen" van 7 dagen). Elke view telt.
+**Doel:** samen **1.000.000 views** over de drie platforms binnen **21 dagen** (drie "seizoenen" van 7 dagen: eerste periode → pup → jongvolwassen). Elke view telt.
 **Taal:** invoer Nederlands, **publieksgerichte output Engels** (internationaal bereik).
 **Beeld:** volledig getekende animatie — echte hondenbeelden zijn alleen AI-input, nooit output.
 **Stack:** Claude · Gemini (incl. Veo) · N8N — geen extra abonnementen nodig.
@@ -130,7 +130,7 @@ wolfje-media-agentic/
 
 ## ⚠️ Eerlijke kanttekeningen
 
-- **1M views in 15 dagen vanaf nul is ambitieus** en hangt sterk af van of één video doorbreekt. Het dashboard rapporteert eerlijk of het doel in zicht is — ook als dat niet zo is.
+- **1M views in 21 dagen vanaf nul is ambitieus** en hangt sterk af van of één video doorbreekt. Het dashboard rapporteert eerlijk of het doel in zicht is — ook als dat niet zo is.
 - **"A/B-testen" is bij 1 post/dag in de praktijk sequentieel testen** over dagen, plus 3 platforms als 3 datapunten. Geen gelijktijdige varianten op één platform.
 - **Metrics: YouTube + Instagram zijn volledig te automatiseren**; TikTok-analytics vereist goedgekeurde API-toegang (aangevraagd, route A) met een vision-ingest als tijdelijke brug (route C).
 - **Beeldmodellen renderen tekst-in-beeld onbetrouwbaar** → dialoog wordt als overlay toegevoegd, en een referentiebeeld zorgt voor karakterconsistentie.
