@@ -4,6 +4,26 @@
 
 ---
 
+## [2026-06-06] Sessie D — Canon-referentiebeeld vastgelegd
+
+### Samenvatting
+Na de nek-edit ronde (4 image-to-image renders) is **Render 3** gekozen en vastgelegd als het definitieve canon-referentiebeeld voor jongvolwassen Wolfje.
+
+### Aanpassingen
+- **Definitief beeld:** `wolfje-jongvolwassen-CANON.png` (Render 3) — vollere nek met slank blijvend lijf, warme crème, abrikoos alleen op oren, volle over-de-rug pluimstaart.
+- **Beslisreflectie vastgelegd:** onderbuikfavoriet maker was Render 1 ("oogde het meest als Wolfje"); bewust gekozen voor de beredeneerde Render 3 vanwege slank silhouet + staart over de rug (beter voor strip/animatie/shorts).
+
+### Toegevoegd (nieuwe bestanden)
+| Bestand | Inhoud |
+|---|---|
+| `wolfje-jongvolwassen-CANON.png` | Definitief canon-referentiebeeld (Render 3). |
+| `CANON-selectie-log.md` | Doorlopend selectielog met checklist-scores en reflectie per ronde. |
+
+### Volgende stap
+Model sheets jongvolwassen afleiden van het canon-beeld → daarna pup + eerste periode via image-to-image.
+
+---
+
 ## [2026-06-06] Sessie C — Canon jongvolwassen VERGRENDELD
 
 ### Samenvatting
@@ -25,6 +45,9 @@ Beoordeelde top-3 renders (door maker geüpload, niet in repo bewaard): afbeeldi
 
 ### Volgende stap
 Canon-prompt draaien → canon-referentiebeeld vastleggen → model sheets → daarna pup + eerste periode afleiden.
+
+### Naschrift (verfijning)
+Render 5 (perzik) gekozen als beste van 5 canon-runs. Op verzoek maker: **vollere nek/kraag** toegevoegd aan canon (volle zachte manen rond hals/borst, lijf blijft slank). Canon-prompt + beschrijving bijgewerkt; image-to-image edit-prompt aangeleverd om dit op Render 5 toe te passen. Definitief canon-referentiebeeld nog vast te leggen ná de nek-aanpassing.
 
 ---
 

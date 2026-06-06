@@ -15,7 +15,7 @@
 
 ### Karakter-pipeline (Phase 0 — style & character lock)
 - **Stijl gekozen:** 2D cel-shaded, Cocomelon-leunend (variant A4 = `A4_celshaded_b_CHOSENdirection.png`).
-- **Actieve focus:** JONGVOLWASSEN Wolfje. ✅ **VERGRENDELD** (6 juni 2026) → `CANON-wolfje-jongvolwassen.md` is de bron van waarheid.
+- **Actieve focus:** JONGVOLWASSEN Wolfje. ✅ **VERGRENDELD** (6 juni 2026) → `CANON-wolfje-jongvolwassen.md` is de bron van waarheid; definitief beeld = `wolfje-jongvolwassen-CANON.png` (Render 3, vollere nek + slank lijf).
 - **Pup en eerste periode:** ⛔ nu aan de beurt — afleiden via image-to-image vanaf het canon-referentiebeeld (zelfde kleur/markeringen/stijl, jongere proporties).
 - **Aanpak:** meta-prompt waarmee Gemini zelf de Nano Banana prompt schrijft → `wolfje_metaprompt_gemini_naar_nanobanana.md`.
 - **Winnaar:** afbeelding 1 (blauw, v2-variant 3) → verfijnd tot canon-prompt (vollere staart + warm crème terug).
