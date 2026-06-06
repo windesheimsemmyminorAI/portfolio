@@ -6,6 +6,9 @@ Laatst bijgewerkt: 2026-06-06
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-06 | `3cdda89` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
+| 2026-06-06 | `b4c996b` | gestructureerde prompts alle hoeken |
+| 2026-06-06 | `8f56071` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-06 | `336024d` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-06 | `ff0117a` | Leg canon-referentiebeeld jongvolwassen Wolfje vast (Render 3) + selectielog met reflectie en checklist |
 | 2026-06-06 | `f5bcadb` | Docs automatisch bijgewerkt [skip ci] |
