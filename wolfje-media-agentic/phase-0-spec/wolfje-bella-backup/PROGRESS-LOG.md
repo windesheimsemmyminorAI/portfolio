@@ -15,13 +15,15 @@
 
 ### Karakter-pipeline (Phase 0 — style & character lock)
 - **Stijl gekozen:** 2D cel-shaded, Cocomelon-leunend (variant A4 = `A4_celshaded_b_CHOSENdirection.png`).
-- **Actieve focus:** JONGVOLWASSEN Wolfje vergrendelen. ⏳ *Nog niet definitief gelockt.*
-- **Pup en eerste periode:** ⛔ bewust uitgesteld tot jongvolwassen canon staat (worden daarna afgeleid via image-to-image vanaf het goedgekeurde beeld).
-- **Nieuwe aanpak deze ronde:** meta-prompt waarmee Gemini zelf de Nano Banana prompt schrijft → `wolfje_metaprompt_gemini_naar_nanobanana.md`.
-- **In test:** 5 door Gemini geschreven varianten → `prompts-gemini-output/wolfje-jongvolwassen-gemini-prompts.md` (+ ruwe originelen als `raw-gemini-variant*.txt`).
+- **Actieve focus:** JONGVOLWASSEN Wolfje. ✅ **VERGRENDELD** (6 juni 2026) → `CANON-wolfje-jongvolwassen.md` is de bron van waarheid.
+- **Pup en eerste periode:** ⛔ nu aan de beurt — afleiden via image-to-image vanaf het canon-referentiebeeld (zelfde kleur/markeringen/stijl, jongere proporties).
+- **Aanpak:** meta-prompt waarmee Gemini zelf de Nano Banana prompt schrijft → `wolfje_metaprompt_gemini_naar_nanobanana.md`.
+- **Winnaar:** afbeelding 1 (blauw, v2-variant 3) → verfijnd tot canon-prompt (vollere staart + warm crème terug).
+- **Promptgeschiedenis:** v1 (te oranje/pluizig) → v2 ontpluisd (`...-v2-defluffed.md`) → **canon** (`CANON-wolfje-jongvolwassen.md`).
 
-### Vergrendelde karakterbeschrijving (canon — niet wijzigen zonder reden)
-Crème/ivoor langharige toy-hond (Pommerian × Chihuahua), overwegend WIT; warme zachte abrikoos alleen als vage kap op kruin + achterkant oren + heel vaag zadel over bovenrug dat in wit overloopt. Witte bles/snuit/borst/kraag/buik/poten. Donkere ronde ogen op natuurlijke grootte. Klein donker neusje. Korte fijne licht-spitse vossensnuit. Grote rechtopstaande zwaar bevederde oren. Leeuwachtige ruff. Lange "broek"-bevedering op alle poten. Lange pluimstaart die over de rug krult. Jongvolwassen verhoudingen (lijf iets langer dan hoog, slank — geen ronde puppybal). Blaf: vos-achtig "WHOOOWHOOOWOO".
+### Vergrendelde karakterbeschrijving (canon — zie `CANON-wolfje-jongvolwassen.md`)
+Zeer kleine, slanke, fijngebouwde Pommerian × Chihuahua mix; lijf duidelijk zichtbaar (geen pluizenbol). Vacht fijn/zijdeachtig/wispy ≈4–5 cm, valt naar beneden. Overwegend wit met zachte warme crème/ivoor toon; vage abrikoos UITSLUITEND op achterkant oren — rest zacht wit-crème. Korte fijne licht-spitse vossensnuit, klein donker neusje, donkere amandelogen op natuurlijke grootte, rustige vriendelijke zelfverzekerde blik. Grote rechtopstaande licht bevederde oren. Bescheiden wispy kraagje + lichte bevedering op slanke poten. Volle lange pluimstaart die uitwaaiert en over de rug krult. 2D cel-shaded, schone lijn, Cocomelon-toon. Blaf: vos-achtig "WHOOOWHOOOWOO".
+> Dit vervangt de oudere pre-v2 beschrijving (kruin-kap + rug-zadel + leeuwen-ruff + lange vacht).
 
 ### Terugkerende faalpunten om op te scoren bij elke test
 1. Te oranje / generiek Pommetje (kleur moet strak begrensd zijn)
