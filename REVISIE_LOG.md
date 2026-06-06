@@ -6,6 +6,9 @@ Laatst bijgewerkt: 2026-06-06
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-06 | `336024d` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
+| 2026-06-06 | `ff0117a` | Leg canon-referentiebeeld jongvolwassen Wolfje vast (Render 3) + selectielog met reflectie en checklist |
+| 2026-06-06 | `f5bcadb` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-06 | `402feb1` | bijgenseden afbeeldingen toegevoegd als referentiefoto |
 | 2026-06-06 | `ebd85ba` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-06 | `7d6cf92` | Jongvolwassen Wolfje is vergrendeld als canon. Afbeelding 1 (blauw) is gekozen als basis en op twee punten verfijnd — een vollere pluimstaart en een vleugje warm crème terug — en die definitie is nu de bron van waarheid in de repo. |
