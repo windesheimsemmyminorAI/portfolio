@@ -44,6 +44,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `n8n/dashboard/versiedocumentatie.docx`
 - `n8n/dashboard/versiedocumentatie.md`
 - `schemas/factuur_schema.json`
+- `scripts/REVISIE_LOG.md`
 - `scripts/genereer_docs.py`
 - `scripts/requirements.txt`
 - `scripts/update.py`
