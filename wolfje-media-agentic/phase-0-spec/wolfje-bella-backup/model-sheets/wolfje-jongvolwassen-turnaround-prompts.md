@@ -64,8 +64,8 @@ Expressie-sheet en actie-pose-sheet (zelfde aanpak: image-to-image vanaf canon) 
 ## Status cellen (turnaround jongvolwassen)
 - [ ] 01 — Front (laatste; mét goedgekeurde hoeken als extra referentie)
 - [x] 02 — 3/4 front → `reference-material/character-sheets/wolfje-jv-turn-02-driekwart-front.png` (Render 4, kop rechts)
-- [ ] 03 — Zijaanzicht (houd kop naar rechts voor consistentie met cel 02)
-- [~] 04 — 3/4 achter → KANDIDAAT vastgehouden: `reference-material/character-sheets/candidates/wolfje-jv-turn-04-driekwart-achter_KANDIDAAT.png` (Render 4 uit de achter-ronde)
-- [ ] 05 — Achter (prompt bijgewerkt met staart-over-rug fix; opnieuw te draaien)
+- [x] 03 — Zijaanzicht → `reference-material/character-sheets/wolfje-jv-turn-03-zij.png` (Render 6 — zacht gezicht, warm crème, kop rechts)
+- [x] 04 — 3/4 achter → `reference-material/character-sheets/wolfje-jv-turn-04-driekwart-achter.png` (Render 4 uit de achter-ronde — enige echte 3/4-achter hoek)
+- [x] 05 — Achter → `reference-material/character-sheets/wolfje-jv-turn-05-achter.png` (Render 4, tweede ronde — pluim over de rug)
 
 **Leerpunt (6 juni):** oriëntatie (kop links/rechts) is GEEN kwaliteits- of gelijkeniscriterium — een render is verliesvrij te spiegelen. Alleen aanhouden voor onderlinge consistentie. Render 1 viel af op kop-/oorvorm (te grote, spitse oren + hoekige snuit → Papillon-drift), niet op kleur.

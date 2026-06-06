@@ -4,6 +4,57 @@
 
 ---
 
+## [2026-06-06] Sessie I — Turnaround: 3/4-achter vastgelegd + handoff
+
+### Samenvatting
+Cel 04 (3/4 achter) vastgelegd; turnaround is op de front-cel na compleet. Handoff-prompt gemaakt om in een nieuwe chat verder te bouwen.
+
+### Aanpassingen
+- **Vastgelegd:** `reference-material/character-sheets/wolfje-jv-turn-04-driekwart-achter.png` (Render 4 uit de achter-ronde) — gekozen omdat het de enige echte 3/4-achter hoek was; de twee zij-achtige alternatieven toonden het gezicht en dubbelden cel 02/03.
+- **Toegevoegd:** `HANDOFF-naar-nieuwe-chat.md` — paste-klare overdrachtsprompt voor de volgende chat.
+
+### Turnaround-voortgang
+- [x] 02 — 3/4 front · [x] 03 — Zij · [x] 04 — 3/4 achter · [x] 05 — Achter · [ ] 01 — Front (laatste, in nieuwe chat)
+
+### Volgende stap (nieuwe chat)
+Front-cel draaien mét canon + 4 vastgelegde hoeken als referentie → turnaround compleet → expressie-sheet → actie-poses → pup + eerste periode.
+
+---
+
+## [2026-06-06] Sessie H — Turnaround: zij-cel vastgelegd
+
+### Samenvatting
+Zij-cel (03) vastgelegd. Uit 7 renders is **Render 6** gekozen — zachte cluster die het meest op de echte Wolfje + cel 02 lijkt.
+
+### Aanpassingen
+- **Vastgelegd:** `reference-material/character-sheets/wolfje-jv-turn-03-zij.png` (Render 6) — zacht rond Wolfje-gezicht, proportionele oren, warm crème, volle pluimstaart over de rug, slank, kop rechts.
+- **Leerpunt:** scherpe/appelkop-Chihuahua renders en te grote spitse oren (Papillon-drift) afgewezen ten gunste van het zachte koppie dat bij cel 02 past.
+
+### Turnaround-voortgang
+- [x] 02 — 3/4 front · [x] 03 — Zij · [x] 05 — Achter · [~] 04 — 3/4 achter (kandidaat) · [ ] 01 — Front (laatste)
+
+### Volgende stap
+Cel 04 (3/4 achter) bevestigen → front als laatste, mét alle vastgelegde hoeken als referentie.
+
+---
+
+## [2026-06-06] Sessie G — Turnaround: achter-cel vastgelegd
+
+### Samenvatting
+Achter-cel (05) vastgelegd. Na een tweede ronde met staart-over-rug fix is **Render 4** gekozen.
+
+### Aanpassingen
+- **Vastgelegd:** `reference-material/character-sheets/wolfje-jv-turn-05-achter.png` (Render 4, ronde 2) — symmetrisch recht-van-achteren, pluim duidelijk over de rug, warme crème, abrikoos op de oorruggen, slank.
+- **Kandidaat vastgehouden:** Render 4 uit de eerdere 3/4-achter set blijft kandidaat voor cel 04.
+
+### Turnaround-voortgang
+- [x] 02 — 3/4 front · [x] 05 — Achter · [~] 04 — 3/4 achter (kandidaat) · [ ] 03 — Zij · [ ] 01 — Front (laatste)
+
+### Volgende stap
+Stap 3 (zij, kop naar rechts) → cel 04 bevestigen → front als laatste.
+
+---
+
 ## [2026-06-06] Sessie F — Turnaround: 3/4-cel vastgelegd
 
 ### Samenvatting
