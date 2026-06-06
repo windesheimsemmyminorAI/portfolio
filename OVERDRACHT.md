@@ -82,6 +82,8 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/A3_storybook_sit.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/A4_celshaded_a.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/A4_celshaded_b_CHOSENdirection.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/CANON-wolfje-jongvolwassen.md`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/CHANGELOG.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/Gemini_Generated_Image_75x9mw75x9mw75x9.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/Gemini_Generated_Image_e1y0yde1y0yde1y0.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/Gemini_Generated_Image_jihli4jihli4jihl.png`
@@ -103,8 +105,12 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/prompts-gemini-output/raw-gemini-variant3-mint.txt`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/prompts-gemini-output/raw-gemini-variant4-peach.txt`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/prompts-gemini-output/raw-gemini-variant5-blue.txt`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/prompts-gemini-output/wolfje-jongvolwassen-gemini-prompts-v2-defluffed.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/prompts-gemini-output/wolfje-jongvolwassen-gemini-prompts.md`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-and-modelsheet-prompts.md`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-gezicht-bijgesneden.jpg`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-hero-bijgesneden.jpg`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-vacht-bijgesneden.jpg`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/single_A_3d.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/single_B_vector.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/single_C_storybook.png`
