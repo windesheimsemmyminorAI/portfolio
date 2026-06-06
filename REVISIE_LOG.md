@@ -2,10 +2,12 @@
 
 Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-geschiedenis.
 
-Laatst bijgewerkt: 2026-06-05
+Laatst bijgewerkt: 2026-06-06
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-06 | `7ee2599` | de prompts zijn gevinetuned |
+| 2026-06-05 | `90e0be4` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-05 | `f307467` | Wolfje en bella |
 | 2026-06-01 | `0c3e772` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-02 | `aa4188e` | 2 verschillende itteratie's voor de opdrachtgever en de stresstest |
