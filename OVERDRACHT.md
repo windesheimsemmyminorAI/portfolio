@@ -27,6 +27,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `OVERDRACHT.md`
 - `README.md`
 - `REVISIE_LOG.md`
+- `claude-github-bridge.js`
 - `dashboard/index.html`
 - `data/facturen.json`
 - `data/resultaat.json`
