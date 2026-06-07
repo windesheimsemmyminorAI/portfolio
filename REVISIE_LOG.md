@@ -6,6 +6,8 @@ Laatst bijgewerkt: 2026-06-07
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-07 | `62a402d` | Docs: sessie-analyse versie-audit + leerpunten (persoonlijke ontwikkeling) |
+| 2026-06-07 | `3b922b4` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `f253fc2` | Phase 0: documenteer ontbrekende beelden (4 known gaps) |
 | 2026-06-07 | `0af69b6` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `685c06e` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
