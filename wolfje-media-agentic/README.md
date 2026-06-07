@@ -142,6 +142,8 @@ wolfje-media-agentic/
 
 Alle fases (0–5) zijn uitgewerkt, op fouten gecontroleerd en met de vastgestelde keuzes geïntegreerd. Volgende stap: referentiebeeld + tekenstijl laten goedkeuren, accounts aanmaken, API's koppelen en testen met de eerste echte foto's van Wolfje.
 
+> **Versiebeheer / project-hygiëne (07-06-2026):** een audit van Phase 0 wees uit dat het beslisproces volledig is gedocumenteerd, maar dat niet alle afgewezen beelden als bestand zijn bewaard. Zie `phase-0-spec/ONTBREKENDE-BEELDEN-phase-0.md` (known gaps + reflectie), de bijbehorende GitHub-issues #1–#4, en `CHANGELOG.md` (Sessie J) voor de volledige analyse en leerpunten.
+
 ---
 
 *Project voor de minor AI — Windesheim.*

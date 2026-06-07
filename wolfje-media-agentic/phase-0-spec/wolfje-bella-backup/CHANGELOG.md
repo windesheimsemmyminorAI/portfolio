@@ -4,6 +4,46 @@
 
 ---
 
+## [2026-06-07] Sessie J — Versie-audit, gap-documentatie & GitHub-issues (project-hygiëne)
+
+### Samenvatting
+Geen nieuwe beelden of prompts deze sessie, maar **project-hygiëne en versiebeheer**. Aanleiding: een audit-vraag — *"welke versies zijn werkelijk aanwezig en gecommit, klopt het dat `v8_email_weekrapport.json` de laatste versie is, en is die gepusht?"* Dit is uitgezocht voor zowel `n8n/dashboard/` als `wolfje-media-agentic/`, waarna de bevindingen zijn vastgelegd in een nieuw logboek én als trackbare GitHub-issues.
+
+### Wat is onderzocht (audit)
+- **`n8n/dashboard/`** bevat genummerde workflow-JSON's **v1 t/m v8**. `v8_email_weekrapport.json` bestaat echt (commit `56c676a`) en zit in `origin/main` — dáár is het inderdaad de laatste versie.
+- **`wolfje-media-agentic/`** bevat **géén** genummerde workflow-JSON's en dus ook geen `v8_…`. De "versies" hier zijn fase-documenten met `_v2`/`_v3`-suffix; de karakter-"versies" zijn levensfasen: **jongvolwassen** (canon, klaar), **pup** + **eerste periode** (gepland). → De v8-aanname hoorde bij een **ander project**; de twee waren door de naam verward.
+- **Sync-status:** lokale `main` liep **1 commit achter** op `origin/main`; geen ongecommitte of genegeerde bestanden in de werkmap.
+
+### Bevinding — 4 ontbrekende-beelden-gaps (Phase 0)
+Het beslisproces is volledig navolgbaar in de logboeken, maar **niet alle versies/afgewezen beelden zijn als afbeelding bewaard**:
+1. **Ronde 1** (stijlexploratie zonder foto's) — beeldmateriaal nooit bewaard, alleen beschreven.
+2. **Afgewezen canon-renders (1, 2, 4)** — alleen Render 3 (canon) als bestand; 1/2/4 leven alleen in de checklist-tabel.
+3. **Afgewezen turnaround-renders per hoek** — alleen de gekozen cel bewaard (uitzondering: front-kandidaten A/B/C/C2/D_hires).
+4. **A/B/C/D-prompttest** — slechts deels in beeld (5 Gemini-varianten + 1 v2-output), niet elke run.
+
+### Toegevoegd (nieuwe bestanden)
+| Bestand | Inhoud |
+|---|---|
+| `phase-0-spec/ONTBREKENDE-BEELDEN-phase-0.md` | Known-gaps-logboek met de 4 punten, bronverwijzingen, samenvattingstabel en reflectie. |
+
+### Werkwijze (Git / GitHub)
+- **Fast-forward sync** vóór het pushen om een non-fast-forward te voorkomen (`git pull --ff-only`, `685c06e..0af69b6`).
+- Gap-doc gecommit (`f253fc2`) en gepusht naar `origin/main`. *Leermoment:* de eerste commit-message raakte verhaspeld doordat PowerShell-here-string-syntax (`@'…'@`) in een bash-shell werd gebruikt → hersteld met `git commit --amend -F -`.
+- **4 GitHub-issues aangemaakt (#1–#4)**, één per gap. Omdat de `gh` CLI niet geïnstalleerd was, via de **GitHub REST API** met het token dat Git Credential Manager al voor de repo had (token nergens getoond of weggeschreven).
+
+### Persoonlijke ontwikkeling — leerpunten
+- **Versiebeheer-discipline:** bewaar niet alleen de winnaar maar ook de **afgewezen opties als bestand** — tekst-only logging maakt de visuele vergelijking achteraf onreproduceerbaar en verzwakt portfolio-bewijs.
+- **Verifieer tegen de echte repo-staat, niet tegen aannames/namen:** de v8-verwarring tussen twee losse projecten laat zien waarom je claims checkt met `git ls-files`, `rev-parse` en `merge-base` i.p.v. op geheugen af te gaan.
+- **Git-hygiëne:** ahead/behind lezen en eerst syncen vóór push; weten hoe je een commit-message corrigeert.
+- **Shell-bewustzijn:** bash ≠ PowerShell (here-strings, redirects).
+- **GitHub zonder gh CLI:** issues via de REST API + een bestaand credential, met zorgvuldige omgang met secrets.
+- **Issues als tracking:** openstaande verbeterpunten naast in-repo documentatie zichtbaar en afvinkbaar maken.
+
+### Volgende stap
+Bij het genereren van pup + eerste periode (en verdere model sheets): vanaf nu **alle kandidaten + afgewezen renders meteen opslaan** in `reference-material/…`, zodat de gaps uit deze sessie niet opnieuw ontstaan.
+
+---
+
 ## [2026-06-06] Sessie I — Turnaround: 3/4-achter vastgelegd + handoff
 
 ### Samenvatting

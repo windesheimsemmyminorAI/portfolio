@@ -60,3 +60,29 @@ de **5 Gemini-varianten** (`Gemini_Generated_Image_*.png`) en **één v2-output*
 > afgewezen beelden zijn als afbeelding bewaard. Wel volledig bewaard zijn Ronde 2 (9/9), Ronde 3 (6/6),
 > de front-turnaround-kandidaten, de 5 definitieve turnaround-cellen, de canon, de Gemini-kleurvarianten
 > en de input-referentiefoto's.
+
+---
+
+## Status — opgevolgd als GitHub-issues (2026-06-07)
+
+De 4 punten zijn als trackbare taken op GitHub gezet, zodat ze afvinkbaar zijn:
+
+| Punt | Issue |
+|------|-------|
+| 1 — Ronde 1 ontbreekt | [#1](https://github.com/windesheimsemmyminorAI/portfolio/issues/1) |
+| 2 — Afgewezen canon-renders | [#2](https://github.com/windesheimsemmyminorAI/portfolio/issues/2) |
+| 3 — Afgewezen turnaround-renders | [#3](https://github.com/windesheimsemmyminorAI/portfolio/issues/3) |
+| 4 — A/B/C/D-prompttest deels | [#4](https://github.com/windesheimsemmyminorAI/portfolio/issues/4) |
+
+---
+
+## Reflectie — wat ik hiervan leer (persoonlijke ontwikkeling)
+
+- **Bewaar afgewezen outputs, niet alleen de winnaar.** Een keuze is pas echt navolgbaar als de
+  alternatieven óók als beeld bestaan. Tekst beschrijft *dat* iets is afgewezen; alleen het beeld laat
+  *waarom* zien. Dit is direct portfolio-bewijs van mijn beslisproces.
+- **Leg de bewaarregel vast aan de bron.** Vanaf de volgende generatieronde sla ik elke kandidaat
+  meteen op in `reference-material/…` (bv. een `rejected/`-submap per ronde), zodat deze gaps niet
+  opnieuw ontstaan.
+- **Onderscheid "gedocumenteerd" van "gearchiveerd".** Een logboek-tabel is documentatie; de bijbehorende
+  bestanden zijn het archief. Beide zijn nodig voor reproduceerbaarheid.

@@ -5,6 +5,19 @@
 
 ---
 
+## Update — 2026-06-07 (project-hygiëne)
+
+Versie-audit uitgevoerd op de repo. Bevinding: het beslisproces is volledig gedocumenteerd, maar
+**niet alle afgewezen beelden zijn als bestand bewaard** (ronde 1, afgewezen canon-renders 1/2/4,
+de meeste afgewezen turnaround-renders, en een deel van de A/B/C/D-prompttest).
+
+- Vastgelegd in `phase-0-spec/ONTBREKENDE-BEELDEN-phase-0.md` en als GitHub-issues **#1–#4**.
+- **Nieuwe werkafspraak:** vanaf de volgende generatieronde elke kandidaat/afgewezen render meteen
+  opslaan (bv. een `rejected/`-submap per ronde), zodat deze gaps niet opnieuw ontstaan.
+- Volledige sessie-analyse + leerpunten staan in `CHANGELOG.md` (Sessie J).
+
+---
+
 ## Projectrol
 **Claude = hoofdengineer** van dit project (architectuur, prompts, workflow, documentatie en correcties).
 **Gemini = uitvoerend hulpmodel** voor het schrijven van zijn eigen Nano Banana beeldprompts (Gemini→Gemini), aangestuurd via de meta-prompt van Claude.
