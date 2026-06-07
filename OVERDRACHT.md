@@ -34,6 +34,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `docs/automatische_documentatie.md`
 - `docs/hoe_het_werkt.md`
 - `n8n/README.md`
+- `n8n/dashboard/GITHUB_UPDATE.md`
 - `n8n/dashboard/README.md`
 - `n8n/dashboard/v1_ai_agent.json`
 - `n8n/dashboard/v2_gmail_dashboard.json`
@@ -42,6 +43,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `n8n/dashboard/v5_email_werkend.json`
 - `n8n/dashboard/v6_webhook_kpi.json`
 - `n8n/dashboard/v7_email_kpi.json`
+- `n8n/dashboard/v8_email_weekrapport.json`
 - `n8n/dashboard/versiedocumentatie.docx`
 - `n8n/dashboard/versiedocumentatie.md`
 - `schemas/factuur_schema.json`

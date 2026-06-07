@@ -6,6 +6,9 @@ Laatst bijgewerkt: 2026-06-07
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-07 | `685c06e` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
+| 2026-06-07 | `56c676a` | v8 email weeklyreport |
+| 2026-06-07 | `ae45c3f` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `8988ad9` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-07 | `239bbe3` | github automation bridge waardoor claude code automatisch in github kan opslaan |
 | 2026-06-07 | `9ee9183` | Docs automatisch bijgewerkt [skip ci] |
