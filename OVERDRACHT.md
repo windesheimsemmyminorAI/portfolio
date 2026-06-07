@@ -58,6 +58,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/approved-content/season-1/.gitkeep`
 - `wolfje-media-agentic/approved-content/season-2/.gitkeep`
 - `wolfje-media-agentic/approved-content/season-3/.gitkeep`
+- `wolfje-media-agentic/phase-0-spec/ONTBREKENDE-BEELDEN-phase-0.md`
 - `wolfje-media-agentic/phase-0-spec/character-design-iterations.md`
 - `wolfje-media-agentic/phase-0-spec/character-generation-prompts.md`
 - `wolfje-media-agentic/phase-0-spec/project_specification.md`
