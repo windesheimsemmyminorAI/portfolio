@@ -6,6 +6,8 @@ Laatst bijgewerkt: 2026-06-07
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-08 | `3dc4a71` | Reorg: wolfje-bella-backup -> characters/wolfje + opschoning |
+| 2026-06-07 | `4b2149f` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `62a402d` | Docs: sessie-analyse versie-audit + leerpunten (persoonlijke ontwikkeling) |
 | 2026-06-07 | `3b922b4` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `f253fc2` | Phase 0: documenteer ontbrekende beelden (4 known gaps) |
