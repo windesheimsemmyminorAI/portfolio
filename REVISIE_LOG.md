@@ -6,6 +6,8 @@ Laatst bijgewerkt: 2026-06-07
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-07 | `f008dfd` | Test: Git-koppeling geverifieerd |
+| 2026-06-07 | `394fc56` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `a52ffd5` | Lock front cell 01 — young-adult turnaround complete (5/5) |
 | 2026-06-06 | `e6f118d` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `7c82a4a` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
@@ -48,5 +50,3 @@ Laatst bijgewerkt: 2026-06-07
 | 2026-06-01 | `be31ef3` | Werkend factuur-dashboard met validatie en automatische documentatie |
 | 2026-06-01 | `270868c` | Initiële projectstructuur opgesteld |
 | 2026-06-01 | `ea5adf5` | Initial commit |
-
-Test: Git-koppeling geverifieerd op 7-6-2026
