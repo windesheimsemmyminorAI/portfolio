@@ -48,3 +48,5 @@ Laatst bijgewerkt: 2026-06-07
 | 2026-06-01 | `be31ef3` | Werkend factuur-dashboard met validatie en automatische documentatie |
 | 2026-06-01 | `270868c` | Initiële projectstructuur opgesteld |
 | 2026-06-01 | `ea5adf5` | Initial commit |
+
+Test: Git-koppeling geverifieerd op 7-6-2026
