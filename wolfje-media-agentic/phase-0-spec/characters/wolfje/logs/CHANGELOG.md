@@ -4,6 +4,53 @@
 
 ---
 
+## [2026-06-07] Sessie K — Repo-reorganisatie & opschoning (`wolfje-bella-backup` → `characters/wolfje`)
+
+### Samenvatting
+De rommelige `wolfje-bella-backup/`-map opgeruimd en hernoemd. Bij analyse bleek deze map géén echte
+"backup" maar de **enige** bewaarplaats van cruciaal materiaal (de 12 input-foto's, het canon-beeld, de
+turnaround-cellen en de logboeken). Die unieke inhoud is behouden en logisch geordend; verouderde
+duplicaten en lege stub-bestanden zijn verwijderd.
+
+### Aanpassingen (structuur)
+- **Hernoemd:** `phase-0-spec/wolfje-bella-backup/` → **`phase-0-spec/characters/wolfje/`** (Bella krijgt
+  later `characters/bella/`, zodat de twee personages gescheiden en overzichtelijk blijven).
+- **Geordend in submappen:** `canon/` (+ `reference-inputs/`), `input-photos/`, `model-sheets/`
+  (+ `character-sheets/`), `prompts/` (+ `gemini-output/`), `renders/` (round-1…3, canon-neck-edit,
+  prompttest-abcd, rejected/turnaround-front), `logs/`, `style-reference/`.
+- **Ontbrekende-beelden-mappen aangemaakt met README-placeholder** op de plek waar het origineel hoorde:
+  `renders/round-1/`, `renders/canon-neck-edit/`, `renders/prompttest-abcd/`, `renders/rejected/`. De
+  wél-bestaande afgewezen front-kandidaten staan nu in `renders/rejected/turnaround-front/`.
+- **Dubbele beelden (round-2/3 + stijlref):** beide kopieën bewust behouden — top-level
+  `reference-material/style-results/` blijft canoniek; de backup-kopie is geordend onder
+  `characters/wolfje/renders/` met een README die dat aangeeft.
+
+### Opgeschoond (verwijderd — inhoud bleef elders behouden)
+- 6 verouderd-benoemde dubbele design-docs (inhoud staat onder de juiste namen in `phase-0-spec/`).
+- 4 duplicaat fase-docs (`phase1/2/3/5`, identiek aan de top-level fase-mappen).
+- Lege stub-bestanden: `wolfje_bella_dashboard.html` (9 bytes; de échte staat in `phase-4-dashboard/`),
+  `README__3_.md`, `download__1_`, `download__2_`, plus een dubbele `README.md`.
+
+### Bijgewerkt
+- Padverwijzingen in `ONTBREKENDE-BEELDEN-phase-0.md`, de wolfje-`README.md` en een nieuwe
+  `characters/wolfje/README.md` die de hele mapstructuur uitlegt.
+
+### Persoonlijke ontwikkeling — leerpunten
+- **"Backup" is een gevaarlijke naam:** een map die zo heet bleek het enige origineel te bevatten.
+  Controleer vóór opschonen met blob-hashes (`git ls-files -s`) of "duplicaten" écht identiek zijn.
+- **Naam ≠ inhoud:** gelijknamige bestanden hadden andere inhoud (oude naamgeving). Hashes zijn de
+  betrouwbare bron, niet bestandsnamen.
+- **Structuur als documentatie:** lege placeholder-mappen met een README maken expliciet wáár ontbrekend
+  materiaal hoort — dat voorkomt dat de gaps opnieuw onopgemerkt ontstaan.
+- **Veilig refactoren met git:** `git mv` behoudt de historie; bewust beide kopieën bewaren waar twijfel
+  bestond over welke canoniek is.
+
+### Volgende stap
+Bij het genereren van pup + eerste periode: opslaan in `characters/wolfje/renders/…` met afgewezen
+kandidaten in `renders/rejected/`, volgens de nieuwe werkafspraak.
+
+---
+
 ## [2026-06-07] Sessie J — Versie-audit, gap-documentatie & GitHub-issues (project-hygiëne)
 
 ### Samenvatting

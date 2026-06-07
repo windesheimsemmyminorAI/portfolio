@@ -6,8 +6,8 @@ Doel: transparantie over het beslisproces voor het portfolio en een checklist vo
 aanvullen.
 
 > Bron: analyse van `character-design-iterations.md`, `style-results-log.md`,
-> `wolfje-bella-backup/CANON-selectie-log.md` en
-> `wolfje-bella-backup/model-sheets/wolfje-jongvolwassen-turnaround-prompts.md`,
+> `characters/wolfje/canon/CANON-selectie-log.md` en
+> `characters/wolfje/model-sheets/wolfje-jongvolwassen-turnaround-prompts.md`,
 > afgezet tegen de daadwerkelijk gecommitte bestanden.
 
 ---
@@ -25,7 +25,7 @@ Van de nek-edit-ronde is alleen **Render 3** (de canon) opgeslagen als
 `wolfje-jongvolwassen-CANON.png`. De afgewezen **Renders 1, 2 en 4** bestaan alleen als
 beschrijving in de checklist-tabel, **niet als afbeelding**.
 
-- **Status:** alleen beschreven in `wolfje-bella-backup/CANON-selectie-log.md` (checklist-tabel).
+- **Status:** alleen beschreven in `characters/wolfje/canon/CANON-selectie-log.md` (checklist-tabel).
 - **Impact:** de visuele vergelijking die tot de canon-keuze leidde, is niet reproduceerbaar uit beeld.
 
 ## 3. Afgewezen turnaround-renders ontbreken grotendeels
@@ -33,8 +33,8 @@ Elke hoek van de turnaround is 2–3× gedraaid (de log noemt bv. "Render 4", "R
 maar per hoek is alleen de **gekozen cel** bewaard.
 
 - **Uitzondering:** voor de lastige **front** zijn de kandidaten **A / B / C / C2 / D_hires** wél bewaard
-  (`reference-material/character-sheets/candidates/`).
-- **Status:** keuzes beschreven in `wolfje-bella-backup/model-sheets/wolfje-jongvolwassen-turnaround-prompts.md`.
+  (`characters/wolfje/renders/rejected/turnaround-front/`).
+- **Status:** keuzes beschreven in `characters/wolfje/model-sheets/wolfje-jongvolwassen-turnaround-prompts.md`.
 - **Impact:** voor ¾-front, zij, ¾-achter en achter zijn de afgewezen alternatieven niet als beeld bewaard.
 
 ## 4. A/B/C/D-prompttest maar deels in beeld vastgelegd
@@ -42,7 +42,7 @@ De prompttest met 4 formuleringen (A/B/C/D), elk 2–3× gedraaid, is maar **dee
 de **5 Gemini-varianten** (`Gemini_Generated_Image_*.png`) en **één v2-output**
 (`output_v2_celshaded_jongvolwassen.png`). **Niet elke run van elke prompt** is als bestand opgeslagen.
 
-- **Status:** prompts beschreven in `wolfje-bella-backup/wolfje-jongvolwassen-analyse-en-4-prompts.md`.
+- **Status:** prompts beschreven in `characters/wolfje/prompts/wolfje-jongvolwassen-analyse-en-4-prompts.md`.
 - **Impact:** niet alle prompt-formuleringen zijn één-op-één aan een beeld te koppelen.
 
 ---
