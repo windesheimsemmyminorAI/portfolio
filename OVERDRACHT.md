@@ -2,7 +2,7 @@
 
 Dit document helpt iemand die het project overneemt snel op weg. Automatisch gegenereerd uit de huidige projectstaat.
 
-Laatst bijgewerkt: 2026-06-06
+Laatst bijgewerkt: 2026-06-07
 
 ## Hoe draai je het project?
 
@@ -115,7 +115,14 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-gezicht-bijgesneden.jpg`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-hero-bijgesneden.jpg`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-inputs-canon/wolfje-ref-vacht-bijgesneden.jpg`
-- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-04-driekwart-achter_KANDIDAAT.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/CHANGELOG.md`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/PROGRESS-LOG-entry_2026-06-07.md`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-01-front_kandidaat-A.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-01-front_kandidaat-B.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-01-front_kandidaat-C.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-01-front_kandidaat-C2.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-01-front_kandidaat-D_hires.png`
+- `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-01-front.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-02-driekwart-front.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-03-zij.png`
 - `wolfje-media-agentic/phase-0-spec/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-04-driekwart-achter.png`

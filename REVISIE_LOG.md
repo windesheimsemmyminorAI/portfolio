@@ -2,10 +2,12 @@
 
 Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-geschiedenis.
 
-Laatst bijgewerkt: 2026-06-06
+Laatst bijgewerkt: 2026-06-07
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-07 | `a52ffd5` | Lock front cell 01 — young-adult turnaround complete (5/5) |
+| 2026-06-06 | `e6f118d` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `7c82a4a` | Merge branch 'main' of https://github.com/windesheimsemmyminorAI/portfolio |
 | 2026-06-07 | `6fae608` | Create REVISIE_LOG.md |
 | 2026-06-06 | `335cd90` | Docs automatisch bijgewerkt [skip ci] |
