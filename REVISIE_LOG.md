@@ -6,6 +6,10 @@ Laatst bijgewerkt: 2026-06-08
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-08 | `6fa3a07` | Merge pull request #6 from windesheimsemmyminorAI/import/wolfje-chat-documentatie |
+| 2026-06-08 | `b26e984` | docs(readme): corrigeer verouderde Wolfje-kleurspec naar canon |
+| 2026-06-08 | `13b3a29` | docs(image-catalog): pad-verwijzingen naar repo-structuur (characters/wolfje) |
+| 2026-06-08 | `6cb4edd` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-08 | `100ef70` | Merge pull request #5 from windesheimsemmyminorAI/import/wolfje-chat-documentatie |
 | 2026-06-08 | `72109b9` | docs: import chat-historie, beeldcatalogus en sessie-logboeken (chats 1-5) |
 | 2026-06-07 | `5fc493b` | Docs automatisch bijgewerkt [skip ci] |
