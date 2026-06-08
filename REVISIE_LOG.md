@@ -2,10 +2,13 @@
 
 Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-geschiedenis.
 
-Laatst bijgewerkt: 2026-06-07
+Laatst bijgewerkt: 2026-06-08
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-08 | `100ef70` | Merge pull request #5 from windesheimsemmyminorAI/import/wolfje-chat-documentatie |
+| 2026-06-08 | `72109b9` | docs: import chat-historie, beeldcatalogus en sessie-logboeken (chats 1-5) |
+| 2026-06-07 | `5fc493b` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-08 | `3dc4a71` | Reorg: wolfje-bella-backup -> characters/wolfje + opschoning |
 | 2026-06-07 | `4b2149f` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-07 | `62a402d` | Docs: sessie-analyse versie-audit + leerpunten (persoonlijke ontwikkeling) |

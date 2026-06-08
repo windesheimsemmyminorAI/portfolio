@@ -2,7 +2,7 @@
 
 Dit document helpt iemand die het project overneemt snel op weg. Automatisch gegenereerd uit de huidige projectstaat.
 
-Laatst bijgewerkt: 2026-06-07
+Laatst bijgewerkt: 2026-06-08
 
 ## Hoe draai je het project?
 
@@ -25,14 +25,23 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `.gitignore`
 - `NODE_DOCUMENTATIE.md`
 - `OVERDRACHT.md`
+- `README-IMPORT.md`
 - `README.md`
 - `REVISIE_LOG.md`
 - `claude-github-bridge.js`
 - `dashboard/index.html`
 - `data/facturen.json`
 - `data/resultaat.json`
+- `docs/CLAUDE-CODE-IMPORT-PROMPT.md`
+- `docs/MISSING-IMAGES-CHECKLIST.md`
 - `docs/automatische_documentatie.md`
 - `docs/hoe_het_werkt.md`
+- `docs/session-logs/chat-01-workflow-setup.md`
+- `docs/session-logs/chat-02-jongvolwassen-analyse.md`
+- `docs/session-logs/chat-03-gemini-canon-lock.md`
+- `docs/session-logs/chat-04-turnaround-front-cel.md`
+- `docs/session-logs/chat-05-rubric-reflectie.md`
+- `docs/tool-knowledge/image-processing-pipeline.md`
 - `n8n/README.md`
 - `n8n/dashboard/GITHUB_UPDATE.md`
 - `n8n/dashboard/README.md`
@@ -46,6 +55,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `n8n/dashboard/v8_email_weekrapport.json`
 - `n8n/dashboard/versiedocumentatie.docx`
 - `n8n/dashboard/versiedocumentatie.md`
+- `reference-material/IMAGE-CATALOG.md`
 - `schemas/factuur_schema.json`
 - `scripts/REVISIE_LOG.md`
 - `scripts/genereer_docs.py`
