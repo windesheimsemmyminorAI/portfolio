@@ -26,17 +26,28 @@ Wolfje als wachter die als eerste ziet dat het gezin thuiskomt.
 ## `panels/` — bronmateriaal (Gemini-generaties)
 
 De losse panelen zijn de ruwe generaties waaruit de strip is gebouwd, benoemd
-per verhaalmoment (beat) met varianten (`-a`, `-b`, …):
+per verhaalmoment (beat) met varianten (`-a`, `-b`, …). De maker heeft de
+**definitief gebruikte** panelen aangewezen; die dragen het achtervoegsel
+`-gekozen`. Alle overige varianten zijn **opties/alternatieven**.
 
-- `beat-1-rust-gekozen` — **gebruikt** in de strip (paneel 1)
-- `beat-2-alert-a`, `beat-2-alert-b-gekozen` — `-b` is **gebruikt** (paneel 2)
-- `beat-3-kier-a..d` — alternatieven voor paneel 4 (één variant is gebruikt)
-- `beat-4-rennen-a..e` — alternatieven voor paneel 3 (één variant is gebruikt)
+| Paneel | Status |
+|---|---|
+| `beat-1-rust-gekozen` | **definitief** (rust in de tuin + close-up) |
+| `beat-2-alert-b-gekozen` | **definitief** (alert + opgewonden kop) |
+| `beat-2-alert-a` | optie |
+| `beat-4-rennen-e-gekozen` | **definitief** (rent weg + ravot in stof) |
+| `beat-4-rennen-a` … `-d` | opties |
+| `beat-3-kier-a` … `-d` | opties (tuurt door de schutting) |
 
-> Let op: de panelen 5, 6 en 7 van de eindstrip (auto-aankomst, titelkaart,
-> hartjes-finale) zijn **nieuwere renders die niet als los bestand bewaard zijn**;
-> ze bestaan alleen ingebouwd in de strip-HTML. De `-gekozen`-markering is daarom
-> alleen gezet waar het bronpaneel met zekerheid in de eindstrip terugkomt.
-
-Modelsheets en een onbruikbare render uit dezelfde generatieronde staan in
-`phase-0-spec/characters/wolfje/model-sheets/` resp. `_archief/`.
+> **Niet als los, schoon bestand bewaard:** enkele eindpanelen bestaan alleen
+> ingebouwd in de strip-HTML (auto-aankomst + sterretjesogen, titelkaart
+> "THE FAMILY ARRIVES", hartjes-finale). Daarnaast zijn er twee door de maker
+> als definitief aangewezen renders met een **onafgemaakte (grijze) onderhelft**,
+> die daarom niet als nette eindpanelen zijn opgenomen:
+> - een **full-body reveal**-render (2 staande poses) → staat als referentie in
+>   `phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-modelsheet-gemini-afgekapt.png`;
+> - een **"spot door de schutting"**-render → staat in
+>   `_archief/wolfje-bella-s1e01-render-kapot.png`.
+>
+> Zodra hiervan een schone versie bestaat, kunnen ze als `-gekozen` paneel
+> naar deze map verhuizen.
