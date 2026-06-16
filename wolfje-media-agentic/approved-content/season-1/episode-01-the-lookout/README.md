@@ -44,16 +44,23 @@ per verhaalmoment (beat) met varianten (`-a`, `-b`, …). De maker heeft de
 
 > De volledige set komt 1-op-1 overeen met de panelen in de strip-HTML.
 
+### Extra paneel (buiten de 7-panel strip)
+
+| Paneel | Scene |
+|---|---|
+| `reveal-fullbody-gekozen` | full-body reveal van Wolfje (2 poses), bijgesneden uit de turnaround-render |
+
 ### Varianten / opties (niet gebruikt)
 
 - `beat-2-alert-a`
 - `beat-3-kier-a` … `-d`
+- `beat-3-kier-e-bijgesneden` (lagere kwaliteit; bijgesneden uit een kapotte render — `beat-3-kier-gekozen` is de schone versie)
 - `beat-4-rennen-a` … `-d`
 
-### Overige renders
+### Bronrenders
 
-Twee eerdere renders met een **onafgemaakte (grijze) onderhelft** zijn vervangen
-door de schone `-gekozen` panelen hierboven en blijven als iteratie bewaard:
+Twee eerdere renders hadden een **onafgemaakte (grijze) helft**; de bruikbare
+delen zijn eruit bijgesneden (zie hierboven). De originelen blijven als iteratie:
 
-- een **full-body reveal**-render (2 staande poses) → `phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-modelsheet-gemini-afgekapt.png`;
-- de eerdere **"spot door de schutting"**-render → `_archief/wolfje-bella-s1e01-render-kapot.png` (nu vervangen door `beat-3-kier-gekozen`).
+- de **turnaround/reveal**-render → `phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-modelsheet-gemini-afgekapt.png` (bijgesneden tot `reveal-fullbody-gekozen`);
+- de **"spot door de schutting"**-render → `_archief/wolfje-bella-s1e01-render-kapot.png` (bijgesneden tot `beat-3-kier-e-bijgesneden`; schone versie = `beat-3-kier-gekozen`).
