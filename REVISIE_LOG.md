@@ -6,6 +6,9 @@ Laatst bijgewerkt: 2026-06-16
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-16 | `0916b42` | Merge pull request #9 from windesheimsemmyminorAI/docs/beoordelaar-overzicht |
+| 2026-06-16 | `c7890c0` | docs: leeswijzer voor beoordelaar (BEOORDELAAR.md) + verwijzing in README |
+| 2026-06-16 | `5f9c983` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-16 | `a39f088` | Merge pull request #8 from windesheimsemmyminorAI/docs/audit-n8n-wolfje |
 | 2026-06-16 | `49663fb` | docs(n8n): versiedocumentatie.docx bijgewerkt met iteratie 8 (Word = Markdown) |
 | 2026-06-16 | `ba8ab58` | docs: n8n v8 + wolfje episode-1 structuur bijgewerkt, README's gesynchroniseerd |

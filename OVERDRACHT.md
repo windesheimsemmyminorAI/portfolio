@@ -23,6 +23,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 
 - `.github/workflows/update-docs.yml`
 - `.gitignore`
+- `BEOORDELAAR.md`
 - `NODE_DOCUMENTATIE.md`
 - `OVERDRACHT.md`
 - `README-IMPORT.md`
