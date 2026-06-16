@@ -2,10 +2,20 @@
 
 Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-geschiedenis.
 
-Laatst bijgewerkt: 2026-06-08
+Laatst bijgewerkt: 2026-06-16
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-16 | `3e66a8a` | Merge pull request #7 from windesheimsemmyminorAI/import/wolfje-chat-documentatie |
+| 2026-06-16 | `f96d327` | feat(ep1): grijze renders bijgesneden tot full-body reveal + kier-optie |
+| 2026-06-16 | `bb24940` | feat(ep1): schone eindpanelen (kier/auto/titelkaart/finale) toegevoegd, set compleet |
+| 2026-06-16 | `dafa2a2` | docs(ep1): definitieve panelen (rust/alert-b/rennen-e) gemarkeerd, README bijgewerkt |
+| 2026-06-16 | `86431a6` | docs(ep1): episode-README toegevoegd, gekozen bronpanelen gemarkeerd |
+| 2026-06-16 | `77d6b30` | refactor: ep1-panelen op verhaalmoment hernoemd, modelsheets verplaatst, archief ontdubbeld |
+| 2026-06-16 | `cab597f` | refactor: rommelmap opgeruimd, bestanden hernoemd en gesorteerd |
+| 2026-06-16 | `133a1d7` | alle verschillende itteraties en uitkomsten bij het ontwerpen van wolfje |
+| 2026-06-15 | `1d8b41b` | wolfje turnaround sheet v2 |
+| 2026-06-08 | `08cf6e7` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-08 | `6fa3a07` | Merge pull request #6 from windesheimsemmyminorAI/import/wolfje-chat-documentatie |
 | 2026-06-08 | `b26e984` | docs(readme): corrigeer verouderde Wolfje-kleurspec naar canon |
 | 2026-06-08 | `13b3a29` | docs(image-catalog): pad-verwijzingen naar repo-structuur (characters/wolfje) |

@@ -2,7 +2,7 @@
 
 Dit document helpt iemand die het project overneemt snel op weg. Automatisch gegenereerd uit de huidige projectstaat.
 
-Laatst bijgewerkt: 2026-06-08
+Laatst bijgewerkt: 2026-06-16
 
 ## Hoe draai je het project?
 
@@ -64,10 +64,51 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `scripts/verwerk_facturen.py`
 - `wolfje-media-agentic/.gitignore`
 - `wolfje-media-agentic/README.md`
+- `wolfje-media-agentic/_archief/CANON-selectie-log_1.md`
+- `wolfje-media-agentic/_archief/CANON-wolfje-jongvolwassen_1.md`
+- `wolfje-media-agentic/_archief/CHANGELOG_1.md`
+- `wolfje-media-agentic/_archief/PROGRESS-LOG_1.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/HANDOFF-naar-nieuwe-chat.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/README.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/model-sheets/wolfje-jongvolwassen-turnaround-prompts.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/prompts-gemini-output/wolfje-jongvolwassen-gemini-prompts-v2-defluffed.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/prompts-gemini-output/wolfje-jongvolwassen-gemini-prompts.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/reference-material/character-sheets/candidates/wolfje-jv-turn-04-driekwart-achter_KANDIDAAT.png`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-02-driekwart-front.png`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-03-zij.png`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/reference-material/character-sheets/wolfje-jv-turn-05-achter.png`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/wolfje-jongvolwassen-analyse-en-4-prompts.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/wolfje-jongvolwassen-prompt-v3.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-backup/wolfje_metaprompt_gemini_naar_nanobanana.md`
+- `wolfje-media-agentic/_archief/wolfje-bella-s1e01-render-kapot.png`
 - `wolfje-media-agentic/approved-content/README.md`
 - `wolfje-media-agentic/approved-content/season-1/.gitkeep`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/README.md`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-1-rust-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-2-alert-a.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-2-alert-b-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-3-kier-a.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-3-kier-b.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-3-kier-c.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-3-kier-d.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-3-kier-e-bijgesneden.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-3-kier-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-4-rennen-a.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-4-rennen-b.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-4-rennen-c.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-4-rennen-d.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-4-rennen-e-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-5-auto-sterretjes-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-6-titelkaart-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-beat-7-finale-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/panels/wolfje-bella-s1e01-reveal-fullbody-gekozen.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/wolfje-bella-s1e01-pagina-1.png`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/wolfje-bella-s1e01-the-lookout-strip.html`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/wolfje-bella-s1e01-video-1.mp4`
+- `wolfje-media-agentic/approved-content/season-1/episode-01-the-lookout/wolfje-bella-s1e01-video-2.mp4`
 - `wolfje-media-agentic/approved-content/season-2/.gitkeep`
 - `wolfje-media-agentic/approved-content/season-3/.gitkeep`
+- `wolfje-media-agentic/docs/wolfje-eindterm-verslag-prompt.md`
 - `wolfje-media-agentic/phase-0-spec/ONTBREKENDE-BEELDEN-phase-0.md`
 - `wolfje-media-agentic/phase-0-spec/character-design-iterations.md`
 - `wolfje-media-agentic/phase-0-spec/character-generation-prompts.md`
@@ -78,6 +119,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/canon/reference-inputs/wolfje-ref-hero-bijgesneden.jpg`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/canon/reference-inputs/wolfje-ref-vacht-bijgesneden.jpg`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/canon/wolfje-jongvolwassen-CANON.png`
+- `wolfje-media-agentic/phase-0-spec/characters/wolfje/canon/wolfje-jv-turnaround-sheet-v2.png`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/input-photos/20250801_164033.jpg`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/input-photos/20260324_010146.jpg`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/input-photos/20260501_140420.jpg`
@@ -101,6 +143,9 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/model-sheets/character-sheets/wolfje-jv-turn-05-achter.png`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/model-sheets/character-sheets-CHANGELOG.md`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/model-sheets/wolfje-jongvolwassen-turnaround-prompts.md`
+- `wolfje-media-agentic/phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-modelsheet-gemini-4poses.png`
+- `wolfje-media-agentic/phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-modelsheet-gemini-afgekapt.png`
+- `wolfje-media-agentic/phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-turnaround-sheet-v1.png`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/prompts/gemini-output/raw-gemini-variant1-yellow.txt`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/prompts/gemini-output/raw-gemini-variant2-lavender.txt`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/prompts/gemini-output/raw-gemini-variant3-mint.txt`
@@ -144,6 +189,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/renders/round-3/A4_celshaded_b_CHOSENdirection.png`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/renders/round-3/README.md`
 - `wolfje-media-agentic/phase-0-spec/characters/wolfje/style-reference/niece_style_reference.jpeg`
+- `wolfje-media-agentic/phase-0-spec/characters/wolfje/style-round-5-readme.md`
 - `wolfje-media-agentic/phase-0-spec/project_specification.md`
 - `wolfje-media-agentic/phase-0-spec/reference-and-modelsheet-prompts.md`
 - `wolfje-media-agentic/phase-0-spec/style-exploration-prompts.md`
