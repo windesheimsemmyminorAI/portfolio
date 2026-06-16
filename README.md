@@ -1,5 +1,7 @@
 # Inkoopfacturatie dashboard
 
+> 🎓 **Beoordelaar?** Begin bij **[`BEOORDELAAR.md`](BEOORDELAAR.md)** — de leeswijzer met een overzicht van alle onderdelen, bewijsstukken en versiehistorie.
+
 Een portfolio-project dat laat zien hoe je ruwe factuurdata automatisch kunt controleren en overzichtelijk kunt presenteren in een dashboard.
 
 ## Wat het doet
