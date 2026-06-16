@@ -6,6 +6,10 @@ Laatst bijgewerkt: 2026-06-16
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-16 | `a39f088` | Merge pull request #8 from windesheimsemmyminorAI/docs/audit-n8n-wolfje |
+| 2026-06-16 | `49663fb` | docs(n8n): versiedocumentatie.docx bijgewerkt met iteratie 8 (Word = Markdown) |
+| 2026-06-16 | `ba8ab58` | docs: n8n v8 + wolfje episode-1 structuur bijgewerkt, README's gesynchroniseerd |
+| 2026-06-16 | `ddb92ba` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-16 | `3e66a8a` | Merge pull request #7 from windesheimsemmyminorAI/import/wolfje-chat-documentatie |
 | 2026-06-16 | `f96d327` | feat(ep1): grijze renders bijgesneden tot full-body reveal + kier-optie |
 | 2026-06-16 | `bb24940` | feat(ep1): schone eindpanelen (kier/auto/titelkaart/finale) toegevoegd, set compleet |
