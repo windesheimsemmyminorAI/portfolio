@@ -26,7 +26,9 @@ Deze verwachtingen vormen de meetlat voor mijn keuzes. Vooral "makkelijk in gebr
 | 5 | E-mail-dashboard werkend (`v5_email_werkend.json`) | Hetzelfde dashboard, mail-veilig opgemaakt en per e-mail verstuurd | Dashboard miste nog de KPI's die de opdrachtgever wil meten |
 | 6 | Webhook-dashboard met KPI's (`v6_webhook_kpi.json`) | Webpagina-dashboard met de drie KPI's (gauge, heatmap, top-fouten) | Huidige versie (webpagina) |
 | 7 | E-mail-dashboard met KPI's (`v7_email_kpi.json`) | Hetzelfde KPI-dashboard, mail-veilig per e-mail | Opdrachtgever wilde één wekelijks overzicht i.p.v. een losse weergave |
-| 8 | Weekrapport (`v8_email_weekrapport.json`) | Verbreed KPI-dashboard als wekelijks e-mailrapport, samengevat per factuurdatum-week | Huidige versie (e-mail) |
+| 8 | Weekrapport (`v8_email_weekrapport.json`) | Verbreed KPI-dashboard als wekelijks e-mailrapport, samengevat per factuurdatum-week | Wilde ook een variant over de volledige dataset |
+| 9 | Volledig overzicht (`v9_email_volledig.json`) | Hetzelfde rijke dashboard, maar handmatig over de **volledige** dataset i.p.v. één week | Terug naar een wekelijks ritme, nu met de nieuwe databron |
+| 10 | Weekrapport nieuwe koppeling (`v10_email_weekrapport_nieuwe-koppeling.json`) | Wekelijks weekrapport gekoppeld aan de nieuwe databron | Huidige versie (e-mail) |
 
 ## Iteratie 1 — De AI Agent
 
@@ -178,10 +180,44 @@ toevallige moment van verwerken.
 en de gemiddelde-confidence-cijfers grof (bij één factuur 0% of 100%). De
 absolute aantallen ernaast houden het interpreteerbaar.
 
+## Iteratie 9 — Volledig overzicht (alle data)
+
+**Bestand:** `v9_email_volledig.json`
+
+**Wat het is:** Dezelfde rijke KPI-opzet als het weekrapport, maar zonder weekfilter:
+het dashboard rekent over de **volledige** dataset en wordt handmatig verstuurd. Handig
+voor een totaaloverzicht of een ad-hoc controle los van het wekelijkse ritme.
+
+**Waarom deze aanpak:** Naast het wekelijkse rapport bleek er behoefte aan een
+overzicht over alle verwerkte facturen tegelijk (bijvoorbeeld voor een periodieke
+totaalcontrole). De onderliggende KPI-berekening en opmaak zijn gelijk aan het
+weekrapport; alleen het tijdvenster en de trigger verschillen.
+
+## Iteratie 10 — Weekrapport op de nieuwe databron
+
+**Bestanden:** `v10_email_weekrapport_nieuwe-koppeling.json` (huidig) en
+`v10_email_weekrapport_oude-koppeling.json` (historische variant)
+
+**Wat het is:** Het wekelijkse weekrapport, nu gekoppeld aan de **nieuwe databron**.
+De oude variant (`…oude-koppeling`) hing nog aan de oude Excel-koppeling en is bewaard
+als historisch bestand.
+
+**Belangrijk:** de **node-logica is in beide identiek** — dezelfde KPI-berekening,
+dezelfde mail-veilige opmaak en dezelfde Google Sheets-bron. Het echte verschil zit in de
+data: de `…oude-koppeling`-variant heeft **104 gepinde data-items (`pinData`)** ingebakken
+— de oude dataset uit de oude Excel-koppeling, vandaar het grotere bestand. De
+`…nieuwe-koppeling`-variant heeft geen gepinde data en leest live uit de nieuwe databron.
+Het onderscheid is ook terug te zien in de interne workflow-naam en tag
+(`v10 nieuwe koppeling` vs. `v10 oude koppeling`).
+
+**Wat ik hiervan leerde:** een versieverschil hoeft niet altijd in de code te zitten.
+Door de twee koppeling-varianten expliciet te benoemen (in plaats van twee bestanden met
+dezelfde naam) blijft traceerbaar welke versie aan welke databron hing.
+
 ## Conclusie en vervolg
 
-De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent (iteratie 1), via een te complex e-maildashboard (iteratie 2) en een eerste webpagina-poging (iteratie 3), naar een werkend dashboard zodra de juiste databron en veldnamen gevonden waren (iteratie 4-5), naar een dashboard dat de KPI's van de opdrachtgever toont (iteratie 6-7), en ten slotte naar een wekelijks weekrapport met verbrede KPI's (iteratie 8).
+De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent (iteratie 1), via een te complex e-maildashboard (iteratie 2) en een eerste webpagina-poging (iteratie 3), naar een werkend dashboard zodra de juiste databron en veldnamen gevonden waren (iteratie 4-5), naar een dashboard dat de KPI's van de opdrachtgever toont (iteratie 6-7), naar een wekelijks weekrapport met verbrede KPI's (iteratie 8), een volledig-overzichtvariant (iteratie 9), en ten slotte het weekrapport op de nieuwe databron (iteratie 10).
 
 Twee dingen stuurden die ontwikkeling: de technische problemen met de databron en de dataverwerking, en de klantverwachtingen van de opdrachtgever. Het kantelpunt was de ontdekking dat de juiste databron de Google Sheets-log was, met exact overeenkomende veldnamen. Vanaf dat moment kon ik het dashboard niet alleen laten werken, maar ook uitbreiden met betekenisvolle KPI's.
 
-Het dashboard bestaat nu in twee gelijkwaardige vormen — de webpagina (`v6_webhook_kpi.json`) en het wekelijkse e-mailrapport (`v8_email_weekrapport.json`) — zodat de opdrachtgever kan kiezen welke het best past bij "makkelijk in gebruik" en "laagdrempelig". Mijn volgende stap is het verfijnen van KPI 2: door ook het tabblad Factuurregels uit te lezen, kan de factuurkwaliteit op artikelniveau gemeten worden in plaats van op factuurniveau.
+Het dashboard bestaat nu in twee gelijkwaardige vormen — de webpagina (`v6_webhook_kpi.json`) en het wekelijkse e-mailrapport op de nieuwe databron (`v10_email_weekrapport_nieuwe-koppeling.json`) — zodat de opdrachtgever kan kiezen welke het best past bij "makkelijk in gebruik" en "laagdrempelig". Mijn volgende stap is het verfijnen van KPI 2: door ook het tabblad Factuurregels uit te lezen, kan de factuurkwaliteit op artikelniveau gemeten worden in plaats van op factuurniveau.

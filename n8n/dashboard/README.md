@@ -14,14 +14,22 @@ Deze map bevat mijn N8N-workflows voor het inkoopfacturatie-dashboard, in de vol
 | `v6_webhook_kpi.json` | 6 | Webpagina-dashboard met KPI's (gauge, heatmap, top-fouten) |
 | `v7_email_kpi.json` | 7 | E-mail-dashboard met dezelfde KPI's, mail-veilig |
 | `v8_email_weekrapport.json` | 8 | Verbreed KPI-dashboard, wekelijks (ma 05:00), samengevat per factuurdatum-week |
+| `v9_email_volledig.json` | 9 | E-mail-dashboard over de **volledige** dataset (handmatig), met het rijke Mistral-schema |
+| `v10_email_weekrapport_oude-koppeling.json` | 10 (oud) | Weekrapport gekoppeld aan de **oude** databron (oude Excel-koppeling) |
+| `v10_email_weekrapport_nieuwe-koppeling.json` | 10 | Weekrapport gekoppeld aan de **nieuwe** databron — huidige e-mailversie |
 | `versiedocumentatie.md` | — | Beschrijving van wat er per versie veranderde en waarom |
 | `versiedocumentatie.docx` | — | Dezelfde documentatie als Word-bestand voor het portfolio |
 
-## De twee huidige versies (v6 en v8)
+## De twee huidige versies (v6 en v10)
 
 - **Webpagina:** `v6_webhook_kpi.json` — het KPI-dashboard als opvraagbare webpagina.
-- **E-mail:** `v8_email_weekrapport.json` — het verbrede KPI-dashboard als wekelijks
-  rapport (vervangt de losse e-mailweergave van `v7_email_kpi.json`).
+- **E-mail:** `v10_email_weekrapport_nieuwe-koppeling.json` — het wekelijkse weekrapport,
+  gekoppeld aan de nieuwe databron.
+
+> **Let op:** de twee v10-bestanden hebben **identieke node-logica**; het verschil zit in de
+> data. `…oude-koppeling` heeft de **oude dataset gepind ingebakken** (`pinData`, 104 items uit
+> de oude Excel-koppeling); `…nieuwe-koppeling` leest live uit de nieuwe databron. De oude
+> variant is bewaard als historische variant.
 
 Beide lezen uit de Google Sheets-log "Bajo Inkoopfacturatie - Log":
 - Tabblad **Verwerkte facturen** — de facturen met status PASS/REVIEW/FATAL

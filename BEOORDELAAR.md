@@ -28,8 +28,8 @@ Elk onderdeel heeft een eigen `README.md` met uitleg.
 ## 2. N8N-workflows
 
 - **Start:** `n8n/README.md` → `n8n/dashboard/README.md`.
-- **Ontwikkellijn (bewijs van iteratief werken):** `n8n/dashboard/versiedocumentatie.md` (én `.docx` voor het portfolio) beschrijft **iteratie 1 t/m 8** — van AI-agent, via een te complex e-maildashboard, naar het werkende KPI-dashboard en uiteindelijk het wekelijkse weekrapport.
-- **Workflows:** `v1_…` t/m `v8_email_weekrapport.json`. Huidige versies: **v6** (webpagina) en **v8** (wekelijks e-mailrapport).
+- **Ontwikkellijn (bewijs van iteratief werken):** `n8n/dashboard/versiedocumentatie.md` (én `.docx` voor het portfolio) beschrijft **iteratie 1 t/m 10** — van AI-agent, via een te complex e-maildashboard, naar het werkende KPI-dashboard, het wekelijkse weekrapport en de koppeling aan de nieuwe databron.
+- **Workflows:** `v1_…` t/m `v10_…`. Huidige versies: **v6** (webpagina) en **v10 nieuwe koppeling** (wekelijks e-mailrapport).
 
 ## 3. Wolfje & Bella — Media Agentic
 
