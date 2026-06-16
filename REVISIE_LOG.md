@@ -6,6 +6,10 @@ Laatst bijgewerkt: 2026-06-16
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-16 | `e6e0d06` | Merge pull request #10 from windesheimsemmyminorAI/feat/n8n-v9-v10 |
+| 2026-06-16 | `b6a716e` | docs(n8n): versiedocumentatie.docx bijgewerkt met iteratie 9 + 10 (Word = Markdown) |
+| 2026-06-16 | `4c70862` | feat(n8n): v9 + v10 (oude/nieuwe koppeling) workflows toegevoegd en gedocumenteerd |
+| 2026-06-16 | `e79a144` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-16 | `0916b42` | Merge pull request #9 from windesheimsemmyminorAI/docs/beoordelaar-overzicht |
 | 2026-06-16 | `c7890c0` | docs: leeswijzer voor beoordelaar (BEOORDELAAR.md) + verwijzing in README |
 | 2026-06-16 | `5f9c983` | Docs automatisch bijgewerkt [skip ci] |
