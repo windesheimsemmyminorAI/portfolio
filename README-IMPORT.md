@@ -1,5 +1,13 @@
 # 📦 Wolfje & Bella — Chat-import & documentatie
 
+> ✅ **Import voltooid & gereorganiseerd (historisch document).** De beelden en docs
+> uit dit bundel zijn inmiddels opgenomen en verplaatst naar hun definitieve plek
+> onder `wolfje-media-agentic/` (vooral `phase-0-spec/characters/wolfje/` en
+> `reference-material/`). De mappenstructuur hieronder beschrijft de **oorspronkelijke
+> importbundel**, niet de huidige repo-indeling. Actuele locaties: zie
+> `wolfje-media-agentic/README.md` en `reference-material/IMAGE-CATALOG.md`.
+> De `docs/session-logs/` en `docs/tool-knowledge/` staan nog op hun plek.
+
 Deze map bundelt de waardevolle informatie en beelden uit de vijf Claude-projectchats, klaar om **additief** in de GitHub-repo te worden opgenomen (niets overschrijven).
 
 ## Wat zit hierin

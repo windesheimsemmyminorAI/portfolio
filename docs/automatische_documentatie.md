@@ -12,13 +12,15 @@ Het bijzondere: deze bestanden worden niet met de hand geschreven, maar **afgele
 
 ### 1. Met de hand (simpelste, altijd betrouwbaar)
 
-Draai voordat je commit dit ene commando in de map `scripts`:
+Draai in de map `scripts`:
 
 ```
-python update.py
+python update.py        # controleert facturen + bouwt het dashboard
+python genereer_docs.py # werkt de drie docs bij (overdracht, revisielog, nodes)
 ```
 
-Dit controleert je facturen, bouwt het dashboard, én werkt alle docs bij. Daarna commit en push je zoals altijd.
+`update.py` bouwt alleen het dashboard; de documentatie werk je los bij met
+`genereer_docs.py` (of laat je over aan GitHub Actions — optie 3). Daarna commit en push je zoals altijd.
 
 ### 2. Automatisch bij elke commit (Git hook, lokaal)
 

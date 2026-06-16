@@ -13,10 +13,15 @@ Deze map bevat mijn N8N-workflows voor het inkoopfacturatie-dashboard, in de vol
 | `v5_email_werkend.json` | 5 | Werkend e-mail-dashboard, mail-veilig opgemaakt |
 | `v6_webhook_kpi.json` | 6 | Webpagina-dashboard met KPI's (gauge, heatmap, top-fouten) |
 | `v7_email_kpi.json` | 7 | E-mail-dashboard met dezelfde KPI's, mail-veilig |
+| `v8_email_weekrapport.json` | 8 | Verbreed KPI-dashboard, wekelijks (ma 05:00), samengevat per factuurdatum-week |
 | `versiedocumentatie.md` | — | Beschrijving van wat er per versie veranderde en waarom |
 | `versiedocumentatie.docx` | — | Dezelfde documentatie als Word-bestand voor het portfolio |
 
-## De twee huidige versies (v6 en v7)
+## De twee huidige versies (v6 en v8)
+
+- **Webpagina:** `v6_webhook_kpi.json` — het KPI-dashboard als opvraagbare webpagina.
+- **E-mail:** `v8_email_weekrapport.json` — het verbrede KPI-dashboard als wekelijks
+  rapport (vervangt de losse e-mailweergave van `v7_email_kpi.json`).
 
 Beide lezen uit de Google Sheets-log "Bajo Inkoopfacturatie - Log":
 - Tabblad **Verwerkte facturen** — de facturen met status PASS/REVIEW/FATAL
@@ -26,6 +31,9 @@ Beide lezen uit de Google Sheets-log "Bajo Inkoopfacturatie - Log":
 1. Reductie handmatige handelingen (gauge, doel max 40%)
 2. Factuurkwaliteit per leverancier (heatmap)
 3. Meest voorkomende fouten (top-5)
+
+> v8 breidt dit uit met risicosignalen, technische factuurkwaliteit (UBL) en
+> datakwaliteit-cijfers; zie `versiedocumentatie.md` (iteratie 8).
 
 ## Hoe importeer ik een workflow in N8N?
 

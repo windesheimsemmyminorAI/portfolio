@@ -1,5 +1,9 @@
 # GitHub-update — Iteratie 8 (weekrapport e-mail)
 
+> ✅ **Toegepast.** Deze instructies zijn uitgevoerd: `v8_email_weekrapport.json`
+> staat in de repo, en `README.md` + `versiedocumentatie.md` zijn bijgewerkt met
+> iteratie 8. Dit bestand blijft als historisch overdrachtsdocument staan.
+
 Deze update voegt iteratie 8 van het dashboard toe aan je repo.
 
 ## 1. Bestand plaatsen

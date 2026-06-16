@@ -111,20 +111,27 @@ Automatische metrics-pijplijn (Phase 5) → voedt continu de volgende generatie
 wolfje-media-agentic/
 ├── README.md
 ├── phase-0-spec/
-│   └── project_specification.md
-├── phase-1-prompts/
-│   └── wolfje_media_agentic_phase1_prompts_v2.md
-├── phase-2-workflow/
-│   └── wolfje_media_agentic_phase2_workflow_v2.md
-├── phase-3-learning/
-│   └── wolfje_media_agentic_phase3_learning.md
-├── phase-4-dashboard/
-│   └── wolfje_bella_dashboard.html
-├── phase-5-metrics/
-│   └── wolfje_media_agentic_phase5_metrics.md
-└── approved-content/        ← goedgekeurde strips/video's (portfolio-bewijs)
-    └── season-1/ …
+│   ├── project_specification.md          ← single source of truth
+│   └── characters/wolfje/                ← canon, input-photos, model-sheets,
+│       └── …                                prompts, renders, logs
+├── phase-1-prompts/   wolfje_media_agentic_phase1_prompts_v2.md
+├── phase-2-workflow/  wolfje_media_agentic_phase2_workflow_v2.md
+├── phase-3-learning/  wolfje_media_agentic_phase3_learning.md
+├── phase-4-dashboard/ wolfje_bella_dashboard.html
+├── phase-5-metrics/   wolfje_media_agentic_phase5_metrics.md
+├── reference-material/                   ← stijl-referenties + style-results
+├── docs/
+│   └── wolfje-eindterm-verslag-prompt.md ← systeem-prompt eindtermverslag
+├── approved-content/                     ← goedgekeurde strips/video's (portfolio-bewijs)
+│   └── season-1/
+│       └── episode-01-the-lookout/       ← strip-HTML, video's, panels/ + README
+└── _archief/                             ← oude iteraties/duplicaten (historie, niet actief)
 ```
+
+> **Episode 1 — "The Lookout"** is de eerste uitgewerkte aflevering: de afgemaakte
+> strip (HTML), twee video's en de bronpanelen staan in
+> `approved-content/season-1/episode-01-the-lookout/`, met een eigen README die de
+> verhaalvolgorde en de gekozen panelen documenteert.
 
 ---
 
@@ -140,7 +147,7 @@ wolfje-media-agentic/
 
 ## 📌 Status
 
-Alle fases (0–5) zijn uitgewerkt, op fouten gecontroleerd en met de vastgestelde keuzes geïntegreerd. Volgende stap: referentiebeeld + tekenstijl laten goedkeuren, accounts aanmaken, API's koppelen en testen met de eerste echte foto's van Wolfje.
+Alle fases (0–5) zijn uitgewerkt, op fouten gecontroleerd en met de vastgestelde keuzes geïntegreerd. Het canon-referentiebeeld en de cel-shaded tekenstijl zijn vergrendeld, en de eerste aflevering — **Episode 1 "The Lookout"** — is geproduceerd (strip + video's, zie `approved-content/season-1/episode-01-the-lookout/`). Volgende stap: accounts aanmaken, API's koppelen en de pijplijn testen met nieuwe afleveringen.
 
 > **Versiebeheer / project-hygiëne (07-06-2026):** een audit van Phase 0 wees uit dat het beslisproces volledig is gedocumenteerd, maar dat niet alle afgewezen beelden als bestand zijn bewaard. Zie `phase-0-spec/ONTBREKENDE-BEELDEN-phase-0.md` (known gaps + reflectie), de bijbehorende GitHub-issues #1–#4, en `phase-0-spec/characters/wolfje/logs/CHANGELOG.md` (Sessie J/K) voor de volledige analyse en leerpunten.
 

@@ -4,6 +4,14 @@ Beelden die **alleen in een chat** leven (niet als projectkennis gekoppeld). De 
 
 **Vink af zodra geëxporteerd en geplaatst.**
 
+> **Status-update:** de **hoogste-prioriteit-assets staan inmiddels in de repo**
+> (canon + turnaround). Bevestigd aanwezig onder
+> `wolfje-media-agentic/phase-0-spec/characters/wolfje/`:
+> `canon/wolfje-jongvolwassen-CANON.png`, de vijf cellen
+> `model-sheets/character-sheets/wolfje-jv-turn-01..05-*.png` en
+> `canon/wolfje-jv-turnaround-sheet-v2.png`. Die items zijn hieronder afgevinkt.
+> De resterende vinkjes zijn optioneel portfolio-bewijs (kandidaten/rejects).
+
 ---
 
 ## Chat 01 — workflow setup
@@ -25,8 +33,8 @@ Beelden die **alleen in een chat** leven (niet als projectkennis gekoppeld). De 
 
 > **Belangrijke bevinding:** de canon-documenten én de vergrendelde canon/turnaround-beelden van chat 3 zitten **niet** in de projectkennis die ik kan zien. Ze zijn destijds direct naar GitHub gepusht (chat 4). **Controleer eerst je huidige GitHub-repo** — als ze er al staan, hoef je ze NIET opnieuw te exporteren. Vink alleen af wat écht ontbreekt.
 
-- [ ] **`wolfje-jongvolwassen-CANON.png`** — het vergrendelde canon-referentiebeeld (Render 3 uit hals-edit-ronde). Hét belangrijkste asset. → Bestemming: `reference-material/character-sheets/` (of `canon/`).
-- [ ] **Turnaround-cellen 02–05** (`wolfje-jv-turn-02..05-*.png`) — de vier vergrendelde cellen. → Bestemming: `reference-material/character-sheets/`.
+- [x] **`wolfje-jongvolwassen-CANON.png`** — het vergrendelde canon-referentiebeeld (Render 3 uit hals-edit-ronde). Hét belangrijkste asset. ✅ Staat in `…/wolfje/canon/`.
+- [x] **Turnaround-cellen 02–05** (`wolfje-jv-turn-02..05-*.png`) — de vier vergrendelde cellen. ✅ Staan in `…/wolfje/model-sheets/character-sheets/`.
 - [ ] **v1-kandidaten** (te oranje puffball) — als portfolio-bewijs van de fout-richting. → `reference-material/style-results/round-canon/v1/`.
 - [ ] **v2-kandidaten + Render 1–5** — inclusief de niet-gekozen renders (o.a. Semmy's gut-favoriet Render 1). Bewijs van het selectieproces. → `reference-material/style-results/round-canon/v2/`.
 - [ ] **Hals-edit-kandidaten** (image-to-image vollere kraag, waaruit Render 3 = canon kwam). → `reference-material/style-results/round-canon/neck-edit/`.
@@ -38,9 +46,9 @@ Beelden die **alleen in een chat** leven (niet als projectkennis gekoppeld). De 
 
 > In deze chat is alles via GitHub Desktop gepusht. **Grote kans dat onderstaande al in je GitHub-repo staat** — controleer eerst en exporteer alleen wat ontbreekt.
 
-- [ ] **`wolfje-jv-turn-01-*.png`** — de vergrendelde vooraanzicht-cel. → `reference-material/character-sheets/`.
-- [ ] **Cel 01-kandidaten** — de afgevallen front-cel-renders (incl. de Render 1 met Papillon-drift). Portfolio-bewijs. → `reference-material/character-sheets/candidates/cel-01/`.
-- [ ] **Samengestelde turnaround-strip** (alle vijf cellen naast elkaar). → `reference-material/character-sheets/`.
+- [x] **`wolfje-jv-turn-01-*.png`** — de vergrendelde vooraanzicht-cel. ✅ Staat in `…/wolfje/model-sheets/character-sheets/`.
+- [ ] **Cel 01-kandidaten** — de afgevallen front-cel-renders (incl. de Render 1 met Papillon-drift). Portfolio-bewijs. → `…/wolfje/renders/rejected/turnaround-front/` (deels aanwezig).
+- [x] **Samengestelde turnaround-strip** (alle vijf cellen naast elkaar). ✅ `…/wolfje/canon/wolfje-jv-turnaround-sheet-v2.png`.
 - [ ] **Pre/post-processing-paren (optioneel)** — als je een "voor desaturatie / na desaturatie"-paar bewaart, is dat sterk portfolio-bewijs van de Pillow-pijplijn. → `reference-material/character-sheets/processing-demo/`.
 ## Chat 05 — reflectie/rubric
 

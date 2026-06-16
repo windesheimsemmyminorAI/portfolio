@@ -55,6 +55,18 @@ Meer technische uitleg staat in `docs/hoe_het_werkt.md`.
 
 Het onderwerp (inkoopfacturatie) komt uit een groepsproject voor een bouwbedrijf. Dit dashboard is mijn eigen, losstaande uitwerking om de techniek erachter te demonstreren.
 
+## Andere onderdelen in deze repo
+
+Deze repository is mijn portfolio en bundelt meerdere projecten:
+
+| Onderdeel | Map | Wat |
+|-----------|-----|-----|
+| Factuur-dashboard (dit project) | `scripts/`, `dashboard/`, `data/`, `schemas/` | Python-validatie + gegenereerd HTML-dashboard |
+| N8N-workflows | `n8n/` | De inkoopfacturatie-dashboardworkflow in N8N (v1–v8), met versiedocumentatie |
+| Wolfje & Bella — Media Agentic | `wolfje-media-agentic/` | AI-contentpijplijn voor een getekende stripserie; incl. Episode 1 "The Lookout" |
+
+Elk onderdeel heeft een eigen `README.md` met uitleg.
+
 ---
 
 Gemaakt door Semmy &middot; 2026

@@ -25,7 +25,8 @@ Deze verwachtingen vormen de meetlat voor mijn keuzes. Vooral "makkelijk in gebr
 | 4 | Webhook-dashboard werkend (`v4_webhook_werkend.json`) | Webpagina-dashboard dat correct uit de log-sheet leest | Wilde dezelfde werkende opzet ook per e-mail kunnen tonen |
 | 5 | E-mail-dashboard werkend (`v5_email_werkend.json`) | Hetzelfde dashboard, mail-veilig opgemaakt en per e-mail verstuurd | Dashboard miste nog de KPI's die de opdrachtgever wil meten |
 | 6 | Webhook-dashboard met KPI's (`v6_webhook_kpi.json`) | Webpagina-dashboard met de drie KPI's (gauge, heatmap, top-fouten) | Huidige versie (webpagina) |
-| 7 | E-mail-dashboard met KPI's (`v7_email_kpi.json`) | Hetzelfde KPI-dashboard, mail-veilig per e-mail | Huidige versie (e-mail) |
+| 7 | E-mail-dashboard met KPI's (`v7_email_kpi.json`) | Hetzelfde KPI-dashboard, mail-veilig per e-mail | Opdrachtgever wilde één wekelijks overzicht i.p.v. een losse weergave |
+| 8 | Weekrapport (`v8_email_weekrapport.json`) | Verbreed KPI-dashboard als wekelijks e-mailrapport, samengevat per factuurdatum-week | Huidige versie (e-mail) |
 
 ## Iteratie 1 — De AI Agent
 
@@ -142,10 +143,45 @@ Een dashboard dat de gegevens niet correct toont, schiet zijn doel voorbij. Daar
 
 **Wat ik hiervan leerde:** Een KPI-visualisatie moet je soms per medium anders vormgeven. De inhoud blijft gelijk, de techniek verschilt.
 
+## Iteratie 8 — Weekrapport met verbrede KPI's
+
+**Bestand:** `v8_email_weekrapport.json`
+
+**Wat het is:** De e-mailversie is fors verbreed en omgezet naar een wekelijks
+rapport. Het dashboard leest nog steeds de twee tabbladen "Verwerkte facturen"
+en "Validatiefouten", maar gebruikt nu het rijkere schema van de nieuwe
+inkoopfacturatie-workflow (Mistral-extractie).
+
+**Wat er nieuw is:**
+- Risicosignalen-blok (IBAN-afwijking, nieuwe/onbekende leverancier, lage
+  AI-betrouwbaarheid, technische UBL-fouten) — vervangt de weggevallen risicoscore.
+- KPI 4 — Technische factuurkwaliteit (UBL): percentage technisch valide facturen.
+- Kwaliteitsrij: gemiddelde OCR-betrouwbaarheid, gemiddelde leveranciersmatch,
+  percentage uniek gematcht, percentage regels zonder grootboekrekening,
+  eenheidsnormalisatie en een samenvatting van de matchmethode.
+- KPI 2 toont nu ook de gemiddelde matchbetrouwbaarheid per leverancier;
+  KPI 3 toont het type fout (FATAL/REVIEW); een lijst "Facturen die aandacht vragen".
+
+**Wekelijks rapport:** De handmatige trigger is vervangen door een Schedule
+Trigger die elke maandag om 05:00 (Europe/Amsterdam) draait. Het dashboard vat
+de vorige kalenderweek (maandag t/m zondag) samen, gefilterd op **factuurdatum**.
+De validatiefouten worden via het factuurnummer aan diezelfde set facturen
+gekoppeld. De periode staat in de header en in het e-mailonderwerp. Een
+handmatige test-trigger blijft beschikbaar.
+
+**Waarom deze aanpak:** De opdrachtgever wil één wekelijks overzicht in plaats
+van een losse weergave. Filteren op factuurdatum sluit aan op hoe de
+administratie naar een week kijkt (de facturen van die week), niet op het
+toevallige moment van verwerken.
+
+**Aandachtspunt:** Bij weinig facturen in een week worden percentages in KPI 2
+en de gemiddelde-confidence-cijfers grof (bij één factuur 0% of 100%). De
+absolute aantallen ernaast houden het interpreteerbaar.
+
 ## Conclusie en vervolg
 
-De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent (iteratie 1), via een te complex e-maildashboard (iteratie 2) en een eerste webpagina-poging (iteratie 3), naar een werkend dashboard zodra de juiste databron en veldnamen gevonden waren (iteratie 4-5), en ten slotte naar een dashboard dat de KPI's van de opdrachtgever toont (iteratie 6-7).
+De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent (iteratie 1), via een te complex e-maildashboard (iteratie 2) en een eerste webpagina-poging (iteratie 3), naar een werkend dashboard zodra de juiste databron en veldnamen gevonden waren (iteratie 4-5), naar een dashboard dat de KPI's van de opdrachtgever toont (iteratie 6-7), en ten slotte naar een wekelijks weekrapport met verbrede KPI's (iteratie 8).
 
 Twee dingen stuurden die ontwikkeling: de technische problemen met de databron en de dataverwerking, en de klantverwachtingen van de opdrachtgever. Het kantelpunt was de ontdekking dat de juiste databron de Google Sheets-log was, met exact overeenkomende veldnamen. Vanaf dat moment kon ik het dashboard niet alleen laten werken, maar ook uitbreiden met betekenisvolle KPI's.
 
-Het dashboard bestaat nu in twee gelijkwaardige vormen — webpagina en e-mail — zodat de opdrachtgever kan kiezen welke het best past bij "makkelijk in gebruik" en "laagdrempelig". Mijn volgende stap is het verfijnen van KPI 2: door ook het tabblad Factuurregels uit te lezen, kan de factuurkwaliteit op artikelniveau gemeten worden in plaats van op factuurniveau.
+Het dashboard bestaat nu in twee gelijkwaardige vormen — de webpagina (`v6_webhook_kpi.json`) en het wekelijkse e-mailrapport (`v8_email_weekrapport.json`) — zodat de opdrachtgever kan kiezen welke het best past bij "makkelijk in gebruik" en "laagdrempelig". Mijn volgende stap is het verfijnen van KPI 2: door ook het tabblad Factuurregels uit te lezen, kan de factuurkwaliteit op artikelniveau gemeten worden in plaats van op factuurniveau.

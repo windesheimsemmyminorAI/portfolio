@@ -4,8 +4,13 @@ Hier worden de goedgekeurde strips en video's per seizoen opgeslagen — tevens 
 
 ```
 approved-content/
-├── season-1/   (dag 1–7)
-└── season-2/   (dag 8–15)
+├── season-1/   (eerste periode)
+│   └── episode-01-the-lookout/   ← afgemaakte strip + video's + panels/
+├── season-2/   (pup)
+└── season-3/   (jongvolwassen)
 ```
 
-Suggestie voor bestandsnaamgeving: `day-01_garden-first-time/` met daarin de strip (PNG's), de short (MP4) en een `metadata.json` (titels, posttijden, tags).
+**Naamconventie per aflevering:** `episode-NN-slug/` (bijv. `episode-01-the-lookout/`)
+met daarin de strip (HTML/PNG), de video('s) (MP4), een `panels/`-map met de
+bronpanelen en een `README.md` die de verhaalvolgorde en gekozen panelen documenteert.
+Zie `season-1/episode-01-the-lookout/` als voorbeeld.
