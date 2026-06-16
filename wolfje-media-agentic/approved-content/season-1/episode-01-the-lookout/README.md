@@ -30,24 +30,30 @@ per verhaalmoment (beat) met varianten (`-a`, `-b`, …). De maker heeft de
 **definitief gebruikte** panelen aangewezen; die dragen het achtervoegsel
 `-gekozen`. Alle overige varianten zijn **opties/alternatieven**.
 
-| Paneel | Status |
-|---|---|
-| `beat-1-rust-gekozen` | **definitief** (rust in de tuin + close-up) |
-| `beat-2-alert-b-gekozen` | **definitief** (alert + opgewonden kop) |
-| `beat-2-alert-a` | optie |
-| `beat-4-rennen-e-gekozen` | **definitief** (rent weg + ravot in stof) |
-| `beat-4-rennen-a` … `-d` | opties |
-| `beat-3-kier-a` … `-d` | opties (tuurt door de schutting) |
+### Definitieve panelen (`-gekozen`) — in verhaalvolgorde van de strip
 
-> **Niet als los, schoon bestand bewaard:** enkele eindpanelen bestaan alleen
-> ingebouwd in de strip-HTML (auto-aankomst + sterretjesogen, titelkaart
-> "THE FAMILY ARRIVES", hartjes-finale). Daarnaast zijn er twee door de maker
-> als definitief aangewezen renders met een **onafgemaakte (grijze) onderhelft**,
-> die daarom niet als nette eindpanelen zijn opgenomen:
-> - een **full-body reveal**-render (2 staande poses) → staat als referentie in
->   `phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-modelsheet-gemini-afgekapt.png`;
-> - een **"spot door de schutting"**-render → staat in
->   `_archief/wolfje-bella-s1e01-render-kapot.png`.
->
-> Zodra hiervan een schone versie bestaat, kunnen ze als `-gekozen` paneel
-> naar deze map verhuizen.
+| # | Paneel | Scene |
+|---|---|---|
+| 1 | `beat-1-rust-gekozen` | rust in de tuin (vlinder) + content close-up |
+| 2 | `beat-2-alert-b-gekozen` | alert staan + opgewonden kop (bliksem/sterren) |
+| 3 | `beat-4-rennen-e-gekozen` | rent weg + ravot in stofwolk |
+| 4 | `beat-3-kier-gekozen` | tuurt door de kier + lege straat met "?" |
+| 5 | `beat-5-auto-sterretjes-gekozen` | ziet de auto aankomen + ogen met sterretjes ✨ |
+| 6 | `beat-6-titelkaart-gekozen` | titelkaart **"THE FAMILY ARRIVES"** |
+| 7 | `beat-7-finale-gekozen` | finale: zoomies met hartjes + propeller-staart |
+
+> De volledige set komt 1-op-1 overeen met de panelen in de strip-HTML.
+
+### Varianten / opties (niet gebruikt)
+
+- `beat-2-alert-a`
+- `beat-3-kier-a` … `-d`
+- `beat-4-rennen-a` … `-d`
+
+### Overige renders
+
+Twee eerdere renders met een **onafgemaakte (grijze) onderhelft** zijn vervangen
+door de schone `-gekozen` panelen hierboven en blijven als iteratie bewaard:
+
+- een **full-body reveal**-render (2 staande poses) → `phase-0-spec/characters/wolfje/model-sheets/wolfje-jv-modelsheet-gemini-afgekapt.png`;
+- de eerdere **"spot door de schutting"**-render → `_archief/wolfje-bella-s1e01-render-kapot.png` (nu vervangen door `beat-3-kier-gekozen`).
