@@ -2,10 +2,12 @@
 
 Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-geschiedenis.
 
-Laatst bijgewerkt: 2026-06-16
+Laatst bijgewerkt: 2026-06-22
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-22 | `a4b70ae` | chore: wolfje-media-agentic en docs/session-logs verplaatst naar github-portfolio |
+| 2026-06-16 | `d598b85` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-16 | `e6e0d06` | Merge pull request #10 from windesheimsemmyminorAI/feat/n8n-v9-v10 |
 | 2026-06-16 | `b6a716e` | docs(n8n): versiedocumentatie.docx bijgewerkt met iteratie 9 + 10 (Word = Markdown) |
 | 2026-06-16 | `4c70862` | feat(n8n): v9 + v10 (oude/nieuwe koppeling) workflows toegevoegd en gedocumenteerd |

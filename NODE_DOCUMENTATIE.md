@@ -2,7 +2,7 @@
 
 Automatisch gegenereerd overzicht van de bouwstenen (nodes/stappen) in het verwerkingsscript. Afgeleid uit de code zelf.
 
-Laatst bijgewerkt: 2026-06-16
+Laatst bijgewerkt: 2026-06-22
 
 Bron: `scripts/verwerk_facturen.py`
 
