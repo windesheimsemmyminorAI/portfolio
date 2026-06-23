@@ -64,7 +64,7 @@ Deze repository is mijn portfolio en bundelt meerdere projecten:
 | Onderdeel | Map | Wat |
 |-----------|-----|-----|
 | Factuur-dashboard (dit project) | `scripts/`, `dashboard/`, `data/`, `schemas/` | Python-validatie + gegenereerd HTML-dashboard |
-| N8N-workflows | `n8n/` | De inkoopfacturatie-dashboardworkflow in N8N (v1–v10), met versiedocumentatie |
+| N8N-workflows | `n8n/` | De inkoopfacturatie-dashboardworkflow in N8N (v1–v14), met versiedocumentatie en overdrachtsversie |
 | Wolfje & Bella — Media Agentic | `wolfje-media-agentic/` | AI-contentpijplijn voor een getekende stripserie; incl. Episode 1 "The Lookout" |
 
 Elk onderdeel heeft een eigen `README.md` met uitleg.
