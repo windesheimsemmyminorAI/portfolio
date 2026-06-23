@@ -2,7 +2,7 @@
 
 Dit document helpt iemand die het project overneemt snel op weg. Automatisch gegenereerd uit de huidige projectstaat.
 
-Laatst bijgewerkt: 2026-06-22
+Laatst bijgewerkt: 2026-06-23
 
 ## Hoe draai je het project?
 
@@ -43,6 +43,7 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `n8n/dashboard/README.md`
 - `n8n/dashboard/v10_email_weekrapport_nieuwe-koppeling.json`
 - `n8n/dashboard/v10_email_weekrapport_oude-koppeling.json`
+- `n8n/dashboard/v11_control_tower_email_overdracht.json`
 - `n8n/dashboard/v1_ai_agent.json`
 - `n8n/dashboard/v2_gmail_dashboard.json`
 - `n8n/dashboard/v3_webhook_dashboard.json`

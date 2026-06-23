@@ -2,10 +2,12 @@
 
 Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-geschiedenis.
 
-Laatst bijgewerkt: 2026-06-22
+Laatst bijgewerkt: 2026-06-23
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-23 | `d979efb` | feat(n8n): v11 overdrachtsversie (inhoudelijk v14) toegevoegd + versiedocumentatie v11-v14 |
+| 2026-06-22 | `62a0bce` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-22 | `a4b70ae` | chore: wolfje-media-agentic en docs/session-logs verplaatst naar github-portfolio |
 | 2026-06-16 | `d598b85` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-16 | `e6e0d06` | Merge pull request #10 from windesheimsemmyminorAI/feat/n8n-v9-v10 |
