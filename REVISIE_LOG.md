@@ -6,6 +6,8 @@ Laatst bijgewerkt: 2026-06-23
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-23 | `635ec0f` | docs: README, BEOORDELAAR en versiedocumentatie.docx bijgewerkt naar v14/overdracht |
+| 2026-06-23 | `1f8e9cd` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-23 | `d979efb` | feat(n8n): v11 overdrachtsversie (inhoudelijk v14) toegevoegd + versiedocumentatie v11-v14 |
 | 2026-06-22 | `62a0bce` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-22 | `a4b70ae` | chore: wolfje-media-agentic en docs/session-logs verplaatst naar github-portfolio |
