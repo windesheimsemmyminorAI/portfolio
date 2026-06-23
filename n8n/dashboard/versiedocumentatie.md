@@ -28,7 +28,11 @@ Deze verwachtingen vormen de meetlat voor mijn keuzes. Vooral "makkelijk in gebr
 | 7 | E-mail-dashboard met KPI's (`v7_email_kpi.json`) | Hetzelfde KPI-dashboard, mail-veilig per e-mail | Opdrachtgever wilde één wekelijks overzicht i.p.v. een losse weergave |
 | 8 | Weekrapport (`v8_email_weekrapport.json`) | Verbreed KPI-dashboard als wekelijks e-mailrapport, samengevat per factuurdatum-week | Wilde ook een variant over de volledige dataset |
 | 9 | Volledig overzicht (`v9_email_volledig.json`) | Hetzelfde rijke dashboard, maar handmatig over de **volledige** dataset i.p.v. één week | Terug naar een wekelijks ritme, nu met de nieuwe databron |
-| 10 | Weekrapport nieuwe koppeling (`v10_email_weekrapport_nieuwe-koppeling.json`) | Wekelijks weekrapport gekoppeld aan de nieuwe databron | Huidige versie (e-mail) |
+| 10 | Weekrapport nieuwe koppeling (`v10_email_weekrapport_nieuwe-koppeling.json`) | Wekelijks weekrapport gekoppeld aan de nieuwe databron | Correcties nodig op KPI 3, aandachtslijst en lege-weekgedrag |
+| 11 | Severity-correctie KPI 3 | Zwaarste severity per foutcode bijhouden, niet de eerst aangetroffen | — |
+| 12 | Voetnoot aandachtslijst | Teller voor afgekapte aandachtsfacturen, automatische voetnoot | — |
+| 13 | Lege week KPI 1 | `stpPct` op null bij 0 facturen, balk toont "Geen data" | — |
+| 14 | Lege-weekmodus volledig + overdracht (`v11_control_tower_email_overdracht.json`) | Alle KPI-secties verborgen bij lege week; e-mailadres → `indy@bajo-bouw.nl` | Definitieve overdrachtsversie |
 
 ## Iteratie 1 — De AI Agent
 
@@ -214,10 +218,79 @@ Het onderscheid is ook terug te zien in de interne workflow-naam en tag
 Door de twee koppeling-varianten expliciet te benoemen (in plaats van twee bestanden met
 dezelfde naam) blijft traceerbaar welke versie aan welke databron hing.
 
+## Iteratie 11 — Severity-correctie in KPI 3
+
+**Bestand:** `v11_control_tower_email_overdracht.json` (bevat ook v12 t/m v14, zie toelichting)
+
+**Wat er is veranderd:** In de "Bereken KPI's"-node werd de zwaarste severity per foutcode
+niet altijd correct bijgehouden. Als een foutcode meerdere keren voorkwam met wisselende ernst
+(bijv. eerst REVIEW, dan FATAL), bleef de eerst aangetroffen severity staan. De foutTeller-logica
+is aangepast zodat bij een zwaarder type (FATAL vóór REVIEW vóór ONBEKEND) de severity wordt
+bijgewerkt — zodat een ernstige fout nooit per ongeluk als lichte fout verschijnt.
+
+**Waarom:** Een FATAL-fout die later in de rij staat, werd tot nu toe getoond als REVIEW als
+het eerste voorkomen REVIEW had. Dat geeft een misleidend beeld van de ernst.
+
+## Iteratie 12 — Voetnoot bij afgekapte aandachtslijst
+
+**Wat er is veranderd:** De aandachtslijst toont maximaal 10 facturen. Daarvoor werd de volledige
+lijst direct afgekapt, zonder te melden hoeveel er buiten beeld vielen. Nu wordt eerst de volledige
+gesorteerde lijst (`alleAandacht`) opgebouwd, vervolgens afgekapt tot 10 (`aandacht`), en het
+verschil (`aandachtVerborgen`) apart doorgegeven. Zodra er meer dan 10 aandachtsfacturen zijn,
+verschijnt automatisch een voetnoot ("Toont 10 van X facturen · overige Y niet weergegeven.").
+
+**Waarom:** Zonder die voetnoot kon de ontvanger ten onrechte denken dat het rapport volledig was,
+terwijl hogere-risicore facturen buiten beeld vielen.
+
+## Iteratie 13 — Lege week: KPI 1-balk verborgen, stpPct op null
+
+**Wat er is veranderd:** Bij een week zonder facturen (totaal = 0) werd `stpPct` eerder berekend
+als 100% (want 0 van 0 facturen zijn handmatig = 0% handmatig = 100% automatisch). Dat verscheen
+dan in de balk als "100% automatisch · doel gehaald", wat feitelijk onjuist is. Nu wordt `stpPct`
+bij een lege week expliciet op `null` gezet. In de HTML-node toont de balk dan de tekst
+"Geen data beschikbaar voor deze periode" in plaats van een misleidende 100%-balk.
+
+**Waarom:** Een lege week is geen prestatie — ze mag er niet uitzien als een perfect resultaat.
+
+## Iteratie 14 — Lege-weekmodus volledig + overdrachtsversie
+
+**Bestand:** `v11_control_tower_email_overdracht.json`
+
+**Wat er is veranderd:** Bij een week zonder facturen werden eerder alle KPI-secties nog steeds
+opgebouwd (met nullen en € 0,00), waarna alleen de balk de "geen data"-tekst toonde. Nu worden
+alle KPI-, risico- en tabelblokken volledig overgeslagen (`kpiSectie = ''`) als er geen facturen
+zijn. Het rapport toont dan uitsluitend de kopregel, een nette grijze banner ("Geen facturen
+verwerkt") en de voettekst. Daarnaast is het ontvangersadres in de "Stuur dashboard e-mail"-node
+gewijzigd van het persoonlijke testadres naar het definitieve zakelijke adres `indy@bajo-bouw.nl`.
+
+**Naamgeving-opmerking:** Het workflowbestand is in n8n getagd als "v11". Inhoudelijk omvat het
+de correcties van v11 t/m v14 in deze versiedocumentatie. Dat verschil is een naamgevingskwestie,
+geen inhoudelijk probleem — de code is consistent en correct. Bij toekomstig onderhoud wordt
+aangeraden de n8n-tag bij te werken naar "v14" of een notitie toe te voegen die naar deze
+versiedocumentatie verwijst.
+
+**Openstaand actiepunt:** De Gmail-credential voor `indy@bajo-bouw.nl` moet nog worden aangemaakt
+in n8n (het workflowbestand bevat een placeholder-ID). Pas daarna kan de workflow op "active"
+worden gezet. Zie het overdrachtsdocument (hoofdstuk 8.1 en 8.3) voor de stap-voor-stap aanpak.
+
+---
+
 ## Conclusie en vervolg
 
-De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent (iteratie 1), via een te complex e-maildashboard (iteratie 2) en een eerste webpagina-poging (iteratie 3), naar een werkend dashboard zodra de juiste databron en veldnamen gevonden waren (iteratie 4-5), naar een dashboard dat de KPI's van de opdrachtgever toont (iteratie 6-7), naar een wekelijks weekrapport met verbrede KPI's (iteratie 8), een volledig-overzichtvariant (iteratie 9), en ten slotte het weekrapport op de nieuwe databron (iteratie 10).
+De ontwikkeling laat een duidelijke lijn zien: van een open AI-agent (iteratie 1), via een te
+complex e-maildashboard (iteratie 2) en een eerste webpagina-poging (iteratie 3), naar een
+werkend dashboard zodra de juiste databron en veldnamen gevonden waren (iteratie 4-5), naar een
+dashboard dat de KPI's van de opdrachtgever toont (iteratie 6-7), naar een wekelijks weekrapport
+met verbrede KPI's (iteratie 8), een volledig-overzichtvariant (iteratie 9), het weekrapport op
+de nieuwe databron (iteratie 10), en ten slotte vier gerichte bugfixes (iteraties 11-14) die
+resulteren in de definitieve overdrachtsversie.
 
-Twee dingen stuurden die ontwikkeling: de technische problemen met de databron en de dataverwerking, en de klantverwachtingen van de opdrachtgever. Het kantelpunt was de ontdekking dat de juiste databron de Google Sheets-log was, met exact overeenkomende veldnamen. Vanaf dat moment kon ik het dashboard niet alleen laten werken, maar ook uitbreiden met betekenisvolle KPI's.
+Twee dingen stuurden die ontwikkeling: de technische problemen met de databron en de
+dataverwerking, en de klantverwachtingen van de opdrachtgever. Het kantelpunt was de ontdekking
+dat de juiste databron de Google Sheets-log was, met exact overeenkomende veldnamen. Vanaf dat
+moment kon ik het dashboard niet alleen laten werken, maar ook uitbreiden met betekenisvolle KPI's.
 
-Het dashboard bestaat nu in twee gelijkwaardige vormen — de webpagina (`v6_webhook_kpi.json`) en het wekelijkse e-mailrapport op de nieuwe databron (`v10_email_weekrapport_nieuwe-koppeling.json`) — zodat de opdrachtgever kan kiezen welke het best past bij "makkelijk in gebruik" en "laagdrempelig". Mijn volgende stap is het verfijnen van KPI 2: door ook het tabblad Factuurregels uit te lezen, kan de factuurkwaliteit op artikelniveau gemeten worden in plaats van op factuurniveau.
+Het definitieve product is het wekelijkse e-mailrapport (`v11_control_tower_email_overdracht.json`,
+inhoudelijk v14) dat elke maandagochtend om 05:00 uur automatisch wordt verstuurd naar
+`indy@bajo-bouw.nl`. De webpagina-versie (`v6_webhook_kpi.json`) blijft beschikbaar als
+alternatieve weergave.

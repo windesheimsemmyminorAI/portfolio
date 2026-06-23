@@ -16,15 +16,20 @@ Deze map bevat mijn N8N-workflows voor het inkoopfacturatie-dashboard, in de vol
 | `v8_email_weekrapport.json` | 8 | Verbreed KPI-dashboard, wekelijks (ma 05:00), samengevat per factuurdatum-week |
 | `v9_email_volledig.json` | 9 | E-mail-dashboard over de **volledige** dataset (handmatig), met het rijke Mistral-schema |
 | `v10_email_weekrapport_oude-koppeling.json` | 10 (oud) | Weekrapport gekoppeld aan de **oude** databron (oude Excel-koppeling) |
-| `v10_email_weekrapport_nieuwe-koppeling.json` | 10 | Weekrapport gekoppeld aan de **nieuwe** databron — huidige e-mailversie |
+| `v10_email_weekrapport_nieuwe-koppeling.json` | 10 | Weekrapport gekoppeld aan de **nieuwe** databron |
+| `v11_control_tower_email_overdracht.json` | 14 (n8n-tag: v11) | Definitieve overdrachtsversie — vier bugfixes, e-mail naar `indy@bajo-bouw.nl` |
 | `versiedocumentatie.md` | — | Beschrijving van wat er per versie veranderde en waarom |
 | `versiedocumentatie.docx` | — | Dezelfde documentatie als Word-bestand voor het portfolio |
 
-## De twee huidige versies (v6 en v10)
+## De huidige versies (v6 en v14)
 
 - **Webpagina:** `v6_webhook_kpi.json` — het KPI-dashboard als opvraagbare webpagina.
-- **E-mail:** `v10_email_weekrapport_nieuwe-koppeling.json` — het wekelijkse weekrapport,
-  gekoppeld aan de nieuwe databron.
+- **E-mail (definitief):** `v11_control_tower_email_overdracht.json` — de overdrachtsversie met
+  alle correcties (inhoudelijk v14), verstuurt wekelijks naar `indy@bajo-bouw.nl`.
+
+> **Naamgeving:** het bestand is in n8n getagd als "v11", maar omvat inhoudelijk de correcties
+> van v11 t/m v14 (zie `versiedocumentatie.md`). Dat is een naamgevingskwestie, geen
+> inhoudelijk probleem.
 
 > **Let op:** de twee v10-bestanden hebben **identieke node-logica**; het verschil zit in de
 > data. `…oude-koppeling` heeft de **oude dataset gepind ingebakken** (`pinData`, 104 items uit
@@ -35,13 +40,14 @@ Beide lezen uit de Google Sheets-log "Bajo Inkoopfacturatie - Log":
 - Tabblad **Verwerkte facturen** — de facturen met status PASS/REVIEW/FATAL
 - Tabblad **Validatiefouten** — voor de top-5 meest voorkomende fouten
 
-**De KPI's:**
-1. Reductie handmatige handelingen (gauge, doel max 40%)
-2. Factuurkwaliteit per leverancier (heatmap)
-3. Meest voorkomende fouten (top-5)
+**De KPI's (definitieve versie v14):**
+1. Reductie handmatige handelingen — percentage automatisch verwerkt, doel min. 60%
+2. Matchkwaliteit per leverancier — gemiddelde matchbetrouwbaarheid per leverancier (heatmap)
+3. Meest voorkomende fouten — top-5 foutcodes met severity (FATAL/REVIEW)
+4. Technische factuurkwaliteit (UBL) — percentage facturen dat technisch valide is
 
-> v8 breidt dit uit met risicosignalen, technische factuurkwaliteit (UBL) en
-> datakwaliteit-cijfers; zie `versiedocumentatie.md` (iteratie 8).
+> v8 voegt risicosignalen, KPI 4 en datakwaliteitscijfers toe; v11–v14 lossen vier bugs op
+> (severity-correctie, aandachtslijst-voetnoot, lege-weekgedrag). Zie `versiedocumentatie.md`.
 
 ## Hoe importeer ik een workflow in N8N?
 

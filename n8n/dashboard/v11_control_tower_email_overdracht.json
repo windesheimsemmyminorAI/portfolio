@@ -1,0 +1,239 @@
+{
+  "name": "Bajo Bouw - Control Tower (e-mail)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 5
+            }
+          ]
+        }
+      },
+      "id": "0a6dea20-dbde-4034-a3b8-f176a97eb612",
+      "name": "Elke maandag 05:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6c2da5f8-a9b6-4857-91e0-c0ef6e3a997d",
+      "name": "Handmatig testen",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk",
+          "mode": "list",
+          "cachedResultName": "Bajo Inkoopfacturatie - Log"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Verwerkte facturen"
+        },
+        "options": {}
+      },
+      "id": "07c8ccae-0535-44b0-bca7-7ee2dfde5869",
+      "name": "Haal facturen op",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        464,
+        128
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EXKuWy0KsFqaf0Ln",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Mwl2_tiohh5s_vaXaL6cJjiZbHevHQeeU_qKIpFHttk",
+          "mode": "list",
+          "cachedResultName": "Bajo Inkoopfacturatie - Log"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 754329244,
+          "mode": "list",
+          "cachedResultName": "Validatiefouten"
+        },
+        "options": {}
+      },
+      "id": "962f91b4-b399-482a-996e-02a5967161e6",
+      "name": "Haal fouten op",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        128
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EXKuWy0KsFqaf0Ln",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// Beide sheets expliciet bij naam ophalen, zodat de node-volgorde niet uitmaakt.\nfunction haalOp(naam) {\n  try { return $(naam).all().map(i => i.json); } catch (e) { return []; }\n}\n\nlet facturen = haalOp('Haal facturen op');\nlet fouten   = haalOp('Haal fouten op');\n\nif (facturen.length === 0) {\n  const directeInput = $input.all().map(i => i.json);\n  if (directeInput.some(r => r && r.validatieResultaat !== undefined)) {\n    facturen = directeInput;\n  }\n}\n\n// ── Helpers ──────────────────────────────────────────────────────────────────\nfunction num(v) {\n  if (v == null || v === '') return 0;\n  if (typeof v === 'number') return v;\n  let s = String(v).trim();\n  if (s.includes(',') && s.includes('.')) s = s.replace(/\\./g, '').replace(',', '.');\n  else if (s.includes(',')) s = s.replace(',', '.');\n  const n = parseFloat(s.replace(/[^0-9.\\-]/g, ''));\n  return isNaN(n) ? 0 : n;\n}\nfunction bool(v) {\n  if (v === true) return true;\n  if (v == null) return false;\n  return ['true', 'waar', 'ja', '1', 'yes'].includes(String(v).trim().toLowerCase());\n}\nfunction pct(deel, geheel) { return geheel > 0 ? Math.round((deel / geheel) * 100) : 0; }\n\nfunction datumDeel(v) {\n  if (!v) return null;\n  const s = String(v).trim();\n  let m = s.match(/^(\\d{4})-(\\d{2})-(\\d{2})/);\n  if (m) return m[1] + '-' + m[2] + '-' + m[3];\n  m = s.match(/^(\\d{1,2})[-\\/](\\d{1,2})[-\\/](\\d{4})/);\n  if (m) return m[3] + '-' + String(m[2]).padStart(2, '0') + '-' + String(m[1]).padStart(2, '0');\n  const d = new Date(s);\n  if (!isNaN(d.getTime())) return d.toISOString().slice(0, 10);\n  return null;\n}\n\n// ── Weekvenster ────────────────────────────────────────────────────────────\nconst nowNL = new Date().toLocaleString('sv', { timeZone: 'Europe/Amsterdam' });\nconst vandaagStr = nowNL.slice(0, 10);\nconst basis = new Date(vandaagStr + 'T12:00:00Z');\nconst weekdag = basis.getUTCDay();\nconst dagenSindsMaandag = (weekdag + 6) % 7;\nfunction isoMin(date, dagen) { const d = new Date(date); d.setUTCDate(d.getUTCDate() - dagen); return d.toISOString().slice(0, 10); }\nconst startStr = isoMin(basis, dagenSindsMaandag + 7);\nconst eindStr  = isoMin(basis, dagenSindsMaandag + 1);\nfunction nlDatum(s) { const p = s.split('-'); return p[2] + '-' + p[1] + '-' + p[0]; }\nconst periodeLabel = nlDatum(startStr) + ' t/m ' + nlDatum(eindStr);\n\nfunction inWeek(v) { const d = datumDeel(v); return d !== null && d >= startStr && d <= eindStr; }\nfacturen = facturen.filter(f => inWeek(f.verwerktOp));\nfouten   = fouten.filter(fo => inWeek(fo.verwerktOp) || inWeek(fo.foutdatum) || inWeek(fo.datum));\n\n// ── Aggregatie ────────────────────────────────────────────────────────────\nconst totaal = facturen.length;\nlet pass = 0, review = 0, fatal = 0;\nlet totaalBedrag = 0, totaalBtw = 0, totaalBetaalbaar = 0, totaalRegels = 0;\nconst leveranciers = new Set();\n\nlet ibanAfwijkingen = 0, nieuweLeveranciers = 0, lageBetrouwbaarheid = 0;\nlet techPass = 0, techReview = 0, techFatal = 0, techFoutenTotaal = 0;\nlet omgerekendTotaal = 0, geflagdTotaal = 0, nvtTotaal = 0;\nlet docConfSom = 0, docConfN = 0;\nlet pctGlSom = 0, pctGlN = 0;\nlet levConfSom = 0, levConfN = 0, uniekGematcht = 0;\nconst matchMethode = { btw: 0, kvk: 0, iban: 0, naam: 0, geen: 0, overig: 0 };\nconst perLeverancier = {};\n\nconst aandachtMap = {};\nconst redenRang = { 'Geblokkeerd (FATAL)': 0, 'IBAN-afwijking': 1, 'Technische fout': 2, 'Nieuwe leverancier': 3, 'Lage betrouwbaarheid': 4 };\n\nfor (const f of facturen) {\n  const res = String(f.validatieResultaat || '').toUpperCase();\n  if (res === 'PASS') pass++;\n  else if (res === 'REVIEW') review++;\n  else if (res === 'FATAL') fatal++;\n\n  totaalBedrag     += num(f.totaalbedrag);\n  totaalBtw        += num(f.btwbedrag);\n  totaalBetaalbaar += num(f.betaalbaarBedrag);\n  totaalRegels     += num(f.aantalRegels);\n\n  const lev = f.leveranciernaam || 'Onbekend';\n  leveranciers.add(lev);\n\n  if (!perLeverancier[lev]) perLeverancier[lev] = { totaal: 0, confSom: 0, confN: 0 };\n  perLeverancier[lev].totaal++;\n\n  const heeftIbanAfw = bool(f.ibanAfwijking);\n  const isNieuw      = bool(f.nieuweOnbekendeLeverancier);\n  const lageBtr      = bool(f.betrouwbaarheidIsLaag);\n  if (heeftIbanAfw) ibanAfwijkingen++;\n  if (isNieuw)      nieuweLeveranciers++;\n  if (lageBtr)      lageBetrouwbaarheid++;\n\n  const tech = String(f.technischResultaat || '').toUpperCase();\n  if (tech === 'PASS') techPass++;\n  else if (tech === 'REVIEW') techReview++;\n  else if (tech === 'FATAL') techFatal++;\n  techFoutenTotaal += num(f.aantalTechnischeFouten);\n\n  omgerekendTotaal += num(f.aantalOmgerekend);\n  geflagdTotaal    += num(f.aantalGeflagd);\n  nvtTotaal        += num(f.aantalNietVanToepassing);\n\n  if (f.documentConfidence != null && f.documentConfidence !== '') { docConfSom += num(f.documentConfidence); docConfN++; }\n  if (f.percentageRegelsZonderGl != null && f.percentageRegelsZonderGl !== '') { pctGlSom += num(f.percentageRegelsZonderGl); pctGlN++; }\n\n  if (f.leverancierConfidence != null && f.leverancierConfidence !== '') {\n    const lc = num(f.leverancierConfidence);\n    levConfSom += lc; levConfN++;\n    perLeverancier[lev].confSom += lc; perLeverancier[lev].confN++;\n  }\n  if (bool(f.leverancierUniekGematcht)) uniekGematcht++;\n  const mmK = String(f.leverancierMatchMethode || '').toLowerCase();\n  if (matchMethode[mmK] !== undefined) matchMethode[mmK]++;\n  else if (mmK) matchMethode.overig++;\n  else matchMethode.geen++;\n\n  const redenen = [];\n  if (res === 'FATAL')      redenen.push('Geblokkeerd (FATAL)');\n  if (heeftIbanAfw)         redenen.push('IBAN-afwijking');\n  if (tech === 'FATAL')     redenen.push('Technische fout');\n  if (isNieuw)              redenen.push('Nieuwe leverancier');\n  if (lageBtr)              redenen.push('Lage betrouwbaarheid');\n\n  if (redenen.length) {\n    const fnr = f.factuurnummer || '';\n    const mapKey = fnr + '||' + lev;\n    const zwaarste = redenen.sort((a, b) => (redenRang[a] ?? 99) - (redenRang[b] ?? 99))[0];\n    const huidigBedrag = num(f.totaalbedrag);\n    if (!aandachtMap[mapKey]) {\n      aandachtMap[mapKey] = { factuurnummer: fnr || '-', leveranciernaam: lev, bedrag: huidigBedrag, reden: zwaarste, rang: redenRang[zwaarste] ?? 99 };\n    } else {\n      if ((redenRang[zwaarste] ?? 99) < aandachtMap[mapKey].rang) {\n        aandachtMap[mapKey].reden = zwaarste;\n        aandachtMap[mapKey].rang  = redenRang[zwaarste] ?? 99;\n      }\n      if (huidigBedrag > aandachtMap[mapKey].bedrag) {\n        aandachtMap[mapKey].bedrag = huidigBedrag;\n      }\n    }\n  }\n}\n\n// ── KPI 1: FIX #3 — bij lege week stpPct op null zetten ──────────────────\nconst handmatigPct = pct(review + fatal, totaal);\nconst stpPct = totaal > 0 ? (100 - handmatigPct) : null;\nconst doelAutomatisch = 60;\nconst doelGehaald = stpPct !== null && stpPct >= doelAutomatisch;\nconst oranjedrempel = Math.round(doelAutomatisch * 2 / 3);\n\n// ── KPI 4 ──────────────────────────────────────────────────────────────────\nconst techTotaal = techPass + techReview + techFatal;\nconst techPassPct = pct(techPass, techTotaal);\n\n// ── Gemiddelden ────────────────────────────────────────────────────────────\nconst gemDocConfPct  = docConfN > 0 ? Math.round((docConfSom / docConfN) * 100) : 0;\nconst gemLevConfPct  = levConfN > 0 ? Math.round((levConfSom / levConfN) * 100) : 0;\nconst gemPctZonderGl = pctGlN  > 0 ? Math.round(pctGlSom / pctGlN) : 0;\nconst uniekPct       = pct(uniekGematcht, totaal);\n\n// ── KPI 2 ──────────────────────────────────────────────────────────────────\nconst aantalLeveranciers = leveranciers.size;\nconst heatmapMax = 8;\nconst heatmapGesorteerd = Object.entries(perLeverancier).map(([naam, d]) => ({\n  naam,\n  conf: d.confN > 0 ? Math.round((d.confSom / d.confN) * 100) : null\n})).sort((a, b) => {\n  if (a.conf === null && b.conf === null) return 0;\n  if (a.conf === null) return 1;\n  if (b.conf === null) return -1;\n  return a.conf - b.conf;\n});\nconst heatmap = heatmapGesorteerd.slice(0, heatmapMax);\nconst verborgenLevs = heatmapGesorteerd.slice(heatmapMax);\nconst heatmapVerborgen = verborgenLevs.length;\nconst verborgenAllesGoed = verborgenLevs.length > 0 && verborgenLevs.every(l => l.conf !== null && l.conf >= 90);\nconst heatmapVoetnootTekst = heatmapVerborgen > 0\n  ? (verborgenAllesGoed\n      ? `Toont ${heatmap.length} van ${aantalLeveranciers} leveranciers \\u00b7 overige leveranciers hebben voldoende matchkwaliteit.`\n      : `Toont ${heatmap.length} van ${aantalLeveranciers} leveranciers \\u00b7 overige leveranciers niet weergegeven.`)\n  : '';\n\n// ── KPI 3: FIX #1 — zwaarste severity per foutcode bijhouden ─────────────\nconst sevRang = { 'FATAL': 0, 'REVIEW': 1, 'ONBEKEND': 2 };\nconst foutTeller = {};\nlet foutenFatal = 0, foutenReview = 0, foutenOverig = 0;\nfor (const fo of fouten) {\n  const code = fo.foutcode || 'onbekend';\n  const sev  = String(fo.severity || '').toUpperCase() || 'ONBEKEND';\n  if (sev === 'FATAL') foutenFatal++;\n  else if (sev === 'REVIEW') foutenReview++;\n  else foutenOverig++;\n  if (!foutTeller[code]) {\n    foutTeller[code] = { code, aantal: 0, voorbeeld: fo.omschrijving || '', severity: sev, sevRang: sevRang[sev] ?? 99 };\n  } else {\n    // FIX #1: zwaarste severity bijwerken als deze ernstiger is\n    const nieuwRang = sevRang[sev] ?? 99;\n    if (nieuwRang < foutTeller[code].sevRang) {\n      foutTeller[code].severity = sev;\n      foutTeller[code].sevRang  = nieuwRang;\n    }\n  }\n  foutTeller[code].aantal++;\n}\nconst topFouten = Object.values(foutTeller).sort((a, b) => b.aantal - a.aantal).slice(0, 5);\n\n// ── Aandacht: FIX #2 — totaalteller voor afkap-melding ───────────────────\nconst alleAandacht = Object.values(aandachtMap).sort((a, b) => b.bedrag - a.bedrag);\nconst aandacht = alleAandacht.slice(0, 10);\nconst aandachtVerborgen = alleAandacht.length - aandacht.length;\n\nreturn [{ json: {\n  periodeLabel, periodeStart: startStr, periodeEind: eindStr,\n  aantalFacturen: totaal, aantalRegels: totaalRegels,\n  aantalPass: pass, aantalReview: review, aantalFatal: fatal,\n  totaalBedrag, totaalBtw, totaalBetaalbaar, aantalLeveranciers,\n  handmatigPct, stpPct, doelAutomatisch, doelGehaald, oranjedrempel,\n  ibanAfwijkingen, nieuweLeveranciers, lageBetrouwbaarheid,\n  techPass, techReview, techFatal, techPassPct, techTotaal, techFoutenTotaal,\n  omgerekendTotaal, geflagdTotaal, nvtTotaal, gemDocConfPct, gemPctZonderGl,\n  gemLevConfPct, uniekPct, uniekGematcht, matchMethode,\n  heatmap, heatmapVerborgen, heatmapVoetnootTekst,\n  topFouten, foutenFatal, foutenReview, foutenOverig,\n  aandacht, aandachtVerborgen\n} }];\n"
+      },
+      "id": "174c14f0-0ad9-46bd-9d76-35b867fb0334",
+      "name": "Bereken KPI's",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst s = $input.first().json;\nconst eur = n => '\\u20ac ' + Number(n || 0).toLocaleString('nl-NL', {minimumFractionDigits: 2, maximumFractionDigits: 2});\nconst mv = (n, enk, meerv) => n + ' ' + (Number(n) === 1 ? enk : meerv);\nconst legeWeek = s.aantalFacturen === 0;\n\nfunction kpi(label, waarde, kleur) {\n  return `<td width=\"25%\" style=\"padding:6px\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f7fafc;border-radius:8px\">\n      <tr><td style=\"padding:12px;text-align:center\">\n        <div style=\"font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:0.5px\">${label}</div>\n        <div style=\"font-size:20px;font-weight:700;color:${kleur||'#1a202c'};margin-top:4px\">${waarde}</div>\n      </td></tr></table></td>`;\n}\n\nfunction riskCard(label, waarde, sub) {\n  const alarm = Number(waarde) > 0;\n  const bg = alarm ? '#fcebeb' : '#e1f5ee';\n  const fg = alarm ? '#a32d2d' : '#0f6e56';\n  return `<td width=\"25%\" style=\"padding:6px\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:${bg};border-radius:8px\">\n      <tr><td style=\"padding:12px;text-align:center\">\n        <div style=\"font-size:10px;color:${fg};text-transform:uppercase;letter-spacing:0.5px\">${label}</div>\n        <div style=\"font-size:22px;font-weight:700;color:${fg};margin-top:4px\">${waarde}</div>\n        <div style=\"font-size:10px;color:${fg};margin-top:2px\">${sub||''}</div>\n      </td></tr></table></td>`;\n}\n\nfunction balk(pctWaarde, kleur, label) {\n  const p = Math.max(0, Math.min(100, Number(pctWaarde)||0));\n  const binnenBreedte = p > 0 ? `width:${p}%` : 'display:none';\n  return `<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-top:6px\">\n    <tr><td style=\"background:#e2e8f0;border-radius:99px;height:24px\">\n      <table cellpadding=\"0\" cellspacing=\"0\" style=\"${binnenBreedte};min-width:${p > 0 ? '40px' : '0'}\"><tr>\n        <td style=\"background:${kleur};border-radius:99px;height:24px;text-align:center;color:white;font-weight:700;font-size:12px\">${p > 0 ? p + '%' : ''}</td>\n      </tr></table>\n    </td></tr></table>\n    ${label ? `<div style=\"font-size:12px;color:#718096;margin-top:6px\">${label}</div>` : ''}`;\n}\n\nfunction confKleur(c) {\n  if (c === null) return 'background:#edf2f7;color:#718096';\n  if (c >= 90) return 'background:#e1f5ee;color:#0f6e56';\n  if (c >= 75) return 'background:#faeeda;color:#854f0b';\n  return 'background:#fcebeb;color:#a32d2d';\n}\nfunction sevKleur(x) {\n  if (x === 'FATAL')    return 'background:#fcebeb;color:#a32d2d';\n  if (x === 'REVIEW')   return 'background:#faeeda;color:#854f0b';\n  return 'background:#edf2f7;color:#4a5568';\n}\nfunction redenKleur(r) {\n  if (r === 'Geblokkeerd (FATAL)') return 'background:#fcebeb;color:#a32d2d';\n  if (r === 'IBAN-afwijking')      return 'background:#fcebeb;color:#a32d2d';\n  if (r === 'Technische fout')     return 'background:#fcebeb;color:#a32d2d';\n  if (r === 'Nieuwe leverancier')  return 'background:#faeeda;color:#854f0b';\n  return 'background:#fef3c7;color:#854f0b';\n}\n\n// FIX #4: leegBanner + conditoneel alle KPI-secties overslaan bij lege week\nconst leegBanner = legeWeek\n  ? `<tr><td style=\"padding:24px 28px;text-align:center\">\n      <div style=\"background:#eef2f7;border-radius:8px;padding:20px\">\n        <div style=\"font-size:16px;font-weight:600;color:#4a5568;margin-bottom:4px\">Geen facturen verwerkt</div>\n        <div style=\"font-size:13px;color:#718096\">In de week van ${s.periodeLabel} zijn er geen facturen verwerkt.</div>\n      </div>\n    </td></tr>`\n  : '';\n\n// FIX #3: KPI 1 balk alleen tonen als er facturen zijn (stpPct !== null)\nconst balkKleur = s.doelGehaald ? '#0f6e56' : (s.stpPct >= s.oranjedrempel ? '#854f0b' : '#a32d2d');\nconst gaugeBalk = s.stpPct !== null\n  ? balk(s.stpPct, balkKleur, `${s.stpPct}% automatisch \\u00b7 doel min. ${s.doelAutomatisch}% automatisch \\u00b7 ${s.doelGehaald ? 'doel gehaald' : 'doel nog niet gehaald'}`)\n  : `<div style=\"font-size:12px;color:#a0aec0;margin-top:6px;font-style:italic\">Geen data beschikbaar voor deze periode.</div>`;\n\nconst techReviewLabel = s.techReview > 0 ? ` \\u00b7 ${s.techReview} technisch review` : '';\nconst techBalk = balk(\n  s.techPassPct,\n  s.techPassPct >= 95 ? '#0f6e56' : (s.techPassPct >= 80 ? '#854f0b' : '#a32d2d'),\n  `${s.techPass} van ${s.techTotaal} facturen technisch valide${techReviewLabel} \\u00b7 ${s.techFoutenTotaal} technische fouten totaal`\n);\n\nconst heatRijen = s.heatmap.length\n  ? s.heatmap.map(h => `<tr>\n  <td style=\"padding:7px;border-bottom:1px solid #edf2f7;font-size:13px\">${h.naam}</td>\n  <td style=\"padding:7px;border-bottom:1px solid #edf2f7;text-align:center\">\n    <span style=\"${confKleur(h.conf)};padding:2px 10px;border-radius:6px;font-size:12px;font-weight:600\">${h.conf !== null ? h.conf + '%' : '-'}</span>\n  </td>\n</tr>`).join('')\n  : '<tr><td colspan=\"2\" style=\"padding:10px;text-align:center;color:#a0aec0;font-size:13px\">Geen facturen in deze periode</td></tr>';\n\nconst heatmapVoetnoot = s.heatmapVoetnootTekst\n  ? `<div style=\"font-size:11px;color:#a0aec0;margin-top:6px;text-align:right\">${s.heatmapVoetnootTekst}</div>`\n  : '';\n\nconst foutenOverigLabel = s.foutenOverig > 0 ? ` \\u00b7 ${mv(s.foutenOverig, 'onbekend type', 'onbekende types')}` : '';\nconst foutRijen = s.topFouten.length\n  ? s.topFouten.map(f => `<tr>\n      <td style=\"padding:5px 7px;border-bottom:1px solid #edf2f7;font-family:monospace;font-size:12px;white-space:nowrap\">${f.code}</td>\n      <td style=\"padding:5px 7px;border-bottom:1px solid #edf2f7;text-align:center\"><span style=\"${sevKleur(f.severity)};padding:1px 7px;border-radius:6px;font-size:11px;font-weight:600\">${f.severity}</span></td>\n      <td style=\"padding:5px 7px;border-bottom:1px solid #edf2f7;font-size:12px\">${f.voorbeeld}</td>\n      <td style=\"padding:5px 7px;border-bottom:1px solid #edf2f7;text-align:center;font-weight:600;font-size:12px\">${f.aantal}</td>\n    </tr>`).join('')\n  : '<tr><td colspan=\"4\" style=\"padding:10px;text-align:center;color:#0f6e56;font-size:13px\">Geen fouten deze week</td></tr>';\n\n// FIX #2: voetnoot bij afkap aandachtsfacturen\nconst aandachtVoetnoot = s.aandachtVerborgen > 0\n  ? `<div style=\"font-size:11px;color:#a0aec0;margin-top:6px;text-align:right\">Toont 10 van ${s.aandacht.length + s.aandachtVerborgen} facturen \\u00b7 overige ${s.aandachtVerborgen} niet weergegeven.</div>`\n  : '';\n\nconst aandachtRijen = s.aandacht.length\n  ? s.aandacht.map(a => `<tr>\n      <td style=\"padding:6px 7px;border-bottom:1px solid #edf2f7;font-family:monospace;font-size:12px\">${a.factuurnummer}</td>\n      <td style=\"padding:6px 7px;border-bottom:1px solid #edf2f7;font-size:12px\">${a.leveranciernaam}</td>\n      <td style=\"padding:6px 7px;border-bottom:1px solid #edf2f7;text-align:right;font-size:12px\">${eur(a.bedrag)}</td>\n      <td style=\"padding:6px 7px;border-bottom:1px solid #edf2f7\"><span style=\"${redenKleur(a.reden)};padding:1px 8px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap\">${a.reden}</span></td>\n    </tr>`).join('')\n  : '<tr><td colspan=\"4\" style=\"padding:10px;text-align:center;color:#0f6e56;font-size:13px\">Geen facturen met risicosignalen deze week</td></tr>';\n\nconst mm = s.matchMethode || {};\nconst matchSamenvatting = `BTW ${mm.btw||0} \\u00b7 KvK ${mm.kvk||0} \\u00b7 IBAN ${mm.iban||0} \\u00b7 Naam ${mm.naam||0} \\u00b7 Geen ${mm.geen||0}`;\n\n// FIX #4: bij lege week alleen header + banner + footer, geen KPI-blokken\nconst kpiSectie = legeWeek ? '' : `\n  <tr><td style=\"padding:16px 22px 4px\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n      ${kpi('Facturen', s.aantalFacturen, '#1a202c')}\n      ${kpi('Factuurregels', s.aantalRegels, '#1a202c')}\n      ${kpi('Leveranciers', s.aantalLeveranciers, '#1a202c')}\n      ${kpi('Totaal incl. BTW', eur(s.totaalBedrag), '#1a202c')}\n    </tr></table>\n  </td></tr>\n\n  <tr><td style=\"padding:4px 22px 8px\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n      ${kpi('Goedgekeurd', s.aantalPass, '#0f6e56')}\n      ${kpi('Review', s.aantalReview, '#854f0b')}\n      ${kpi('Actie nodig', s.aantalFatal, '#a32d2d')}\n      ${kpi('BTW-bedrag', eur(s.totaalBtw), '#1a202c')}\n    </tr></table>\n  </td></tr>\n\n  <tr><td style=\"padding:10px 28px 4px\">\n    <div style=\"font-size:15px;font-weight:600;color:#1a202c;margin-bottom:6px\">Risicosignalen \\u00b7 betaal- en fraudecontrole</div>\n  </td></tr>\n  <tr><td style=\"padding:0 22px 8px\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n      ${riskCard('IBAN-afwijking', s.ibanAfwijkingen, 'verifieer rekening')}\n      ${riskCard('Nieuwe leverancier', s.nieuweLeveranciers, 'niet in stamdata')}\n      ${riskCard('Lage betrouwbaarheid', s.lageBetrouwbaarheid, 'AI-confidence laag')}\n      ${riskCard('Technische fouten', s.techFatal, 'UBL-validatie')}\n    </tr></table>\n  </td></tr>\n\n  <tr><td style=\"padding:12px 28px 4px\">\n    <div style=\"font-size:15px;font-weight:600;color:#1a202c;margin-bottom:6px\">KPI 1 \\u00b7 Reductie handmatige handelingen</div>\n    ${gaugeBalk}\n  </td></tr>\n\n  <tr><td style=\"padding:12px 28px 4px\">\n    <div style=\"font-size:15px;font-weight:600;color:#1a202c;margin-bottom:6px\">KPI 4 \\u00b7 Technische factuurkwaliteit (UBL)</div>\n    ${techBalk}\n  </td></tr>\n\n  <tr><td style=\"padding:12px 22px 4px\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n      ${kpi('Gem. OCR-betrouwbaarheid', s.gemDocConfPct + '%', '#1a202c')}\n      ${kpi('Gem. leveranciersmatch', s.gemLevConfPct + '%', '#1a202c')}\n      ${kpi('Uniek gematcht', s.uniekPct + '%', '#1a202c')}\n      ${kpi('Regels zonder GL', s.gemPctZonderGl + '%', '#1a202c')}\n    </tr></table>\n  </td></tr>\n\n  <tr><td style=\"padding:4px 22px 16px\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n      ${kpi('Eenheden omgerekend', s.omgerekendTotaal, '#0f6e56')}\n      ${kpi('Regels ter review', s.geflagdTotaal, '#854f0b')}\n      ${kpi('Geen omrekening', s.nvtTotaal, '#1a202c')}\n      ${kpi('Betaalbaar totaal', eur(s.totaalBetaalbaar), '#1a202c')}\n    </tr></table>\n    <div style=\"font-size:12px;color:#718096;margin-top:4px;text-align:right\">Leveranciersmatch: ${matchSamenvatting}</div>\n  </td></tr>\n\n  <tr><td style=\"padding:8px 28px 8px\">\n    <div style=\"font-size:15px;font-weight:600;color:#1a202c;margin-bottom:4px\">KPI 2 \\u00b7 Matchkwaliteit per leverancier</div>\n    <div style=\"font-size:12px;color:#718096;margin-bottom:8px\">Gemiddelde matchbetrouwbaarheid per leverancier (OCR-confidence). Laagste kwaliteit bovenaan.</div>\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n      <tr>\n        <th style=\"text-align:left;padding:6px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Leverancier</th>\n        <th style=\"text-align:center;padding:6px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Match</th>\n      </tr>\n      ${heatRijen}\n    </table>\n    ${heatmapVoetnoot}\n  </td></tr>\n\n  <tr><td style=\"padding:8px 28px 8px\">\n    <div style=\"font-size:15px;font-weight:600;color:#1a202c;margin-bottom:4px\">KPI 3 \\u00b7 Meest voorkomende fouten</div>\n    <div style=\"font-size:12px;color:#718096;margin-bottom:8px\">${mv(s.foutenFatal,'fatale fout','fatale fouten')} \\u00b7 ${mv(s.foutenReview,'reviewpunt','reviewpunten')} in totaal${foutenOverigLabel}.</div>\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n      <tr>\n        <th style=\"text-align:left;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Code</th>\n        <th style=\"text-align:center;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Type</th>\n        <th style=\"text-align:left;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Omschrijving</th>\n        <th style=\"text-align:center;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Aantal</th>\n      </tr>\n      ${foutRijen}\n    </table>\n  </td></tr>\n\n  <tr><td style=\"padding:8px 28px 24px\">\n    <div style=\"font-size:15px;font-weight:600;color:#1a202c;margin-bottom:4px\">Facturen die aandacht vragen</div>\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n      <tr>\n        <th style=\"text-align:left;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Factuurnr.</th>\n        <th style=\"text-align:left;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Leverancier</th>\n        <th style=\"text-align:right;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Bedrag</th>\n        <th style=\"text-align:left;padding:5px 7px;border-bottom:2px solid #e2e8f0;font-size:11px;color:#718096;text-transform:uppercase\">Reden</th>\n      </tr>\n      ${aandachtRijen}\n    </table>\n    ${aandachtVoetnoot}\n  </td></tr>`;\n\nconst html = `<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"font-family:Arial,sans-serif;background:#f5f7fa;padding:20px\">\n<tr><td align=\"center\">\n<table width=\"720\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:white;border-radius:12px;overflow:hidden\">\n  <tr><td style=\"background:#1e3c72;padding:24px 28px\">\n    <div style=\"color:white;font-size:22px;font-weight:700\">Bajo Bouw Control Tower</div>\n    <div style=\"color:#cbd5e0;font-size:14px;margin-top:4px\">Weekoverzicht inkoopfacturatie \\u00b7 ${s.periodeLabel}</div>\n  </td></tr>\n\n  ${leegBanner}\n  ${kpiSectie}\n\n  <tr><td style=\"background:#2c3e50;padding:16px;text-align:center;color:#a0aec0;font-size:12px\">\n    Weekoverzicht ${s.periodeLabel} \\u00b7 automatisch gegenereerd op ${new Date().toLocaleString('nl-NL',{timeZone:'Europe/Amsterdam'})}\n  </td></tr>\n</table></td></tr></table>`;\n\nconst subject = `Bajo Bouw - Control Tower weekoverzicht (${s.periodeLabel})`;\n\nreturn [{ json: { html, subject, periodeLabel: s.periodeLabel } }];\n"
+      },
+      "id": "b25ce347-5ec5-4b30-b024-23e0e8f07ad6",
+      "name": "Bouw dashboard HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "indy@bajo-bouw.nl",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "28093eee-f2d0-4593-899c-d33a0d210c05",
+      "name": "Stuur dashboard e-mail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1152,
+        128
+      ],
+      "webhookId": "bajo-ct-email",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VERVANG_MET_NIEUW_CREDENTIAL_ID",
+          "name": "Gmail OAuth2 API - indy@bajo-bouw.nl"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Elke maandag 05:00": {
+      "main": [
+        [
+          {
+            "node": "Haal fouten op",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handmatig testen": {
+      "main": [
+        [
+          {
+            "node": "Haal fouten op",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Haal fouten op": {
+      "main": [
+        [
+          {
+            "node": "Haal facturen op",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Haal facturen op": {
+      "main": [
+        [
+          {
+            "node": "Bereken KPI's",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bereken KPI's": {
+      "main": [
+        [
+          {
+            "node": "Bouw dashboard HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bouw dashboard HTML": {
+      "main": [
+        [
+          {
+            "node": "Stuur dashboard e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "27a0751d-1b6f-4930-a203-e6ceaaf4869f",
+  "meta": {
+    "instanceId": "69799d3850ab8c3bbf2151f921bf9360e41f30c6f1ad33ff6242866af31d80ad"
+  },
+  "nodeGroups": [],
+  "id": "MelJgv8G4g0sDter",
+  "tags": [
+    {
+      "updatedAt": "2026-06-16T23:49:59.908Z",
+      "createdAt": "2026-06-16T23:49:59.908Z",
+      "id": "EdIPR2WfaTASbS73",
+      "name": "v11"
+    }
+  ]
+}
