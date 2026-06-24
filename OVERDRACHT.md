@@ -2,7 +2,7 @@
 
 Dit document helpt iemand die het project overneemt snel op weg. Automatisch gegenereerd uit de huidige projectstaat.
 
-Laatst bijgewerkt: 2026-06-23
+Laatst bijgewerkt: 2026-06-24
 
 ## Hoe draai je het project?
 
@@ -39,8 +39,12 @@ Er zijn op dit moment **5 facturen** verwerkt:
 - `docs/hoe_het_werkt.md`
 - `docs/tool-knowledge/image-processing-pipeline.md`
 - `n8n/README.md`
+- `n8n/dashboard/CHECKLIST_INGEBRUIKNAME.md`
 - `n8n/dashboard/GITHUB_UPDATE.md`
+- `n8n/dashboard/NODE_DOCUMENTATIE.md`
 - `n8n/dashboard/README.md`
+- `n8n/dashboard/overdrachtsdocument.docx`
+- `n8n/dashboard/overdrachtsdocument.md`
 - `n8n/dashboard/v10_email_weekrapport_nieuwe-koppeling.json`
 - `n8n/dashboard/v10_email_weekrapport_oude-koppeling.json`
 - `n8n/dashboard/v11_control_tower_email_overdracht.json`

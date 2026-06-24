@@ -2,10 +2,12 @@
 
 Automatisch gegenereerd overzicht van alle wijzigingen, afgeleid uit de Git-geschiedenis.
 
-Laatst bijgewerkt: 2026-06-23
+Laatst bijgewerkt: 2026-06-24
 
 | Datum | Versie | Wijziging |
 |-------|--------|------------|
+| 2026-06-24 | `36201a7` | docs(n8n): overdrachtsdocument, node-documentatie en ingebruikname-checklist toegevoegd |
+| 2026-06-23 | `3f36b0f` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-23 | `635ec0f` | docs: README, BEOORDELAAR en versiedocumentatie.docx bijgewerkt naar v14/overdracht |
 | 2026-06-23 | `1f8e9cd` | Docs automatisch bijgewerkt [skip ci] |
 | 2026-06-23 | `d979efb` | feat(n8n): v11 overdrachtsversie (inhoudelijk v14) toegevoegd + versiedocumentatie v11-v14 |
