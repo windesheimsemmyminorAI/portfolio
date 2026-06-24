@@ -30,6 +30,7 @@ Elk onderdeel heeft een eigen `README.md` met uitleg.
 - **Start:** `n8n/README.md` → `n8n/dashboard/README.md`.
 - **Ontwikkellijn (bewijs van iteratief werken):** `n8n/dashboard/versiedocumentatie.md` (én `.docx` voor het portfolio) beschrijft **iteratie 1 t/m 14** — van AI-agent, via een te complex e-maildashboard, naar het werkende KPI-dashboard, het wekelijkse weekrapport, de koppeling aan de nieuwe databron en vier gerichte bugfixes.
 - **Workflows:** `v1_…` t/m `v11_…`. Huidige versies: **v6** (webpagina) en **v11 overdrachtsversie** (inhoudelijk v14 — definitief wekelijks e-mailrapport naar `indy@bajo-bouw.nl`).
+- **Overdracht:** `n8n/dashboard/overdrachtsdocument.md` (én `.docx`) — volledige node-uitleg, GitHub-wegwijzer en FAQ. `n8n/dashboard/NODE_DOCUMENTATIE.md` geeft de per-node-documentatie met de verwachte Sheets-kolommen; `CHECKLIST_INGEBRUIKNAME.md` de stappen naar productie.
 
 ## 3. Wolfje & Bella — Media Agentic
 

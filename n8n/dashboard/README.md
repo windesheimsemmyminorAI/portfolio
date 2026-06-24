@@ -20,6 +20,9 @@ Deze map bevat mijn N8N-workflows voor het inkoopfacturatie-dashboard, in de vol
 | `v11_control_tower_email_overdracht.json` | 14 (n8n-tag: v11) | Definitieve overdrachtsversie — vier bugfixes, e-mail naar `indy@bajo-bouw.nl` |
 | `versiedocumentatie.md` | — | Beschrijving van wat er per versie veranderde en waarom |
 | `versiedocumentatie.docx` | — | Dezelfde documentatie als Word-bestand voor het portfolio |
+| `overdrachtsdocument.md` / `.docx` | — | Volledig overdrachtsdocument: node-uitleg, GitHub-wegwijzer en FAQ |
+| `NODE_DOCUMENTATIE.md` | — | Diepgaande per-node-documentatie + verwachte Sheets-kolommen |
+| `CHECKLIST_INGEBRUIKNAME.md` | — | Afvinkbare checklist voor de stap naar productie |
 
 ## De huidige versies (v6 en v14)
 
@@ -40,6 +43,22 @@ Beide lezen uit de Google Sheets-log "Bajo Inkoopfacturatie - Log":
 - Tabblad **Verwerkte facturen** — de facturen met status PASS/REVIEW/FATAL
 - Tabblad **Validatiefouten** — voor de top-5 meest voorkomende fouten
 
+## De workflow-keten (7 nodes)
+
+```
+Elke maandag 05:00 ─┐
+                    ├──▶ Haal fouten op ──▶ Haal facturen op ──▶ Bereken KPI's ──▶ Bouw dashboard HTML ──▶ Stuur dashboard e-mail
+Handmatig testen  ─┘
+```
+
+Diepgaande uitleg per node + de verwachte Sheets-kolommen staat in
+[`NODE_DOCUMENTATIE.md`](NODE_DOCUMENTATIE.md). De volledige context (waarom-keuzes, FAQ,
+openstaande actiepunten) staat in [`overdrachtsdocument.md`](overdrachtsdocument.md).
+
+> **De workflow staat bewust op `active: false`.** Tijdens bouw en test mag de maandag-trigger
+> niet vanzelf afgaan. Bij ingebruikname moet iemand de "active"-schakelaar omzetten — zie de
+> [checklist](CHECKLIST_INGEBRUIKNAME.md).
+
 **De KPI's (definitieve versie v14):**
 1. Reductie handmatige handelingen — percentage automatisch verwerkt, doel min. 60%
 2. Matchkwaliteit per leverancier — gemiddelde matchbetrouwbaarheid per leverancier (heatmap)
@@ -55,6 +74,11 @@ Beide lezen uit de Google Sheets-log "Bajo Inkoopfacturatie - Log":
 2. Drie puntjes (...) rechtsboven, kies "Import from File"
 3. Kies het gewenste `.json` bestand
 4. Controleer per Google Sheets-node of de credential en het juiste tabblad gekoppeld zijn
+
+> **Let op bij `v11_control_tower_email_overdracht.json`:** de node "Stuur dashboard e-mail"
+> bevat een **placeholder-credential** (`VERVANG_MET_NIEUW_CREDENTIAL_ID`). Maak eerst in n8n
+> een nieuwe "Gmail OAuth2 API"-credential aan voor `indy@bajo-bouw.nl` en koppel die aan de node,
+> anders kan de workflow geen e-mail versturen. Zie de [checklist](CHECKLIST_INGEBRUIKNAME.md).
 
 ## Versiebeheer
 
